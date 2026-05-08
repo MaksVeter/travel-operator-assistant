@@ -1,3 +1,5 @@
+import { DEFAULT_MAX_QUERY_TOKENS } from "./query-limits.ts";
+
 export type AppConfig = {
 	opensearchEndpoint: string;
 	opensearchIndex: string;
@@ -8,6 +10,7 @@ export type AppConfig = {
 	llmRegion: string;
 	retrievalTopK: number;
 	forceRecreateIndex: boolean;
+	maxQueryTokens: number;
 };
 
 function required(key: string): string {
@@ -48,5 +51,6 @@ export function loadConfig(): AppConfig {
 		llmRegion: optional("LLM_REGION", optional("AWS_REGION", "us-east-1")),
 		retrievalTopK: optionalInt("RETRIEVAL_TOP_K", 3),
 		forceRecreateIndex: optionalBool("FORCE_RECREATE_INDEX", false),
+		maxQueryTokens: optionalInt("MAX_QUERY_TOKENS", DEFAULT_MAX_QUERY_TOKENS),
 	};
 }

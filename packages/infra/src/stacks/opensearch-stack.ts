@@ -88,21 +88,14 @@ export class OpenSearchStack extends cdk.Stack {
 								ResourceType: "index",
 								Resource: [`index/${collectionName}/*`],
 								Permission: [
-									"aoss:CreateIndex",
-									"aoss:DeleteIndex",
-									"aoss:UpdateIndex",
-									"aoss:DescribeIndex",
-									"aoss:ReadDocument",
-									"aoss:WriteDocument",
+									"aoss:*",
 								],
 							},
 							{
 								ResourceType: "collection",
 								Resource: [`collection/${collectionName}`],
 								Permission: [
-									"aoss:CreateCollectionItems",
-									"aoss:DescribeCollectionItems",
-									"aoss:UpdateCollectionItems",
+									"aoss:*",
 								],
 							},
 						],

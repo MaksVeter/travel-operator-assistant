@@ -6,7 +6,7 @@ export type StageConfig = {
 export const stages: Record<string, StageConfig> = {
 	dev: {
 		account: process.env.CDK_DEFAULT_ACCOUNT ?? "",
-		region: process.env.CDK_DEFAULT_REGION ?? "us-east-1",
+		region: process.env.CDK_DEFAULT_REGION ?? "eu-north-1",
 	},
 };
 

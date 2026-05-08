@@ -41,9 +41,36 @@ export class AssistantStack extends cdk.Stack {
 
 		this.lambdaRole.addToPolicy(
 			new iam.PolicyStatement({
-				actions: ["bedrock:InvokeModel"],
-				resources: ["arn:aws:bedrock:*::foundation-model/*"],
+				actions: ["bedrock:InvokeModel", "bedrock:GetInferenceProfile"],
+				resources: [
+					"arn:aws:bedrock:*::foundation-model/*",
+					"arn:aws:bedrock:*:*:inference-profile/*",
+				],
 			}),
+		);
+
+		// First-time Bedrock models sold via AWS Marketplace need these on the caller
+		// (auto-subscription). After the model is enabled for the account, invocations work without repeating Subscribe.
+		this.lambdaRole.addToPolicy(
+			new iam.PolicyStatement({
+				sid: "AwsMarketplaceBedrockSubscriptions",
+				actions: [
+					"aws-marketplace:Subscribe",
+					"aws-marketplace:Unsubscribe",
+					"aws-marketplace:ViewSubscriptions",
+				],
+				resources: ["*"],
+			}),
+		);
+
+		const assistantLogGroup = new logs.LogGroup(
+			this,
+			"AssistantFunctionLogGroup",
+			{
+				logGroupName: `/aws/lambda/${PROJECT_PREFIX}-${stage}-assistant`,
+				retention: logs.RetentionDays.ONE_WEEK,
+				removalPolicy: cdk.RemovalPolicy.DESTROY,
+			},
 		);
 
 		const fn = new NodejsFunction(this, "AssistantFunction", {
@@ -55,6 +82,7 @@ export class AssistantStack extends cdk.Stack {
 				"..",
 				"..",
 				"..",
+				"packages",
 				"assistant",
 				"src",
 				"handler.ts",
@@ -84,9 +112,10 @@ export class AssistantStack extends cdk.Stack {
 					"anthropic.claude-3-haiku-20240307-v1:0",
 				LLM_REGION: process.env.LLM_REGION ?? this.region,
 				RETRIEVAL_TOP_K: process.env.RETRIEVAL_TOP_K ?? "3",
+				MAX_QUERY_TOKENS: process.env.MAX_QUERY_TOKENS ?? "4000",
 				LOG_LEVEL: process.env.LOG_LEVEL ?? "info",
 			},
-			logRetention: logs.RetentionDays.ONE_WEEK,
+			logGroup: assistantLogGroup,
 		});
 
 		const api = new apigateway.RestApi(this, "AssistantApi", {

@@ -24,6 +24,17 @@ const collectionName = `${PROJECT_PREFIX}-${stage}`;
 const accountId = env.account ?? cdk.Aws.ACCOUNT_ID;
 const indexerRoleArn = `arn:aws:iam::${accountId}:role/${PROJECT_PREFIX}-${stage}-indexer-role`;
 const assistantRoleArn = `arn:aws:iam::${accountId}:role/${PROJECT_PREFIX}-${stage}-assistant-role`;
+const extraPrincipalArns = (
+	process.env.OPENSEARCH_EXTRA_PRINCIPAL_ARNS ?? ""
+)
+	.split(",")
+	.map((arn) => arn.trim())
+	.filter(Boolean);
+const dataAccessPrincipalArns = [
+	indexerRoleArn,
+	assistantRoleArn,
+	...extraPrincipalArns,
+];
 
 const opensearchStack = new OpenSearchStack(
 	app,
@@ -31,7 +42,7 @@ const opensearchStack = new OpenSearchStack(
 	{
 		stage,
 		collectionName,
-		dataAccessPrincipalArns: [indexerRoleArn, assistantRoleArn],
+		dataAccessPrincipalArns,
 		env,
 		description: `Travel Assistant OpenSearch Serverless - ${stage}`,
 	},

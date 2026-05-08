@@ -18,13 +18,20 @@ const server = Bun.serve({
 					);
 				}
 
-				const command = await translateQuery(body.query, config);
-				return Response.json({ query: body.query, command });
+				const { command, truncated } = await translateQuery(
+					body.query,
+					config,
+				);
+				return Response.json({ query: body.query, command, truncated });
 			} catch (err) {
 				log.error("Request failed:", err);
+				const message = err instanceof Error ? err.message : String(err);
+				const isEmbedding =
+					typeof message === "string" &&
+					message.startsWith("Embedding failed:");
 				return Response.json(
-					{ error: err instanceof Error ? err.message : String(err) },
-					{ status: 500 },
+					{ error: message },
+					{ status: isEmbedding ? 502 : 500 },
 				);
 			}
 		}

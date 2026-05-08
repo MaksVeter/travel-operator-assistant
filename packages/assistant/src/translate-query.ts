@@ -4,15 +4,31 @@ import {
 	LlmService,
 	SearchClient,
 	log,
+	truncateQueryToMaxTokens,
 } from "core";
 import { assemblePrompt } from "./assemble-prompt.ts";
 import { findRelevantChunks } from "./find-relevant.ts";
 
+export type TranslateQueryResult = {
+	command: string;
+	truncated: boolean;
+};
+
 export async function translateQuery(
 	query: string,
 	config: AppConfig,
-): Promise<string> {
-	log.info(`Translating query: "${query}"`);
+): Promise<TranslateQueryResult> {
+	const { text: boundedQuery, truncated } = truncateQueryToMaxTokens(
+		query,
+		config.maxQueryTokens,
+	);
+	if (truncated) {
+		log.warn(
+			`Query truncated to ~${config.maxQueryTokens} tokens (approx) for embedding`,
+		);
+	}
+	log.info(`Translating query: "${boundedQuery}"`);
+
 
 	const embedder = new EmbeddingService(
 		config.awsRegion,
@@ -26,7 +42,7 @@ export async function translateQuery(
 		search,
 		embedder,
 		config.opensearchIndex,
-		query,
+		boundedQuery,
 		config.retrievalTopK,
 	);
 
@@ -40,11 +56,11 @@ export async function translateQuery(
 		})),
 	);
 
-	const prompt = assemblePrompt(chunks, query);
+	const prompt = assemblePrompt(chunks, boundedQuery);
 	log.debug("Prompt:", prompt);
 
 	const command = await llm.complete(prompt);
 	log.info(`Generated command: ${command}`);
 
-	return command;
+	return { command, truncated };
 }

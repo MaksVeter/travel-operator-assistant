@@ -17,21 +17,22 @@ export async function handler(
 		}
 
 		const config = loadConfig();
-		const command = await translateQuery(body.query, config);
+		const { command, truncated } = await translateQuery(body.query, config);
 
 		return {
 			statusCode: 200,
 			headers: { "Content-Type": "application/json" },
-			body: JSON.stringify({ query: body.query, command }),
+			body: JSON.stringify({ query: body.query, command, truncated }),
 		};
 	} catch (err) {
 		log.error("Translation failed:", err);
+		const message = err instanceof Error ? err.message : String(err);
+		const isEmbedding =
+			typeof message === "string" && message.startsWith("Embedding failed:");
 		return {
-			statusCode: 500,
+			statusCode: isEmbedding ? 502 : 500,
 			headers: { "Content-Type": "application/json" },
-			body: JSON.stringify({
-				error: err instanceof Error ? err.message : String(err),
-			}),
+			body: JSON.stringify({ error: message }),
 		};
 	}
 }

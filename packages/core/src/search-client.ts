@@ -49,7 +49,7 @@ export class SearchClient {
 		if (documents.length === 0) return { successful: 0, failed: 0 };
 
 		const body = documents.flatMap((doc, i) => [
-			{ index: { _index: indexName, _id: String(i) } },
+			{ index: { _index: indexName } },
 			doc,
 		]);
 

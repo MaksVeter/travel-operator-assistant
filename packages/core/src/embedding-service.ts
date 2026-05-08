@@ -16,24 +16,35 @@ export class EmbeddingService {
 	}
 
 	async embed(text: string): Promise<number[]> {
-		const payload = JSON.stringify({
-			inputText: text,
-			dimensions: this.dimensions,
-		});
+		try {
+			const payload = JSON.stringify({
+				inputText: text,
+				dimensions: this.dimensions,
+			});
 
-		const command = new InvokeModelCommand({
-			modelId: this.modelId,
-			body: payload,
-			contentType: "application/json",
-			accept: "application/json",
-		});
+			const command = new InvokeModelCommand({
+				modelId: this.modelId,
+				body: payload,
+				contentType: "application/json",
+				accept: "application/json",
+			});
 
-		const response = await this.client.send(command);
-		const body = JSON.parse(new TextDecoder().decode(response.body)) as {
-			embedding: number[];
-		};
+			const response = await this.client.send(command);
+			const body = JSON.parse(new TextDecoder().decode(response.body)) as {
+				embedding?: number[];
+			};
 
-		return body.embedding;
+			if (!body.embedding?.length) {
+				throw new Error("Empty embedding in model response");
+			}
+
+			return body.embedding;
+		} catch (cause) {
+			const detail =
+				cause instanceof Error ? cause.message : String(cause);
+			log.error("Embedding failed:", cause);
+			throw new Error(`Embedding failed: ${detail}`);
+		}
 	}
 
 	async embedBatch(texts: string[], batchSize = 20): Promise<number[][]> {

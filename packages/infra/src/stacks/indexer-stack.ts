@@ -45,6 +45,12 @@ export class IndexerStack extends cdk.Stack {
 			}),
 		);
 
+		const indexerLogGroup = new logs.LogGroup(this, "IndexerFunctionLogGroup", {
+			logGroupName: `/aws/lambda/${PROJECT_PREFIX}-${stage}-indexer`,
+			retention: logs.RetentionDays.ONE_WEEK,
+			removalPolicy: cdk.RemovalPolicy.DESTROY,
+		});
+
 		const fn = new NodejsFunction(this, "IndexerFunction", {
 			functionName: `${PROJECT_PREFIX}-${stage}-indexer`,
 			runtime: lambda.Runtime.NODEJS_20_X,
@@ -54,6 +60,7 @@ export class IndexerStack extends cdk.Stack {
 				"..",
 				"..",
 				"..",
+				"packages",
 				"indexer",
 				"src",
 				"handler.ts",
@@ -89,7 +96,7 @@ export class IndexerStack extends cdk.Stack {
 					process.env.FORCE_RECREATE_INDEX ?? "false",
 				LOG_LEVEL: process.env.LOG_LEVEL ?? "info",
 			},
-			logRetention: logs.RetentionDays.ONE_WEEK,
+			logGroup: indexerLogGroup,
 		});
 
 		new cdk.CfnOutput(this, "IndexerFunctionArn", {
