@@ -1,0 +1,12 @@
+node_modules/
+dist/
+cdk.out/
+.env
+*.js
+*.d.ts
+*.js.map
+!biome.json
+!package.json
+!tsconfig.json
+!cdk.json
+bun.lock

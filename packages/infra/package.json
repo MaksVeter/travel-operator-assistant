@@ -1,0 +1,23 @@
+{
+  "name": "infra",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "cdk": "bunx cdk",
+    "synth": "bunx cdk synth",
+    "deploy": "bunx cdk deploy --all",
+    "deploy:opensearch": "bunx cdk deploy TravelAssistantOpenSearch",
+    "deploy:indexer": "bunx cdk deploy TravelAssistantIndexer",
+    "deploy:api": "bunx cdk deploy TravelAssistantApi",
+    "destroy": "bunx cdk destroy --all"
+  },
+  "dependencies": {
+    "aws-cdk-lib": "^2.180.0",
+    "constructs": "^10.4.2",
+    "source-map-support": "^0.5.21"
+  },
+  "devDependencies": {
+    "aws-cdk": "^2.180.0"
+  }
+}

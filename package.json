@@ -1,0 +1,22 @@
+{
+  "name": "travel-operator-assistant",
+  "private": true,
+  "type": "module",
+  "workspaces": ["packages/*"],
+  "scripts": {
+    "format": "bunx @biomejs/biome format --write .",
+    "format:check": "bunx @biomejs/biome format .",
+    "lint": "bunx @biomejs/biome lint --write .",
+    "lint:check": "bunx @biomejs/biome lint .",
+    "check": "bunx @biomejs/biome check .",
+    "check:fix": "bunx @biomejs/biome check --write .",
+    "indexer:local": "bun run packages/indexer/src/local.ts",
+    "assistant:local": "bun run packages/assistant/src/local.ts",
+    "cli": "bun run packages/cli/src/main.ts"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "^2.3.0",
+    "@types/bun": "latest",
+    "typescript": "^5.5.0"
+  }
+}
