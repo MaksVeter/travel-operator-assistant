@@ -10,6 +10,7 @@
     "deploy:opensearch": "bunx cdk deploy TravelAssistantOpenSearch",
     "deploy:indexer": "bunx cdk deploy TravelAssistantIndexer",
     "deploy:api": "bunx cdk deploy TravelAssistantApi",
+    "deploy:sabre": "bunx cdk deploy TravelAssistantSabreCommand",
     "destroy": "bunx cdk destroy --all"
   },
   "dependencies": {

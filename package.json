@@ -17,11 +17,13 @@
     "cdk:deploy:opensearch": "cd packages/infra && bunx cdk deploy TravelAssistantOpenSearch",
     "cdk:deploy:indexer": "cd packages/infra && bunx cdk deploy TravelAssistantIndexer",
     "cdk:deploy:api": "cd packages/infra && bunx cdk deploy TravelAssistantApi",
+    "cdk:deploy:sabre": "cd packages/infra && bunx cdk deploy TravelAssistantSabreCommand",
     "cdk:destroy": "cd packages/infra && bunx cdk destroy --all",
     "env:sync": "bash scripts/sync-env-to-packages.sh",
     "opensearch:check-index": "bun run packages/indexer/src/check-opensearch-index.ts",
     "indexer:local": "bun run packages/indexer/src/local.ts",
     "assistant:local": "bun run packages/assistant/src/local.ts",
+    "sabre-command:local": "bun run packages/sabre-command/src/local.ts",
     "cli": "bun run packages/cli/src/main.ts"
   },
   "devDependencies": {

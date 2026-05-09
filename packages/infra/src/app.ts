@@ -4,6 +4,7 @@ import { PROJECT_PREFIX, stages } from "./config.ts";
 import { AssistantStack } from "./stacks/assistant-stack.ts";
 import { IndexerStack } from "./stacks/indexer-stack.ts";
 import { OpenSearchStack } from "./stacks/opensearch-stack.ts";
+import { SabreCommandStack } from "./stacks/sabre-command-stack.ts";
 
 const app = new cdk.App();
 const stage = app.node.tryGetContext("stage") ?? "dev";
@@ -65,3 +66,9 @@ const assistantStack = new AssistantStack(app, "TravelAssistantApi", {
 	description: `Travel Assistant API - ${stage}`,
 });
 assistantStack.addDependency(opensearchStack);
+
+new SabreCommandStack(app, "TravelAssistantSabreCommand", {
+	stage,
+	env,
+	description: `Sabre host command Lambda - ${stage}`,
+});
