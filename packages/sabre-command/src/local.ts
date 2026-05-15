@@ -8,7 +8,7 @@ import { runSabreHostCommand, validateSabreHostCommand } from "./sabre-soap.ts";
  *   bun run sabre-command:local "*A"
  * Validate + IgnoreTransaction (dry-run): pass -- before flags if using npm/bun script:
  *   bun run sabre-command:local -- --validate "*A"
- * Full SOAP response: SABRE_LOCAL_RAW=1 bun run sabre-command:local "*A"
+ * JSON includes validTechnical, validSemantic, semanticReason (when semantic fails).
  */
 const raw = process.argv.slice(2);
 const validateOnly = raw.includes("--validate");
@@ -26,7 +26,10 @@ try {
 			JSON.stringify(
 				{
 					command,
-					valid: v.valid,
+					validTechnical: v.validTechnical,
+					validSemantic: v.validSemantic,
+					technicalReason: v.technicalReason,
+					semanticReason: v.semanticReason,
 					...(v.screen !== undefined ? { screen: v.screen } : {}),
 					...(v.error ? { error: v.error } : {}),
 				},
@@ -34,7 +37,7 @@ try {
 				2,
 			),
 		);
-		if (!v.valid) process.exitCode = 1;
+		if (!v.validTechnical || !v.validSemantic) process.exitCode = 1;
 	} else {
 		const result = await runSabreHostCommand(cfg, command);
 		console.log(

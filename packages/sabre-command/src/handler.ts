@@ -51,8 +51,11 @@ export async function handler(
 				headers: { "Content-Type": "application/json" },
 				body: JSON.stringify({
 					command: body.command,
-					valid: v.valid,
 					mode: "validate",
+					validTechnical: v.validTechnical,
+					validSemantic: v.validSemantic,
+					technicalReason: v.technicalReason,
+					semanticReason: v.semanticReason,
 					...(v.screen !== undefined ? { screen: v.screen } : {}),
 					...(v.error ? { error: v.error } : {}),
 				}),

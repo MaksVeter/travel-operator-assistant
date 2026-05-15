@@ -1,4 +1,8 @@
 import type { SabreEnvConfig } from "./config.ts";
+import {
+	describeHostScreenSemanticRejection,
+	describeHostScreenTechnicalRejection,
+} from "./host-screen-semantic.ts";
 
 const SOAP_ACTION_OTA = '"OTA"';
 const SOAP_ACTION_IGNORE = '"IgnoreTransactionLLSRQ"';
@@ -271,9 +275,17 @@ export type RunHostCommandOptions = {
 };
 
 export type ValidateCommandResult = {
-	valid: boolean;
-	error?: string;
-	/** Host screen from SabreCommandLLSRQ (present before IgnoreTransaction on success). */
+	/** SOAP / ApplicationResults + no host **technical** screen (INVALID_*, FORMAT/INVLD, ERR, bare FORMAT). */
+	validTechnical: boolean;
+	/** Technical OK and no **semantic** screen (lookup, context, …); host busy lines are ignored. */
+	validSemantic: boolean;
+	/** Host screen matched a technical rule (only when `validTechnical` is false and `error` is null). */
+	technicalReason: string | null;
+	/** Host screen matched a semantic rule (only when `validTechnical` and not `validSemantic`). */
+	semanticReason: string | null;
+	/** Transport / SOAP / IgnoreTransaction failure. */
+	error: string | null;
+	/** Host screen from SabreCommandLLSRQ (present when SOAP path succeeded). */
 	screen?: string;
 };
 
@@ -359,9 +371,37 @@ export async function validateSabreHostCommand(
 		const result = await runSabreHostCommand(cfg, hostCommand, {
 			discardTransaction: true,
 		});
-		return { valid: true, screen: result.screen };
+		const screen = result.screen;
+		const technicalReason = describeHostScreenTechnicalRejection(screen);
+		if (technicalReason !== null) {
+			return {
+				validTechnical: false,
+				validSemantic: false,
+				technicalReason,
+				semanticReason: null,
+				error: null,
+				screen,
+			};
+		}
+		const semanticReason = describeHostScreenSemanticRejection(screen);
+		const sem = semanticReason;
+		return {
+			validTechnical: true,
+			validSemantic: sem === null,
+			technicalReason: null,
+			semanticReason: sem ?? null,
+			error: null,
+			screen,
+		};
 	} catch (err) {
 		const error = err instanceof Error ? err.message : String(err);
-		return { valid: false, error };
+		return {
+			validTechnical: false,
+			validSemantic: false,
+			technicalReason: null,
+			semanticReason: null,
+			error,
+			screen: undefined,
+		};
 	}
 }

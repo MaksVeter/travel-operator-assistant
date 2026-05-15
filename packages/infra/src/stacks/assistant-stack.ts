@@ -113,6 +113,7 @@ export class AssistantStack extends cdk.Stack {
 				LLM_REGION: process.env.LLM_REGION ?? this.region,
 				RETRIEVAL_TOP_K: process.env.RETRIEVAL_TOP_K ?? "3",
 				MAX_QUERY_TOKENS: process.env.MAX_QUERY_TOKENS ?? "4000",
+				ASSISTANT_DEBUG: process.env.ASSISTANT_DEBUG ?? "0",
 				LOG_LEVEL: process.env.LOG_LEVEL ?? "info",
 			},
 			logGroup: assistantLogGroup,
@@ -129,7 +130,7 @@ export class AssistantStack extends cdk.Stack {
 			defaultCorsPreflightOptions: {
 				allowOrigins: ["*"],
 				allowMethods: ["POST", "OPTIONS"],
-				allowHeaders: ["Content-Type"],
+				allowHeaders: ["Content-Type", "X-Assistant-Debug"],
 			},
 		});
 

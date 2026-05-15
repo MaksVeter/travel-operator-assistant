@@ -12,11 +12,39 @@ function baseUrl(): string {
 	return pickBaseUrl() ?? "http://localhost:3000";
 }
 
-async function translate(query: string): Promise<void> {
+function parseArgv(argv: string[]): { debug: boolean; queryParts: string[] } {
+	let debug = false;
+	const queryParts: string[] = [];
+	for (const a of argv) {
+		if (a === "--debug" || a === "-d") {
+			debug = true;
+			continue;
+		}
+		queryParts.push(a);
+	}
+	return { debug, queryParts };
+}
+
+function printDebug(lines: string[] | undefined): void {
+	if (!lines?.length) return;
+	for (const line of lines) {
+		console.error(`[debug] ${line}`);
+	}
+}
+
+async function translate(
+	query: string,
+	debug: boolean,
+): Promise<void> {
 	const root = baseUrl();
+	const headers: Record<string, string> = {
+		"Content-Type": "application/json",
+	};
+	if (debug) headers["X-Assistant-Debug"] = "1";
+
 	const res = await fetch(`${root}/translate`, {
 		method: "POST",
-		headers: { "Content-Type": "application/json" },
+		headers,
 		body: JSON.stringify({ query }),
 	});
 
@@ -24,6 +52,7 @@ async function translate(query: string): Promise<void> {
 		command?: string;
 		error?: string;
 		truncated?: boolean;
+		debug?: string[];
 	};
 
 	if (!res.ok) {
@@ -32,17 +61,24 @@ async function translate(query: string): Promise<void> {
 		return;
 	}
 
+	if (debug) printDebug(payload.debug);
+
 	if (payload.truncated) {
 		console.error("(query was truncated to max token length)");
 	}
 	console.log(payload.command ?? "");
 }
 
-const oneShot = process.argv.slice(2).join(" ").trim();
+const rawArgv = process.argv.slice(2);
+const { debug: flagDebug, queryParts } = parseArgv(rawArgv);
+const envDebug =
+	process.env.CLI_DEBUG === "1" || process.env.CLI_DEBUG === "true";
+const oneShot = queryParts.join(" ").trim();
 
 if (oneShot) {
-	console.error(`POST ${baseUrl()}/translate`);
-	await translate(oneShot);
+	const debug = flagDebug || envDebug;
+	console.error(`POST translate${debug ? " (debug)" : ""}`);
+	await translate(oneShot, debug);
 	process.exit(process.exitCode ?? 0);
 }
 
@@ -51,8 +87,11 @@ const rl = readline.createInterface({
 	output: process.stdout,
 });
 
+let interactiveDebug = flagDebug || envDebug;
+
 console.log("Travel Operator Assistant CLI");
-console.log(`API base: ${baseUrl()}`);
+console.log("POST translate");
+if (interactiveDebug) console.log("Debug: on (set CLI_DEBUG=0 or restart without --debug to disable)");
 console.log('Type a natural language query, or "exit" to quit.\n');
 
 while (true) {
@@ -66,9 +105,14 @@ while (true) {
 	}
 
 	try {
+		const headers: Record<string, string> = {
+			"Content-Type": "application/json",
+		};
+		if (interactiveDebug) headers["X-Assistant-Debug"] = "1";
+
 		const res = await fetch(`${baseUrl()}/translate`, {
 			method: "POST",
-			headers: { "Content-Type": "application/json" },
+			headers,
 			body: JSON.stringify({ query: trimmed }),
 		});
 
@@ -76,11 +120,20 @@ while (true) {
 			command?: string;
 			error?: string;
 			truncated?: boolean;
+			debug?: string[];
 		};
 
 		if (!res.ok) {
 			console.log(`  Error (${res.status}): ${data.error ?? res.statusText}`);
 			continue;
+		}
+
+		if (interactiveDebug) {
+			if (data.debug?.length) {
+				for (const line of data.debug) {
+					console.log(`  [debug] ${line}`);
+				}
+			}
 		}
 
 		if (data.truncated) {

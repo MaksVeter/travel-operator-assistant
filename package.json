@@ -24,7 +24,10 @@
     "indexer:local": "bun run packages/indexer/src/local.ts",
     "assistant:local": "bun run packages/assistant/src/local.ts",
     "sabre-command:local": "bun run packages/sabre-command/src/local.ts",
-    "cli": "bun run packages/cli/src/main.ts"
+    "cli": "bun run packages/cli/src/main.ts",
+    "cli:debug-smoke": "bash scripts/cli-debug-smoke.sh",
+    "generate:validation-dataset": "bun run scripts/generate-validation-dataset.ts",
+    "validate:dataset-sabre": "bun run scripts/validate-dataset-sabre.ts"
   },
   "devDependencies": {
     "@biomejs/biome": "^2.3.0",

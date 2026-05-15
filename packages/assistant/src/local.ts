@@ -18,11 +18,24 @@ const server = Bun.serve({
 					);
 				}
 
-				const { command, truncated } = await translateQuery(
+				const dbg =
+					req.headers.get("X-Assistant-Debug")?.toLowerCase() === "1" ||
+					req.headers.get("X-Assistant-Debug")?.toLowerCase() === "true" ||
+					process.env.ASSISTANT_DEBUG === "1" ||
+					process.env.ASSISTANT_DEBUG === "true";
+
+				const { command, truncated, debug } = await translateQuery(
 					body.query,
 					config,
+					{ debug: dbg },
 				);
-				return Response.json({ query: body.query, command, truncated });
+				const payload: Record<string, unknown> = {
+					query: body.query,
+					command,
+					truncated,
+				};
+				if (debug?.length) payload.debug = debug;
+				return Response.json(payload);
 			} catch (err) {
 				log.error("Request failed:", err);
 				const message = err instanceof Error ? err.message : String(err);

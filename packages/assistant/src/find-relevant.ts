@@ -6,7 +6,15 @@ export async function findRelevantChunks(
 	indexName: string,
 	query: string,
 	topK: number,
+	debugSteps?: string[],
 ): Promise<ScoredChunk[]> {
 	const vector = await embeddingService.embed(query);
-	return searchClient.knnSearch<DslChunk>(indexName, vector, topK);
+	debugSteps?.push("Query embedding ready.");
+	const chunks = await searchClient.knnSearch<DslChunk>(
+		indexName,
+		vector,
+		topK,
+	);
+	debugSteps?.push("Chunk search ready.");
+	return chunks;
 }
