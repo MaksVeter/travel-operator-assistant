@@ -3,6 +3,11 @@ import {
 	InvokeModelCommand,
 } from "@aws-sdk/client-bedrock-runtime";
 
+export type LlmCompleteOptions = {
+	maxTokens?: number;
+	temperature?: number;
+};
+
 export class LlmService {
 	private client: BedrockRuntimeClient;
 	private modelId: string;
@@ -18,6 +23,35 @@ export class LlmService {
 			max_tokens: 256,
 			messages: [{ role: "user", content: prompt }],
 			temperature: 0,
+		});
+
+		const command = new InvokeModelCommand({
+			modelId: this.modelId,
+			body: payload,
+			contentType: "application/json",
+			accept: "application/json",
+		});
+
+		const response = await this.client.send(command);
+		const body = JSON.parse(new TextDecoder().decode(response.body)) as {
+			content: Array<{ type: string; text: string }>;
+		};
+
+		const textBlock = body.content.find((c) => c.type === "text");
+		return textBlock?.text?.trim() ?? "";
+	}
+
+	async completeWithSystem(
+		system: string,
+		userMessage: string,
+		options?: LlmCompleteOptions,
+	): Promise<string> {
+		const payload = JSON.stringify({
+			anthropic_version: "bedrock-2023-05-31",
+			max_tokens: options?.maxTokens ?? 256,
+			system,
+			messages: [{ role: "user", content: userMessage }],
+			temperature: options?.temperature ?? 0,
 		});
 
 		const command = new InvokeModelCommand({

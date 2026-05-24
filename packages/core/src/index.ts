@@ -7,7 +7,7 @@ export {
 } from "./query-limits.ts";
 export { EmbeddingService } from "./embedding-service.ts";
 export { SearchClient } from "./search-client.ts";
-export { LlmService } from "./llm-service.ts";
+export { LlmService, type LlmCompleteOptions } from "./llm-service.ts";
 export type {
 	DslChunk,
 	IndexedChunk,

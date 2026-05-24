@@ -100,4 +100,36 @@ export class SearchClient {
 			source: h._source,
 		}));
 	}
+
+	async keywordSearch<T = Record<string, unknown>>(
+		indexName: string,
+		queryText: string,
+		topK: number,
+	): Promise<SearchHit<T>[]> {
+		const resp = await this.client.search({
+			index: indexName,
+			body: {
+				size: topK,
+				query: {
+					multi_match: {
+						query: queryText,
+						fields: [
+							"description^2",
+							"synonyms",
+							"text_for_embedding",
+						],
+						type: "best_fields",
+					},
+				},
+			},
+		});
+
+		const hits = resp.body.hits?.hits ?? [];
+		return (
+			hits as Array<{ _score: number; _source: T }>
+		).map((h) => ({
+			score: h._score,
+			source: h._source,
+		}));
+	}
 }

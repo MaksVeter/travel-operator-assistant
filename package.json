@@ -25,9 +25,14 @@
     "assistant:local": "bun run packages/assistant/src/local.ts",
     "sabre-command:local": "bun run packages/sabre-command/src/local.ts",
     "cli": "bun run packages/cli/src/main.ts",
+    "cli:v2": "bun run packages/cli/src/main.ts --v2",
     "cli:debug-smoke": "bash scripts/cli-debug-smoke.sh",
     "generate:validation-dataset": "bun run scripts/generate-validation-dataset.ts",
-    "validate:dataset-sabre": "bun run scripts/validate-dataset-sabre.ts"
+    "validate:dataset-sabre": "bun run scripts/validate-dataset-sabre.ts",
+    "evaluate:assistant": "bun run scripts/evaluate-assistant-dataset.ts",
+    "precompute:intent-centroids": "bun run scripts/precompute-intent-centroids.ts",
+    "evaluate:v2": "bun run scripts/evaluate-assistant-dataset.ts --endpoint /v2/translate",
+    "compare:v1-v2": "bun run scripts/compare-v1-v2.ts"
   },
   "devDependencies": {
     "@biomejs/biome": "^2.3.0",
