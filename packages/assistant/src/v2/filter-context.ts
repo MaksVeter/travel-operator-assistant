@@ -1,35 +1,40 @@
 import type { ScoredChunk } from "core";
 import type { IntentPrediction } from "./types.ts";
+import { isInitialFlightAvailabilityQuery } from "./query-heuristics.ts";
 
 export type FilterOptions = {
 	scoreThreshold: number;
 	contextLimit: number;
 	intentConfidenceThreshold: number;
+	query?: string;
 };
+
+const INITIAL_FLIGHT_AVAILABILITY_INTENT = "request_flight_availability";
 
 /**
  * Filters and ranks retrieved chunks using:
  * 1. Score threshold — drop low-relevance chunks
- * 2. Intent boost — boost chunks matching predicted intent
+ * 2. Intent boost — boost chunks matching predicted intent (high confidence only)
  * 3. Dedup by intent — keep only best-scoring chunk per intent
- * 4. Limit — return at most contextLimit chunks
+ * 4. Query-aware pin — keep initial flight availability chunk when query matches
+ * 5. Limit — return at most contextLimit chunks
  */
 export function filterContext(
 	chunks: ScoredChunk[],
 	predictedIntents: IntentPrediction[] | null,
 	options: FilterOptions,
 ): ScoredChunk[] {
-	const { scoreThreshold, contextLimit, intentConfidenceThreshold } = options;
+	const { scoreThreshold, contextLimit, intentConfidenceThreshold, query } =
+		options;
 
 	// 1. Score threshold
 	let filtered = chunks.filter((c) => c.score >= scoreThreshold);
 
-	// If everything is filtered out, keep top chunk regardless
 	if (filtered.length === 0 && chunks.length > 0) {
 		filtered = [chunks[0]!];
 	}
 
-	// 2. Intent boost — only apply if top predicted intent confidence exceeds threshold
+	// 2. Intent boost — only when classifier is confident
 	const topConfidence = predictedIntents?.[0]?.confidence ?? 0;
 	const topIntent =
 		topConfidence >= intentConfidenceThreshold
@@ -42,10 +47,9 @@ export function filterContext(
 		return { chunk, effectiveScore: chunk.score * boostFactor };
 	});
 
-	// Sort by effective score descending
 	scored.sort((a, b) => b.effectiveScore - a.effectiveScore);
 
-	// 3. Dedup by intent — keep only the best chunk per intent
+	// 3. Dedup by intent
 	const seenIntents = new Set<string>();
 	const deduped: ScoredChunk[] = [];
 
@@ -55,6 +59,20 @@ export function filterContext(
 		deduped.push(chunk);
 	}
 
-	// 4. Limit
-	return deduped.slice(0, contextLimit);
+	let result = deduped.slice(0, contextLimit);
+
+	// 4. Pin initial flight availability when query looks like a new search
+	if (query && isInitialFlightAvailabilityQuery(query)) {
+		const availabilityChunk = chunks.find(
+			(c) => c.source.intent === INITIAL_FLIGHT_AVAILABILITY_INTENT,
+		);
+		if (
+			availabilityChunk &&
+			!result.some((c) => c.source.intent === INITIAL_FLIGHT_AVAILABILITY_INTENT)
+		) {
+			result = [availabilityChunk, ...result].slice(0, contextLimit);
+		}
+	}
+
+	return result;
 }

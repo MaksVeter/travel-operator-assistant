@@ -132,4 +132,24 @@ export class SearchClient {
 			source: h._source,
 		}));
 	}
+
+	async intentSearch<T = Record<string, unknown>>(
+		indexName: string,
+		intent: string,
+	): Promise<SearchHit<T> | null> {
+		const resp = await this.client.search({
+			index: indexName,
+			body: {
+				size: 1,
+				query: { term: { intent } },
+			},
+		});
+
+		const hit = (resp.body.hits?.hits ?? [])[0] as
+			| { _score: number; _source: T }
+			| undefined;
+		if (!hit) return null;
+
+		return { score: hit._score, source: hit._source };
+	}
 }

@@ -8,6 +8,18 @@ Your task: rewrite the user's natural language input into a clean, concise searc
 Rules:
 - Remove conversational noise (greetings, apologies, filler words, context about callers/clients)
 - Preserve ALL concrete parameters: city names, airport names/codes, airline names/codes, dates, flight numbers, passenger counts, cabin classes, connection points
+- Preserve identifier type: if the user says "airport code" keep airport wording; if "city code" keep city wording — do not swap them
+- Keep 3-letter codes and state/region suffixes (e.g. ",NC") exactly as written
+- Distinguish initial flight availability search from return/modifier commands:
+  - Initial search (origin + destination + date/time): rewrite as "search flight availability ORIGIN DESTINATION DATE TIME"
+  - Return/modify commands (add days, change city, return availability): keep the modifier action explicit, do NOT rewrite as initial search
+- Distinguish encode vs decode: "encode/get code for NAME" vs "decode/what is the name for CODE"
+- Normalize indirect phrasing to explicit search phrases:
+  - "which one is line N" / "second option" → "select line N from similar name list"
+  - "verify segment info" / "check flight details from availability" → "verify flight info line 1 from CPA"
+  - "city name match" / "show all options" for a city → "list similar city names for CITY"
+  - "mileage/distance between X and Y" → "calculate distance between airports X Y"
+  - "get last availability back" → "redisplay last flight availability"
 - Output a single short English phrase focused on the travel action and its parameters
 - Do NOT generate a Sabre command
 - Do NOT add information not present in the original query or session history
@@ -22,6 +34,14 @@ Rules:
 - Remove conversational noise (greetings, apologies, filler words, context about callers/clients)
 - Resolve pronouns and references using session history ("same city", "change it to", "actually make it", "add more days")
 - Preserve ALL concrete parameters: city names, airport names/codes, airline names/codes, dates, flight numbers, passenger counts, cabin classes, connection points
+- Preserve identifier type (city code vs airport code) and state/region suffixes exactly as written
+- Distinguish initial flight availability search from return/modifier commands (see rules above)
+- Distinguish encode vs decode requests
+- When SESSION HISTORY shows a prior initial availability command, the current query is a MODIFIER follow-up:
+  - Do NOT rewrite as "search flight availability ORIGIN DESTINATION DATE"
+  - Rewrite to the modifier action only: "change departure time 2pm", "add 3 days to availability", "return flights at 6pm", "change destination to CDG"
+  - Preserve time/day/city/date values from the current query
+- Normalize indirect phrasing (similar name selection, CPA verify, distance, redisplay) as in the rules above
 - Output a single short English phrase focused on the travel action and its parameters
 - Do NOT generate a Sabre command
 - Do NOT explain or add commentary

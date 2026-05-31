@@ -1,15 +1,28 @@
 #!/usr/bin/env bun
 /**
- * Evaluate the deployed (or local) assistant against `data/validation-dataset.json`.
- * Sends each NL query via POST /translate (same contract as `bun run cli`).
+ * Evaluate the assistant against `data/validation-dataset.json`.
+ * Supports both `reference` and `multi_turn` test case types.
  *
- * Set ASSISTANT_API_URL in root `.env` to API Gateway base (stage path, no trailing slash).
- * Local smoke: `assistant:local` on :3000 and omit ASSISTANT_API_URL (defaults to localhost:3000).
+ * Sends each NL query via POST /translate or /v2/translate.
+ * For multi_turn cases, sends turns sequentially with history (V2 only; V1 skips multi_turn).
  *
- * Usage (from travel-operator-assistant):
- *   bun run evaluate:assistant
+ * Metrics per test case:
+ *   - signature_match: generated command starts with expected_signature
+ *   - parameter_match: all parameter tokens from expected_command present in predicted
+ *   - exact_match: predicted equals expected (whitespace ignored)
+ *   - intent_correct:  (V2 only) top retrieved intent matches ground truth
+ *   - refused:         system returned no command / explicitly declined
+ *   - success:         signature_match AND parameter_match
+ *
+ * Comparison normalizes commands by trimming and removing all whitespace before matching.
+ *
+ * Usage:
+ *   bun run evaluate:v1
+ *   bun run evaluate:v2:reference
+ *   bun run evaluate:v2:multi-turn
+ *   bun run scripts/evaluate-assistant-dataset.ts --in data/validation-dataset-reference.json
  *   bun run scripts/evaluate-assistant-dataset.ts --limit 50
- *   bun run scripts/evaluate-assistant-dataset.ts --delay 500 --retries 3
+ *   bun run scripts/evaluate-assistant-dataset.ts --endpoint /v2/translate
  *   bun run scripts/evaluate-assistant-dataset.ts --no-cache
  *   bun run scripts/evaluate-assistant-dataset.ts --offset 100 --limit 200
  */
@@ -17,26 +30,78 @@
 import fs from "node:fs";
 import path from "node:path";
 
-type DatasetRow = {
+// ── Dataset types (new schema) ──
+
+type ReferenceTestCase = {
+	id: string;
+	type: "reference";
+	intent: string;
+	category: string;
+	query: string;
+	expected_command: string;
+	expected_signature: string;
+};
+
+type MultiTurnTestCase = {
+	id: string;
+	type: "multi_turn";
+	intent: string;
+	category: string;
+	turns: Array<{
+		query: string;
+		expected_command: string;
+		expected_signature: string;
+	}>;
+};
+
+type TestCase = ReferenceTestCase | MultiTurnTestCase;
+
+// Legacy flat format (backward compat)
+type LegacyRow = {
 	query: string;
 	intent: string;
 	command: string;
 	dsl_signature?: string;
+	category?: string;
+};
+
+// ── Eval result types ──
+
+type TurnResult = {
+	query: string;
+	expectedCommand: string;
+	expectedSignature: string;
+	predictedCommand: string | null;
+	signatureMatch: boolean;
+	parameterMatch: boolean;
+	exactMatch: boolean;
+	success: boolean;
+	refusal: boolean;
+	intentCorrect: boolean | null;
+	error: string | null;
+	truncated: boolean;
 };
 
 type EvalRow = {
-	query: string;
+	id: string;
+	type: "reference" | "multi_turn";
 	intent: string;
-	expectedCommand: string;
-	dslSignature: string | null;
-	predictedCommand: string | null;
-	exactMatch: boolean;
+	category: string;
 	signatureMatch: boolean;
+	parameterMatch: boolean;
+	exactMatch: boolean;
+	success: boolean;
 	refusal: boolean;
-	unexpectedRefusal: boolean;
-	truncated: boolean;
+	intentCorrect: boolean | null;
 	error: string | null;
+	truncated: boolean;
 	fromCache: boolean;
+	// reference: single turn detail
+	query?: string;
+	expectedCommand?: string;
+	predictedCommand?: string | null;
+	// multi_turn: per-turn details
+	turns?: TurnResult[];
 };
 
 type EvalReportFile = {
@@ -50,7 +115,11 @@ type EvalReportFile = {
 	results: unknown[];
 };
 
+// ── Constants ──
+
 const REFUSAL_PREFIX = "I cannot build a Sabre command from your request.";
+
+// ── Helpers ──
 
 function pickBaseUrl(): string {
 	for (const key of ["ASSISTANT_API_URL", "ASSISTANT_URL"] as const) {
@@ -59,6 +128,627 @@ function pickBaseUrl(): string {
 	}
 	return "http://localhost:3000";
 }
+
+function sleep(ms: number): Promise<void> {
+	return new Promise((r) => setTimeout(r, ms));
+}
+
+function normalizeCommand(s: string): string {
+	return s.trim().replace(/\s+/g, " ");
+}
+
+/** Strip all whitespace before metric comparison (exact / signature / parameter). */
+function normalizeCommandForCompare(s: string): string {
+	return s.trim().replace(/\s+/g, "").toUpperCase();
+}
+
+function isRefusal(text: string): boolean {
+	return text.trimStart().startsWith(REFUSAL_PREFIX);
+}
+
+function signatureMatches(
+	predicted: string,
+	signature: string | null | undefined,
+): boolean {
+	if (!signature?.trim()) return false;
+	const p = normalizeCommandForCompare(predicted);
+	const sig = normalizeCommandForCompare(signature);
+	return p.startsWith(sig);
+}
+
+/**
+ * Extract parameter tokens from expected_command by stripping the signature prefix.
+ * Then check each token is a substring of the predicted command.
+ *
+ * For positional Sabre commands, if the right tokens appear with the right signature,
+ * the command is correct.
+ */
+function parameterMatches(
+	predicted: string,
+	expectedCommand: string,
+	expectedSignature: string | null | undefined,
+): boolean {
+	if (!expectedSignature?.trim()) return false;
+	const sig = normalizeCommandForCompare(expectedSignature);
+	const predUpper = normalizeCommandForCompare(predicted);
+	const expectedUpper = normalizeCommandForCompare(expectedCommand);
+
+	const paramsPart = expectedUpper.startsWith(sig)
+		? expectedUpper.slice(sig.length)
+		: expectedUpper;
+
+	if (paramsPart.length === 0) return true;
+
+	const tokens = extractParamTokens(paramsPart);
+	if (tokens.length === 0) return true;
+
+	return tokens.every((token) => predUpper.includes(token));
+}
+
+/**
+ * Split parameter string into meaningful tokens.
+ * Handles city codes (3-letter), airline codes (2-letter), dates (DDMMM),
+ * times (NNA/NNP), numbers, and special characters.
+ */
+function extractParamTokens(params: string): string[] {
+	const tokens: string[] = [];
+	const re = /(\d{1,2}[A-Z]{3})|([A-Z]{2,3})|(\d{1,4}[AP])|(\d+)|([≠*‡\-/])/g;
+	let m: RegExpExecArray | null;
+	while ((m = re.exec(params)) !== null) {
+		const token = m[0];
+		if (token.length >= 1) tokens.push(token);
+	}
+	return tokens;
+}
+
+function isRetryableHttp(status: number, message: string): boolean {
+	if (status === 429 || status === 502 || status === 503 || status === 504)
+		return true;
+	const u = message.toUpperCase();
+	return (
+		u.includes("THROTTL") ||
+		u.includes("TIMEOUT") ||
+		u.includes("ECONNRESET") ||
+		u.includes("FETCH FAILED") ||
+		u.includes("EMBEDDING FAILED")
+	);
+}
+
+// ── API call ──
+
+type TranslatePayload = {
+	command?: string;
+	error?: string;
+	truncated?: boolean;
+	debug?: {
+		predictedIntents?: Array<{ intent: string; confidence: number }>;
+		[key: string]: unknown;
+	};
+};
+
+type TranslateResult = {
+	predicted: string | null;
+	truncated: boolean;
+	error: string | null;
+	topIntent: string | null;
+};
+
+async function translateQuery(
+	baseUrl: string,
+	query: string,
+	retries: number,
+	endpoint: string,
+	history?: Array<{ query: string; command: string }>,
+): Promise<TranslateResult> {
+	const url = `${baseUrl}${endpoint}`;
+	let lastError = "no attempt";
+
+	for (let attempt = 0; attempt < retries; attempt++) {
+		if (attempt > 0) await sleep(1500);
+		try {
+			const body: Record<string, unknown> = { query };
+			if (history && history.length > 0) body.history = history;
+
+			const headers: Record<string, string> = {
+				"Content-Type": "application/json",
+			};
+			if (endpoint.includes("v2")) {
+				headers["X-Assistant-Debug"] = "1";
+			}
+
+			const res = await fetch(url, {
+				method: "POST",
+				headers,
+				body: JSON.stringify(body),
+			});
+			const payload = (await res.json()) as TranslatePayload;
+			if (!res.ok) {
+				lastError = payload.error ?? res.statusText;
+				if (
+					isRetryableHttp(res.status, lastError) &&
+					attempt < retries - 1
+				)
+					continue;
+				return {
+					predicted: null,
+					truncated: false,
+					error: lastError,
+					topIntent: null,
+				};
+			}
+			const cmd = payload.command ?? "";
+
+			let topIntent: string | null = null;
+			if (
+				payload.debug?.predictedIntents &&
+				Array.isArray(payload.debug.predictedIntents) &&
+				payload.debug.predictedIntents.length > 0
+			) {
+				topIntent = payload.debug.predictedIntents[0]?.intent ?? null;
+			}
+
+			return {
+				predicted: cmd,
+				truncated: payload.truncated === true,
+				error: null,
+				topIntent,
+			};
+		} catch (err) {
+			lastError = err instanceof Error ? err.message : String(err);
+			if (isRetryableHttp(0, lastError) && attempt < retries - 1) continue;
+			return {
+				predicted: null,
+				truncated: false,
+				error: lastError,
+				topIntent: null,
+			};
+		}
+	}
+
+	return { predicted: null, truncated: false, error: lastError, topIntent: null };
+}
+
+// ── Dataset loading ──
+
+function isNewFormat(data: unknown[]): boolean {
+	if (data.length === 0) return false;
+	const first = data[0] as Record<string, unknown>;
+	return typeof first.id === "string" && typeof first.type === "string";
+}
+
+function inferCategory(intent: string): string {
+	if (intent.startsWith("encode_") || intent.startsWith("find_closest_") || intent.startsWith("distance_") || intent.startsWith("display_similar") || intent.startsWith("select_similar") || intent.startsWith("redisplay_similar"))
+		return "encoding";
+	if (intent.startsWith("decode_")) return "decoding";
+	if (intent.startsWith("interpret_")) return "interpretation";
+	return "availability";
+}
+
+function convertLegacyRow(row: LegacyRow, index: number): TestCase {
+	return {
+		id: `legacy_${String(index + 1).padStart(4, "0")}`,
+		type: "reference",
+		intent: row.intent ?? "",
+		category: row.category ?? inferCategory(row.intent ?? ""),
+		query: row.query,
+		expected_command: row.command,
+		expected_signature: row.dsl_signature ?? "",
+	} as ReferenceTestCase;
+}
+
+// ── Cache ──
+
+function isRecord(x: unknown): x is Record<string, unknown> {
+	return typeof x === "object" && x !== null && !Array.isArray(x);
+}
+
+function cacheEntryToEvalRow(raw: unknown): EvalRow | null {
+	if (!isRecord(raw)) return null;
+	if (typeof raw.id !== "string") return null;
+	return raw as unknown as EvalRow;
+}
+
+function loadResultsCache(filePath: string): Map<string, EvalRow> {
+	const map = new Map<string, EvalRow>();
+	if (!fs.existsSync(filePath)) return map;
+	let parsed: EvalReportFile;
+	try {
+		parsed = JSON.parse(fs.readFileSync(filePath, "utf8")) as EvalReportFile;
+	} catch {
+		return map;
+	}
+	if (!parsed?.results || !Array.isArray(parsed.results)) return map;
+	for (const row of parsed.results) {
+		const e = cacheEntryToEvalRow(row);
+		if (e) map.set(e.id, e);
+	}
+	return map;
+}
+
+// ── Evaluate single test case ──
+
+async function evaluateReference(
+	tc: ReferenceTestCase,
+	apiUrl: string,
+	retries: number,
+	endpoint: string,
+): Promise<EvalRow> {
+	const { predicted, truncated, error, topIntent } = await translateQuery(
+		apiUrl,
+		tc.query,
+		retries,
+		endpoint,
+	);
+
+	const predNorm = predicted !== null ? normalizeCommand(predicted) : null;
+	const refused = predNorm !== null && isRefusal(predNorm);
+	const predCompare =
+		predicted !== null ? normalizeCommandForCompare(predicted) : null;
+	const expCompare = normalizeCommandForCompare(tc.expected_command);
+	const sigMatch =
+		!refused && predCompare !== null && error === null && signatureMatches(predicted!, tc.expected_signature);
+	const paramMatch =
+		!refused &&
+		predCompare !== null &&
+		error === null &&
+		parameterMatches(predicted!, tc.expected_command, tc.expected_signature);
+	const exact =
+		!refused && predCompare !== null && error === null && predCompare === expCompare;
+	const intentOk = topIntent !== null ? topIntent === tc.intent : null;
+
+	return {
+		id: tc.id,
+		type: "reference",
+		intent: tc.intent,
+		category: tc.category,
+		query: tc.query,
+		expectedCommand: tc.expected_command,
+		predictedCommand: predicted,
+		signatureMatch: sigMatch,
+		parameterMatch: paramMatch,
+		exactMatch: exact,
+		success: sigMatch && paramMatch,
+		refusal: refused,
+		intentCorrect: intentOk,
+		error,
+		truncated,
+		fromCache: false,
+	};
+}
+
+async function evaluateMultiTurn(
+	tc: MultiTurnTestCase,
+	apiUrl: string,
+	retries: number,
+	endpoint: string,
+	delayMs: number,
+): Promise<EvalRow> {
+	const turnResults: TurnResult[] = [];
+	const history: Array<{ query: string; command: string }> = [];
+
+	for (let t = 0; t < tc.turns.length; t++) {
+		const turn = tc.turns[t]!;
+		if (t > 0 && delayMs > 0) await sleep(delayMs);
+
+		const { predicted, truncated, error, topIntent } = await translateQuery(
+			apiUrl,
+			turn.query,
+			retries,
+			endpoint,
+			t > 0 ? history : undefined,
+		);
+
+		const predNorm = predicted !== null ? normalizeCommand(predicted) : null;
+		const refused = predNorm !== null && isRefusal(predNorm);
+		const predCompare =
+			predicted !== null ? normalizeCommandForCompare(predicted) : null;
+		const expCompare = normalizeCommandForCompare(turn.expected_command);
+		const sigMatch =
+			!refused && predCompare !== null && error === null && signatureMatches(predicted!, turn.expected_signature);
+		const paramMatch =
+			!refused &&
+			predCompare !== null &&
+			error === null &&
+			parameterMatches(predicted!, turn.expected_command, turn.expected_signature);
+		const exact =
+			!refused && predCompare !== null && error === null && predCompare === expCompare;
+		const intentOk = topIntent !== null ? topIntent === tc.intent : null;
+
+		turnResults.push({
+			query: turn.query,
+			expectedCommand: turn.expected_command,
+			expectedSignature: turn.expected_signature,
+			predictedCommand: predicted,
+			signatureMatch: sigMatch,
+			parameterMatch: paramMatch,
+			exactMatch: exact,
+			success: sigMatch && paramMatch,
+			refusal: refused,
+			intentCorrect: intentOk,
+			error,
+			truncated,
+		});
+
+		if (sigMatch && paramMatch && predicted && !refused && error === null) {
+			history.push({ query: turn.query, command: predicted });
+		}
+	}
+
+	const lastTurn = turnResults[turnResults.length - 1]!;
+	return {
+		id: tc.id,
+		type: "multi_turn",
+		intent: tc.intent,
+		category: tc.category,
+		turns: turnResults,
+		signatureMatch: lastTurn.signatureMatch,
+		parameterMatch: lastTurn.parameterMatch,
+		exactMatch: lastTurn.exactMatch,
+		success: lastTurn.success,
+		refusal: lastTurn.refusal,
+		intentCorrect: lastTurn.intentCorrect,
+		error: lastTurn.error,
+		truncated: lastTurn.truncated,
+		fromCache: false,
+	};
+}
+
+// ── Summary ──
+
+function pct(n: number, total: number): number {
+	return total ? Math.round((1000 * n) / total) / 10 : 0;
+}
+
+type CategoryStats = {
+	total: number;
+	signatureMatch: number;
+	parameterMatch: number;
+	exactMatch: number;
+	success: number;
+	refusals: number;
+	intentCorrect: number;
+	intentTotal: number;
+};
+
+function emptyCategoryStats(): CategoryStats {
+	return {
+		total: 0,
+		signatureMatch: 0,
+		parameterMatch: 0,
+		exactMatch: 0,
+		success: 0,
+		refusals: 0,
+		intentCorrect: 0,
+		intentTotal: 0,
+	};
+}
+
+function buildSummary(results: EvalRow[], elapsedMs: number) {
+	const evaluated = results.length;
+	const signatureMatch = results.filter((r) => r.signatureMatch).length;
+	const parameterMatch = results.filter((r) => r.parameterMatch).length;
+	const exactMatch = results.filter((r) => r.exactMatch).length;
+	const success = results.filter((r) => r.success).length;
+	const apiErrors = results.filter((r) => r.error !== null).length;
+	const refusals = results.filter((r) => r.refusal).length;
+	const truncated = results.filter((r) => r.truncated).length;
+
+	const withIntent = results.filter((r) => r.intentCorrect !== null);
+	const intentCorrect = withIntent.filter((r) => r.intentCorrect).length;
+
+	const byCategory: Record<string, CategoryStats> = {};
+	const byIntent: Record<string, CategoryStats> = {};
+
+	for (const r of results) {
+		const cat = r.category || "unknown";
+		const int = r.intent || "(unknown)";
+
+		for (const [key, bucket] of [
+			[cat, byCategory],
+			[int, byIntent],
+		] as const) {
+			if (!bucket[key]) bucket[key] = emptyCategoryStats();
+			const s = bucket[key]!;
+			s.total++;
+			if (r.signatureMatch) s.signatureMatch++;
+			if (r.parameterMatch) s.parameterMatch++;
+			if (r.exactMatch) s.exactMatch++;
+			if (r.success) s.success++;
+			if (r.refusal) s.refusals++;
+			if (r.intentCorrect !== null) {
+				s.intentTotal++;
+				if (r.intentCorrect) s.intentCorrect++;
+			}
+		}
+	}
+
+	const multiTurnRows = results.filter((r) => r.type === "multi_turn" && r.turns);
+	const turn1OkRows = multiTurnRows.filter((r) => r.turns![0]!.success);
+	const multiTurn =
+		multiTurnRows.length > 0
+			? {
+					cases: multiTurnRows.length,
+					turn1Success: turn1OkRows.length,
+					turn2Success: multiTurnRows.filter((r) => r.turns![1]?.success)
+						.length,
+					bothTurnsSuccess: multiTurnRows.filter(
+						(r) => r.turns![0]!.success && r.turns![1]?.success,
+					).length,
+					turn2GivenTurn1Ok: turn1OkRows.filter((r) => r.turns![1]?.success)
+						.length,
+				}
+			: null;
+
+	return {
+		evaluated,
+		signatureMatch,
+		signatureMatchRate: pct(signatureMatch, evaluated),
+		parameterMatch,
+		parameterMatchRate: pct(parameterMatch, evaluated),
+		exactMatch,
+		exactMatchRate: pct(exactMatch, evaluated),
+		success,
+		successRate: pct(success, evaluated),
+		intentCorrect,
+		intentTotal: withIntent.length,
+		intentAccuracy: pct(intentCorrect, withIntent.length),
+		apiErrors,
+		refusals,
+		refusalRate: pct(refusals, evaluated),
+		truncated,
+		elapsedMs,
+		byCategory,
+		byIntent,
+		...(multiTurn
+			? {
+					multiTurn: {
+						...multiTurn,
+						turn1SuccessRate: pct(multiTurn.turn1Success, multiTurn.cases),
+						turn2SuccessRate: pct(multiTurn.turn2Success, multiTurn.cases),
+						bothTurnsSuccessRate: pct(
+							multiTurn.bothTurnsSuccess,
+							multiTurn.cases,
+						),
+						turn2GivenTurn1OkRate: pct(
+							multiTurn.turn2GivenTurn1Ok,
+							multiTurn.turn1Success || 1,
+						),
+					},
+				}
+			: {}),
+	};
+}
+
+function printFooter(
+	results: EvalRow[],
+	elapsedMs: number,
+	output: string,
+	apiUrl: string,
+	fromCache: number,
+	fromApi: number,
+) {
+	const s = buildSummary(results, elapsedMs);
+	console.log("\n--- Assistant evaluation ---");
+	console.log(`API:                 ${apiUrl}`);
+	console.log(`rows evaluated:      ${s.evaluated}`);
+	if (fromCache + fromApi > 0)
+		console.log(`cache / API calls:   ${fromCache} / ${fromApi}`);
+	console.log(
+		`signature match:     ${s.signatureMatch} / ${s.evaluated} (${s.signatureMatchRate}%)`,
+	);
+	console.log(
+		`parameter match:     ${s.parameterMatch} / ${s.evaluated} (${s.parameterMatchRate}%)`,
+	);
+	console.log(
+		`success (sig+param): ${s.success} / ${s.evaluated} (${s.successRate}%)`,
+	);
+	console.log(
+		`exact command match: ${s.exactMatch} / ${s.evaluated} (${s.exactMatchRate}%)`,
+	);
+	if (s.intentTotal > 0)
+		console.log(
+			`intent accuracy:     ${s.intentCorrect} / ${s.intentTotal} (${s.intentAccuracy}%)`,
+		);
+	console.log(`refusal rate:        ${s.refusals} / ${s.evaluated} (${s.refusalRate}%)`);
+	if ("multiTurn" in s && s.multiTurn) {
+		const m = s.multiTurn as {
+			cases: number;
+			turn1Success: number;
+			turn1SuccessRate: number;
+			turn2Success: number;
+			turn2SuccessRate: number;
+			bothTurnsSuccess: number;
+			bothTurnsSuccessRate: number;
+			turn2GivenTurn1Ok: number;
+			turn2GivenTurn1OkRate: number;
+		};
+		console.log("\nmulti-turn:");
+		console.log(
+			`  turn1 success:       ${m.turn1Success} / ${m.cases} (${m.turn1SuccessRate}%)`,
+		);
+		console.log(
+			`  turn2 success:       ${m.turn2Success} / ${m.cases} (${m.turn2SuccessRate}%)`,
+		);
+		console.log(
+			`  both turns success:  ${m.bothTurnsSuccess} / ${m.cases} (${m.bothTurnsSuccessRate}%)`,
+		);
+		console.log(
+			`  turn2 | turn1 ok:    ${m.turn2GivenTurn1Ok} / ${m.turn1Success} (${m.turn2GivenTurn1OkRate}%)`,
+		);
+	}
+	console.log(`API errors:          ${s.apiErrors}`);
+	console.log(`truncated queries:   ${s.truncated}`);
+	console.log(`elapsed:             ${(elapsedMs / 1000).toFixed(1)}s`);
+	console.log(`written:             ${output}`);
+
+	// Per-category breakdown
+	const cats = Object.entries(s.byCategory).sort((a, b) =>
+		a[0].localeCompare(b[0]),
+	);
+	if (cats.length > 0) {
+		console.log("\nby category:");
+		console.log(
+			`  ${"category".padEnd(16)} ${"total".padStart(6)} ${"sig%".padStart(7)} ${"param%".padStart(7)} ${"success%".padStart(9)} ${"refusal%".padStart(9)}`,
+		);
+		console.log(`  ${"-".repeat(56)}`);
+		for (const [cat, v] of cats) {
+			console.log(
+				`  ${cat.padEnd(16)} ${String(v.total).padStart(6)} ${pct(v.signatureMatch, v.total).toFixed(1).padStart(7)} ${pct(v.parameterMatch, v.total).toFixed(1).padStart(7)} ${pct(v.success, v.total).toFixed(1).padStart(9)} ${pct(v.refusals, v.total).toFixed(1).padStart(9)}`,
+			);
+		}
+	}
+
+	// Sample failures
+	const misses = results.filter((r) => !r.success && r.error === null);
+	if (misses.length > 0) {
+		console.log("\nfirst non-success samples:");
+		for (const r of misses.slice(0, 10)) {
+			if (r.type === "reference") {
+				const pred = (r.predictedCommand ?? "").slice(0, 72);
+				const exp = (r.expectedCommand ?? "").slice(0, 72);
+				const tag = r.refusal
+					? "refusal"
+					: r.signatureMatch
+						? "sig-ok"
+						: "miss";
+				console.log(`  [${tag}] ${(r.query ?? "").slice(0, 56)}`);
+				console.log(`    expected:  ${exp}`);
+				console.log(`    predicted: ${pred}`);
+			} else if (r.turns) {
+				const last = r.turns[r.turns.length - 1]!;
+				const tag = last.refusal
+					? "refusal"
+					: last.signatureMatch
+						? "sig-ok"
+						: "miss";
+				console.log(
+					`  [${tag}] MT: ${last.query.slice(0, 52)} (${r.intent})`,
+				);
+				console.log(
+					`    expected:  ${last.expectedCommand.slice(0, 72)}`,
+				);
+				console.log(
+					`    predicted: ${(last.predictedCommand ?? "").slice(0, 72)}`,
+				);
+			}
+		}
+	}
+
+	// Per-intent table
+	const intents = Object.entries(s.byIntent).sort((a, b) =>
+		a[0].localeCompare(b[0]),
+	);
+	if (intents.length > 0 && intents.length <= 60) {
+		console.log("\nby intent (success rate %):");
+		for (const [intent, v] of intents) {
+			console.log(
+				`  ${intent.padEnd(40)} ${v.success}/${v.total} (${pct(v.success, v.total).toFixed(1)}%)`,
+			);
+		}
+	}
+}
+
+// ── CLI args ──
 
 function parseArgs(argv: string[]) {
 	const cwd = process.cwd();
@@ -99,7 +789,6 @@ function parseArgs(argv: string[]) {
 		}
 	}
 
-	// Adjust output filename for non-default endpoints
 	if (endpoint !== "/translate" && output === defaultResults) {
 		const suffix = endpoint.replace(/\//g, "-").replace(/^-/, "");
 		output = path.join(cwd, "data", `assistant-eval-results-${suffix}.json`);
@@ -108,272 +797,53 @@ function parseArgs(argv: string[]) {
 	return { input, output, delayMs, retries, limit, offset, useCache, endpoint };
 }
 
-function sleep(ms: number): Promise<void> {
-	return new Promise((r) => setTimeout(r, ms));
-}
-
-function normalizeCommand(s: string): string {
-	return s.trim().replace(/\s+/g, " ");
-}
-
-function isRefusal(text: string): boolean {
-	return text.trimStart().startsWith(REFUSAL_PREFIX);
-}
-
-function signatureMatches(predicted: string, signature: string | null | undefined): boolean {
-	if (!signature?.trim()) return false;
-	const p = normalizeCommand(predicted).toUpperCase();
-	const sig = signature.trim().toUpperCase();
-	return p.startsWith(sig);
-}
-
-function isRetryableHttp(status: number, message: string): boolean {
-	if (status === 429 || status === 502 || status === 503 || status === 504) {
-		return true;
-	}
-	const u = message.toUpperCase();
-	return (
-		u.includes("THROTTL") ||
-		u.includes("TIMEOUT") ||
-		u.includes("ECONNRESET") ||
-		u.includes("FETCH FAILED") ||
-		u.includes("EMBEDDING FAILED")
-	);
-}
-
-type TranslatePayload = {
-	command?: string;
-	error?: string;
-	truncated?: boolean;
-};
-
-async function translateQuery(
-	baseUrl: string,
-	query: string,
-	retries: number,
-	endpoint = "/translate",
-): Promise<{
-	predicted: string | null;
-	truncated: boolean;
-	error: string | null;
-}> {
-	const url = `${baseUrl}${endpoint}`;
-	let lastError = "no attempt";
-
-	for (let attempt = 0; attempt < retries; attempt++) {
-		if (attempt > 0) await sleep(1500);
-		try {
-			const res = await fetch(url, {
-				method: "POST",
-				headers: { "Content-Type": "application/json" },
-				body: JSON.stringify({ query }),
-			});
-			const payload = (await res.json()) as TranslatePayload;
-			if (!res.ok) {
-				lastError = payload.error ?? res.statusText;
-				if (isRetryableHttp(res.status, lastError) && attempt < retries - 1) {
-					continue;
-				}
-				return { predicted: null, truncated: false, error: lastError };
-			}
-			const cmd = payload.command ?? "";
-			return {
-				predicted: cmd,
-				truncated: payload.truncated === true,
-				error: null,
-			};
-		} catch (err) {
-			lastError = err instanceof Error ? err.message : String(err);
-			if (isRetryableHttp(0, lastError) && attempt < retries - 1) {
-				continue;
-			}
-			return { predicted: null, truncated: false, error: lastError };
-		}
-	}
-
-	return { predicted: null, truncated: false, error: lastError };
-}
-
-function isRecord(x: unknown): x is Record<string, unknown> {
-	return typeof x === "object" && x !== null && !Array.isArray(x);
-}
-
-function cacheEntryToEvalRow(raw: unknown): EvalRow | null {
-	if (!isRecord(raw) || typeof raw.query !== "string") return null;
-	const query = raw.query;
-	const expected =
-		typeof raw.expectedCommand === "string"
-			? raw.expectedCommand
-			: typeof raw.command === "string"
-				? raw.command
-				: null;
-	if (!expected) return null;
-
-	const predicted =
-		typeof raw.predictedCommand === "string"
-			? raw.predictedCommand
-			: raw.predictedCommand === null
-				? null
-				: undefined;
-	if (predicted === undefined) return null;
-
-	const intent = typeof raw.intent === "string" ? raw.intent : "";
-	const dslSignature =
-		typeof raw.dslSignature === "string"
-			? raw.dslSignature
-			: typeof raw.dsl_signature === "string"
-				? raw.dsl_signature
-				: null;
-
-	return {
-		query,
-		intent,
-		expectedCommand: expected,
-		dslSignature,
-		predictedCommand: predicted,
-		exactMatch: raw.exactMatch === true,
-		signatureMatch: raw.signatureMatch === true,
-		refusal: raw.refusal === true,
-		unexpectedRefusal: raw.unexpectedRefusal === true,
-		truncated: raw.truncated === true,
-		error: raw.error === null || raw.error === undefined ? null : String(raw.error),
-		fromCache: true,
-	};
-}
-
-function loadResultsCache(filePath: string): Map<string, EvalRow> {
-	const map = new Map<string, EvalRow>();
-	if (!fs.existsSync(filePath)) return map;
-	let parsed: EvalReportFile;
-	try {
-		parsed = JSON.parse(fs.readFileSync(filePath, "utf8")) as EvalReportFile;
-	} catch {
-		return map;
-	}
-	if (!parsed?.results || !Array.isArray(parsed.results)) return map;
-	for (const row of parsed.results) {
-		const e = cacheEntryToEvalRow(row);
-		if (e) map.set(e.query, e);
-	}
-	return map;
-}
-
-function buildSummary(results: EvalRow[], elapsedMs: number) {
-	const evaluated = results.length;
-	const exactMatch = results.filter((r) => r.exactMatch).length;
-	const signatureMatch = results.filter((r) => r.signatureMatch).length;
-	const apiErrors = results.filter((r) => r.error !== null).length;
-	const refusals = results.filter((r) => r.refusal).length;
-	const unexpectedRefusals = results.filter((r) => r.unexpectedRefusal).length;
-	const truncated = results.filter((r) => r.truncated).length;
-
-	const byIntent: Record<
-		string,
-		{ total: number; exactMatch: number; signatureMatch: number; exactMatchRate: number }
-	> = {};
-	for (const r of results) {
-		const key = r.intent || "(unknown)";
-		if (!byIntent[key]) {
-			byIntent[key] = { total: 0, exactMatch: 0, signatureMatch: 0, exactMatchRate: 0 };
-		}
-		byIntent[key].total++;
-		if (r.exactMatch) byIntent[key].exactMatch++;
-		if (r.signatureMatch) byIntent[key].signatureMatch++;
-	}
-	for (const v of Object.values(byIntent)) {
-		v.exactMatchRate = v.total
-			? Math.round((1000 * v.exactMatch) / v.total) / 10
-			: 0;
-	}
-
-	return {
-		evaluated,
-		exactMatch,
-		exactMatchRate: evaluated
-			? Math.round((1000 * exactMatch) / evaluated) / 10
-			: 0,
-		signatureMatch,
-		signatureMatchRate: evaluated
-			? Math.round((1000 * signatureMatch) / evaluated) / 10
-			: 0,
-		apiErrors,
-		refusals,
-		unexpectedRefusals,
-		truncated,
-		elapsedMs,
-		byIntent,
-	};
-}
-
-function printFooter(
-	results: EvalRow[],
-	elapsedMs: number,
-	output: string,
-	apiUrl: string,
-	fromCache: number,
-	fromApi: number,
-) {
-	const s = buildSummary(results, elapsedMs);
-	console.log("\n--- Assistant evaluation ---");
-	console.log(`API:                ${apiUrl}`);
-	console.log(`rows evaluated:     ${s.evaluated}`);
-	if (fromCache + fromApi > 0) {
-		console.log(`cache / API calls:    ${fromCache} / ${fromApi}`);
-	}
-	console.log(
-		`exact command match: ${s.exactMatch} / ${s.evaluated} (${s.exactMatchRate}%)`,
-	);
-	console.log(
-		`DSL signature match: ${s.signatureMatch} / ${s.evaluated} (${s.signatureMatchRate}%)`,
-	);
-	console.log(`API errors:         ${s.apiErrors}`);
-	console.log(`refusals:           ${s.refusals} (unexpected: ${s.unexpectedRefusals})`);
-	console.log(`truncated queries:  ${s.truncated}`);
-	console.log(`elapsed:            ${(elapsedMs / 1000).toFixed(1)}s`);
-	console.log(`written:            ${output}`);
-
-	const misses = results.filter((r) => !r.exactMatch && r.error === null);
-	if (misses.length > 0) {
-		console.log("\nfirst non-exact samples:");
-		for (const r of misses.slice(0, 10)) {
-			const pred = (r.predictedCommand ?? "").slice(0, 72);
-			const exp = r.expectedCommand.slice(0, 72);
-			const tag = r.refusal ? "refusal" : r.signatureMatch ? "sig-ok" : "miss";
-			console.log(`  [${tag}] ${r.query.slice(0, 56)}`);
-			console.log(`    expected:  ${exp}`);
-			console.log(`    predicted: ${pred}`);
-		}
-	}
-
-	const intents = Object.entries(s.byIntent).sort((a, b) => a[0].localeCompare(b[0]));
-	if (intents.length > 0 && intents.length <= 60) {
-		console.log("\nby intent (exact match %):");
-		for (const [intent, v] of intents) {
-			console.log(`  ${intent.padEnd(28)} ${v.exactMatch}/${v.total} (${v.exactMatchRate}%)`);
-		}
-	}
-}
+// ── Main ──
 
 async function main() {
-	const { input, output, delayMs, retries, limit, offset, useCache, endpoint } = parseArgs(
-		process.argv,
-	);
+	const {
+		input,
+		output,
+		delayMs,
+		retries,
+		limit,
+		offset,
+		useCache,
+		endpoint,
+	} = parseArgs(process.argv);
 	const apiUrl = pickBaseUrl();
 	console.log(`Endpoint: ${endpoint}`);
 
 	const raw = fs.readFileSync(input, "utf8");
-	const allRows = JSON.parse(raw) as DatasetRow[];
-	if (!Array.isArray(allRows)) {
-		throw new Error("Dataset must be a JSON array");
+	const allData = JSON.parse(raw) as unknown[];
+	if (!Array.isArray(allData)) throw new Error("Dataset must be a JSON array");
+
+	// Convert to TestCase array (supports both new and legacy format)
+	const allTestCases: TestCase[] = isNewFormat(allData)
+		? (allData as TestCase[])
+		: (allData as LegacyRow[]).map((r, i) => convertLegacyRow(r, i));
+
+	const isV1 = endpoint === "/translate";
+	const multiTurnExcluded = isV1
+		? allTestCases.filter((tc) => tc.type === "multi_turn").length
+		: 0;
+	const eligibleTestCases = isV1
+		? allTestCases.filter((tc) => tc.type !== "multi_turn")
+		: allTestCases;
+
+	if (isV1 && multiTurnExcluded > 0) {
+		console.log(
+			`V1: skipping ${multiTurnExcluded} multi_turn case(s) (V1 has no session/history support)`,
+		);
 	}
 
-	let slice = allRows.slice(offset);
+	let slice = eligibleTestCases.slice(offset);
 	if (limit !== undefined) slice = slice.slice(0, limit);
 
-	const cache = useCache ? loadResultsCache(output) : new Map<string, EvalRow>();
-	if (useCache && cache.size > 0) {
-		console.error(`cache: loaded ${cache.size} query row(s) from ${output}`);
-	}
+	const cache = useCache
+		? loadResultsCache(output)
+		: new Map<string, EvalRow>();
+	if (useCache && cache.size > 0)
+		console.error(`cache: loaded ${cache.size} row(s) from ${output}`);
 
 	const started = Date.now();
 	const results: EvalRow[] = [];
@@ -382,93 +852,74 @@ async function main() {
 	let lastWasApi = false;
 
 	for (let i = 0; i < slice.length; i++) {
-		const row = slice[i]!;
-		const query = row.query?.trim();
-		if (!query) continue;
+		const tc = slice[i]!;
 
-		const expected = row.command?.trim() ?? "";
-		const dslSignature = row.dsl_signature ?? null;
-
-		const hit = cache.get(query);
+		const hit = cache.get(tc.id);
 		if (hit) {
 			results.push({ ...hit, fromCache: true });
 			fromCache++;
 			lastWasApi = false;
 		} else {
 			if (lastWasApi && delayMs > 0) await sleep(delayMs);
-			const { predicted, truncated, error } = await translateQuery(
-				apiUrl,
-				query,
-				retries,
-				endpoint,
-			);
-			const predictedNorm = predicted !== null ? normalizeCommand(predicted) : null;
-			const expectedNorm = normalizeCommand(expected);
-			const refusal = predictedNorm !== null && isRefusal(predictedNorm);
-			const exactMatch =
-				error === null &&
-				predictedNorm !== null &&
-				!refusal &&
-				predictedNorm === expectedNorm;
-			const signatureMatch =
-				error === null &&
-				predictedNorm !== null &&
-				!refusal &&
-				signatureMatches(predictedNorm, dslSignature);
 
-			results.push({
-				query,
-				intent: row.intent ?? "",
-				expectedCommand: expected,
-				dslSignature,
-				predictedCommand: predicted,
-				exactMatch,
-				signatureMatch,
-				refusal,
-				unexpectedRefusal: refusal && expected.length > 0,
-				truncated,
-				error,
-				fromCache: false,
-			});
+			let evalRow: EvalRow;
+			if (tc.type === "multi_turn") {
+				evalRow = await evaluateMultiTurn(
+					tc,
+					apiUrl,
+					retries,
+					endpoint,
+					delayMs,
+				);
+			} else {
+				evalRow = await evaluateReference(tc, apiUrl, retries, endpoint);
+			}
+
+			results.push(evalRow);
 			fromApi++;
 			lastWasApi = true;
 		}
 
 		if ((i + 1) % 25 === 0 || i === slice.length - 1) {
-			const src = hit ? "cache" : "API";
+			const label =
+				tc.type === "reference"
+					? (tc as ReferenceTestCase).query.slice(0, 40)
+					: `MT:${(tc as MultiTurnTestCase).turns[0]?.query.slice(0, 36) ?? ""}`;
 			console.log(
-				`progress ${i + 1}/${slice.length} [${src}] (${query.slice(0, 52)}…)`,
+				`progress ${i + 1}/${slice.length} [${hit ? "cache" : "API"}] (${label}...)`,
 			);
 		}
 	}
 
 	const elapsedMs = Date.now() - started;
 
-	// Merge with prior rows in --out (resume / chunked runs by --offset --limit).
-	const mergedByQuery = new Map<string, EvalRow>();
+	// Merge with prior cached results
+	const mergedById = new Map<string, EvalRow>();
 	if (useCache && fs.existsSync(output)) {
 		try {
-			const prev = JSON.parse(fs.readFileSync(output, "utf8")) as EvalReportFile;
+			const prev = JSON.parse(
+				fs.readFileSync(output, "utf8"),
+			) as EvalReportFile;
 			if (Array.isArray(prev.results)) {
 				for (const row of prev.results) {
 					const e = cacheEntryToEvalRow(row);
-					if (e) mergedByQuery.set(e.query, { ...e, fromCache: true });
+					if (!e) continue;
+					if (isV1 && e.type === "multi_turn") continue;
+					mergedById.set(e.id, { ...e, fromCache: true });
 				}
 			}
 		} catch {
 			/* ignore corrupt prior file */
 		}
 	}
-	for (const r of results) {
-		mergedByQuery.set(r.query, r);
-	}
-	const mergedResults = [...mergedByQuery.values()];
+	for (const r of results) mergedById.set(r.id, r);
+	const mergedResults = [...mergedById.values()];
 
 	const report = {
 		generatedAt: new Date().toISOString(),
 		assistantApiUrl: apiUrl,
 		sourceDataset: path.relative(process.cwd(), input) || input,
-		datasetRowCount: allRows.length,
+		datasetRowCount: allTestCases.length,
 		evaluatedRowCount: mergedResults.length,
 		options: {
 			offset,
@@ -476,6 +927,9 @@ async function main() {
 			delayMsBetweenCalls: delayMs,
 			retriesPerQuery: retries,
 			cacheEnabled: useCache,
+			endpoint,
+			v1ReferenceOnly: isV1,
+			multiTurnExcluded,
 			resultsFromCache: fromCache,
 			resultsFromApi: fromApi,
 			rowsInThisRun: results.length,

@@ -1,0 +1,4106 @@
+[
+  {
+    "id": "ref_001",
+    "type": "reference",
+    "intent": "encode_city",
+    "category": "encoding",
+    "query": "what is the city code for paris",
+    "expected_command": "W/-CCPARIS",
+    "expected_signature": "W/-CC"
+  },
+  {
+    "id": "ref_002",
+    "type": "reference",
+    "intent": "encode_city",
+    "category": "encoding",
+    "query": "encode the city paris",
+    "expected_command": "W/-CCPARIS",
+    "expected_signature": "W/-CC"
+  },
+  {
+    "id": "ref_003",
+    "type": "reference",
+    "intent": "encode_city",
+    "category": "encoding",
+    "query": "how do I get the sabre code for paris",
+    "expected_command": "W/-CCPARIS",
+    "expected_signature": "W/-CC"
+  },
+  {
+    "id": "ref_004",
+    "type": "reference",
+    "intent": "encode_city",
+    "category": "encoding",
+    "query": "city code paris pls",
+    "expected_command": "W/-CCPARIS",
+    "expected_signature": "W/-CC"
+  },
+  {
+    "id": "ref_005",
+    "type": "reference",
+    "intent": "encode_city",
+    "category": "encoding",
+    "query": "find the 3-letter code for paris",
+    "expected_command": "W/-CCPARIS",
+    "expected_signature": "W/-CC"
+  },
+  {
+    "id": "ref_006",
+    "type": "reference",
+    "intent": "encode_city",
+    "category": "encoding",
+    "query": "encode city name paris",
+    "expected_command": "W/-CCPARIS",
+    "expected_signature": "W/-CC"
+  },
+  {
+    "id": "ref_007",
+    "type": "reference",
+    "intent": "encode_city",
+    "category": "encoding",
+    "query": "what's the iata code for paris in sabre",
+    "expected_command": "W/-CCPARIS",
+    "expected_signature": "W/-CC"
+  },
+  {
+    "id": "ref_008",
+    "type": "reference",
+    "intent": "encode_city",
+    "category": "encoding",
+    "query": "what is the city code for london",
+    "expected_command": "W/-CCLONDON",
+    "expected_signature": "W/-CC"
+  },
+  {
+    "id": "ref_009",
+    "type": "reference",
+    "intent": "encode_city",
+    "category": "encoding",
+    "query": "encode the city london",
+    "expected_command": "W/-CCLONDON",
+    "expected_signature": "W/-CC"
+  },
+  {
+    "id": "ref_010",
+    "type": "reference",
+    "intent": "encode_city",
+    "category": "encoding",
+    "query": "city code london pls",
+    "expected_command": "W/-CCLONDON",
+    "expected_signature": "W/-CC"
+  },
+  {
+    "id": "ref_011",
+    "type": "reference",
+    "intent": "encode_city",
+    "category": "encoding",
+    "query": "how do I get the sabre code for london",
+    "expected_command": "W/-CCLONDON",
+    "expected_signature": "W/-CC"
+  },
+  {
+    "id": "ref_012",
+    "type": "reference",
+    "intent": "encode_city",
+    "category": "encoding",
+    "query": "london city code",
+    "expected_command": "W/-CCLONDON",
+    "expected_signature": "W/-CC"
+  },
+  {
+    "id": "ref_013",
+    "type": "reference",
+    "intent": "encode_city",
+    "category": "encoding",
+    "query": "find the 3 letter code for london",
+    "expected_command": "W/-CCLONDON",
+    "expected_signature": "W/-CC"
+  },
+  {
+    "id": "ref_014",
+    "type": "reference",
+    "intent": "encode_city",
+    "category": "encoding",
+    "query": "what's the iata code for london",
+    "expected_command": "W/-CCLONDON",
+    "expected_signature": "W/-CC"
+  },
+  {
+    "id": "ref_015",
+    "type": "reference",
+    "intent": "encode_city",
+    "category": "encoding",
+    "query": "what is the city code for tokyo",
+    "expected_command": "W/-CCTOKYO",
+    "expected_signature": "W/-CC"
+  },
+  {
+    "id": "ref_016",
+    "type": "reference",
+    "intent": "encode_city",
+    "category": "encoding",
+    "query": "encode tokyo to get the sabre code",
+    "expected_command": "W/-CCTOKYO",
+    "expected_signature": "W/-CC"
+  },
+  {
+    "id": "ref_017",
+    "type": "reference",
+    "intent": "encode_city",
+    "category": "encoding",
+    "query": "how do I find the code for tokyo",
+    "expected_command": "W/-CCTOKYO",
+    "expected_signature": "W/-CC"
+  },
+  {
+    "id": "ref_018",
+    "type": "reference",
+    "intent": "encode_city",
+    "category": "encoding",
+    "query": "city code tokyo pls",
+    "expected_command": "W/-CCTOKYO",
+    "expected_signature": "W/-CC"
+  },
+  {
+    "id": "ref_019",
+    "type": "reference",
+    "intent": "encode_city",
+    "category": "encoding",
+    "query": "tokyo city code",
+    "expected_command": "W/-CCTOKYO",
+    "expected_signature": "W/-CC"
+  },
+  {
+    "id": "ref_020",
+    "type": "reference",
+    "intent": "encode_city",
+    "category": "encoding",
+    "query": "can you encode the city name tokyo",
+    "expected_command": "W/-CCTOKYO",
+    "expected_signature": "W/-CC"
+  },
+  {
+    "id": "ref_021",
+    "type": "reference",
+    "intent": "encode_city",
+    "category": "encoding",
+    "query": "what's the 3-letter code for tokyo",
+    "expected_command": "W/-CCTOKYO",
+    "expected_signature": "W/-CC"
+  },
+  {
+    "id": "ref_022",
+    "type": "reference",
+    "intent": "encode_city",
+    "category": "encoding",
+    "query": "find the sabre city code for tokyo",
+    "expected_command": "W/-CCTOKYO",
+    "expected_signature": "W/-CC"
+  },
+  {
+    "id": "ref_023",
+    "type": "reference",
+    "intent": "encode_airport",
+    "category": "encoding",
+    "query": "what is the airport code for heathrow",
+    "expected_command": "W/-APHEATHROW",
+    "expected_signature": "W/-AP"
+  },
+  {
+    "id": "ref_024",
+    "type": "reference",
+    "intent": "encode_airport",
+    "category": "encoding",
+    "query": "encode heathrow airport",
+    "expected_command": "W/-APHEATHROW",
+    "expected_signature": "W/-AP"
+  },
+  {
+    "id": "ref_025",
+    "type": "reference",
+    "intent": "encode_airport",
+    "category": "encoding",
+    "query": "heathrow airport sabre code",
+    "expected_command": "W/-APHEATHROW",
+    "expected_signature": "W/-AP"
+  },
+  {
+    "id": "ref_026",
+    "type": "reference",
+    "intent": "encode_airport",
+    "category": "encoding",
+    "query": "find the code for heathrow",
+    "expected_command": "W/-APHEATHROW",
+    "expected_signature": "W/-AP"
+  },
+  {
+    "id": "ref_027",
+    "type": "reference",
+    "intent": "encode_airport",
+    "category": "encoding",
+    "query": "how do I encode heathrow",
+    "expected_command": "W/-APHEATHROW",
+    "expected_signature": "W/-AP"
+  },
+  {
+    "id": "ref_028",
+    "type": "reference",
+    "intent": "encode_airport",
+    "category": "encoding",
+    "query": "airport code heathrow pls",
+    "expected_command": "W/-APHEATHROW",
+    "expected_signature": "W/-AP"
+  },
+  {
+    "id": "ref_029",
+    "type": "reference",
+    "intent": "encode_airport",
+    "category": "encoding",
+    "query": "w/-ap heathrow airport",
+    "expected_command": "W/-APHEATHROW",
+    "expected_signature": "W/-AP"
+  },
+  {
+    "id": "ref_030",
+    "type": "reference",
+    "intent": "encode_airport",
+    "category": "encoding",
+    "query": "get me the heathrow airport code",
+    "expected_command": "W/-APHEATHROW",
+    "expected_signature": "W/-AP"
+  },
+  {
+    "id": "ref_031",
+    "type": "reference",
+    "intent": "encode_airport",
+    "category": "encoding",
+    "query": "what is the sabre code for charles de gaulle airport",
+    "expected_command": "W/-APCHARLES DE GAULLE",
+    "expected_signature": "W/-AP"
+  },
+  {
+    "id": "ref_032",
+    "type": "reference",
+    "intent": "encode_airport",
+    "category": "encoding",
+    "query": "encode charles de gaulle",
+    "expected_command": "W/-APCHARLES DE GAULLE",
+    "expected_signature": "W/-AP"
+  },
+  {
+    "id": "ref_033",
+    "type": "reference",
+    "intent": "encode_airport",
+    "category": "encoding",
+    "query": "charles de gaulle airport code",
+    "expected_command": "W/-APCHARLES DE GAULLE",
+    "expected_signature": "W/-AP"
+  },
+  {
+    "id": "ref_034",
+    "type": "reference",
+    "intent": "encode_airport",
+    "category": "encoding",
+    "query": "how do i find the code for charles de gaulle",
+    "expected_command": "W/-APCHARLES DE GAULLE",
+    "expected_signature": "W/-AP"
+  },
+  {
+    "id": "ref_035",
+    "type": "reference",
+    "intent": "encode_airport",
+    "category": "encoding",
+    "query": "cdg code charles de gaulle",
+    "expected_command": "W/-APCHARLES DE GAULLE",
+    "expected_signature": "W/-AP"
+  },
+  {
+    "id": "ref_036",
+    "type": "reference",
+    "intent": "encode_airport",
+    "category": "encoding",
+    "query": "airport code charles de gaulle pls",
+    "expected_command": "W/-APCHARLES DE GAULLE",
+    "expected_signature": "W/-AP"
+  },
+  {
+    "id": "ref_037",
+    "type": "reference",
+    "intent": "encode_airport",
+    "category": "encoding",
+    "query": "give me the airport code for charles de gaulle airport",
+    "expected_command": "W/-APCHARLES DE GAULLE",
+    "expected_signature": "W/-AP"
+  },
+  {
+    "id": "ref_038",
+    "type": "reference",
+    "intent": "encode_airport",
+    "category": "encoding",
+    "query": "w/-ap charles de gaulle airport",
+    "expected_command": "W/-APCHARLES DE GAULLE",
+    "expected_signature": "W/-AP"
+  },
+  {
+    "id": "ref_039",
+    "type": "reference",
+    "intent": "encode_airport",
+    "category": "encoding",
+    "query": "what is the airport code for john f kennedy",
+    "expected_command": "W/-APJOHN F KENNEDY",
+    "expected_signature": "W/-AP"
+  },
+  {
+    "id": "ref_040",
+    "type": "reference",
+    "intent": "encode_airport",
+    "category": "encoding",
+    "query": "find the sabre code for john f kennedy airport",
+    "expected_command": "W/-APJOHN F KENNEDY",
+    "expected_signature": "W/-AP"
+  },
+  {
+    "id": "ref_041",
+    "type": "reference",
+    "intent": "encode_airport",
+    "category": "encoding",
+    "query": "how do i encode john f kennedy",
+    "expected_command": "W/-APJOHN F KENNEDY",
+    "expected_signature": "W/-AP"
+  },
+  {
+    "id": "ref_042",
+    "type": "reference",
+    "intent": "encode_airport",
+    "category": "encoding",
+    "query": "airport code jfk john f kennedy",
+    "expected_command": "W/-APJOHN F KENNEDY",
+    "expected_signature": "W/-AP"
+  },
+  {
+    "id": "ref_043",
+    "type": "reference",
+    "intent": "encode_airport",
+    "category": "encoding",
+    "query": "encode airport name john f kennedy",
+    "expected_command": "W/-APJOHN F KENNEDY",
+    "expected_signature": "W/-AP"
+  },
+  {
+    "id": "ref_044",
+    "type": "reference",
+    "intent": "encode_airport",
+    "category": "encoding",
+    "query": "what's the 3-letter code for john f kennedy",
+    "expected_command": "W/-APJOHN F KENNEDY",
+    "expected_signature": "W/-AP"
+  },
+  {
+    "id": "ref_045",
+    "type": "reference",
+    "intent": "encode_airport",
+    "category": "encoding",
+    "query": "jfk airport code sabre lookup",
+    "expected_command": "W/-APJOHN F KENNEDY",
+    "expected_signature": "W/-AP"
+  },
+  {
+    "id": "ref_046",
+    "type": "reference",
+    "intent": "encode_airport",
+    "category": "encoding",
+    "query": "can you give me the code for john f kennedy airport pls",
+    "expected_command": "W/-APJOHN F KENNEDY",
+    "expected_signature": "W/-AP"
+  },
+  {
+    "id": "ref_047",
+    "type": "reference",
+    "intent": "encode_airline",
+    "category": "encoding",
+    "query": "what is the 2-letter code for lufthansa",
+    "expected_command": "W/-ALLUFTHANSA",
+    "expected_signature": "W/-AL"
+  },
+  {
+    "id": "ref_048",
+    "type": "reference",
+    "intent": "encode_airline",
+    "category": "encoding",
+    "query": "encode lufthansa airline",
+    "expected_command": "W/-ALLUFTHANSA",
+    "expected_signature": "W/-AL"
+  },
+  {
+    "id": "ref_049",
+    "type": "reference",
+    "intent": "encode_airline",
+    "category": "encoding",
+    "query": "how do i get the sabre code for lufthansa",
+    "expected_command": "W/-ALLUFTHANSA",
+    "expected_signature": "W/-AL"
+  },
+  {
+    "id": "ref_050",
+    "type": "reference",
+    "intent": "encode_airline",
+    "category": "encoding",
+    "query": "lufthansa airline code pls",
+    "expected_command": "W/-ALLUFTHANSA",
+    "expected_signature": "W/-AL"
+  },
+  {
+    "id": "ref_051",
+    "type": "reference",
+    "intent": "encode_airline",
+    "category": "encoding",
+    "query": "find the iata code for lufthansa",
+    "expected_command": "W/-ALLUFTHANSA",
+    "expected_signature": "W/-AL"
+  },
+  {
+    "id": "ref_052",
+    "type": "reference",
+    "intent": "encode_airline",
+    "category": "encoding",
+    "query": "what's the code for this airline lufthansa",
+    "expected_command": "W/-ALLUFTHANSA",
+    "expected_signature": "W/-AL"
+  },
+  {
+    "id": "ref_053",
+    "type": "reference",
+    "intent": "encode_airline",
+    "category": "encoding",
+    "query": "airline code lufthansa",
+    "expected_command": "W/-ALLUFTHANSA",
+    "expected_signature": "W/-AL"
+  },
+  {
+    "id": "ref_054",
+    "type": "reference",
+    "intent": "encode_airline",
+    "category": "encoding",
+    "query": "encode airline name lufthansa",
+    "expected_command": "W/-ALLUFTHANSA",
+    "expected_signature": "W/-AL"
+  },
+  {
+    "id": "ref_055",
+    "type": "reference",
+    "intent": "encode_airline",
+    "category": "encoding",
+    "query": "what is the 2-letter code for air france",
+    "expected_command": "W/-ALAIR FRANCE",
+    "expected_signature": "W/-AL"
+  },
+  {
+    "id": "ref_056",
+    "type": "reference",
+    "intent": "encode_airline",
+    "category": "encoding",
+    "query": "how do I encode air france airline",
+    "expected_command": "W/-ALAIR FRANCE",
+    "expected_signature": "W/-AL"
+  },
+  {
+    "id": "ref_057",
+    "type": "reference",
+    "intent": "encode_airline",
+    "category": "encoding",
+    "query": "find the airline code for air france",
+    "expected_command": "W/-ALAIR FRANCE",
+    "expected_signature": "W/-AL"
+  },
+  {
+    "id": "ref_058",
+    "type": "reference",
+    "intent": "encode_airline",
+    "category": "encoding",
+    "query": "airline code air france",
+    "expected_command": "W/-ALAIR FRANCE",
+    "expected_signature": "W/-AL"
+  },
+  {
+    "id": "ref_059",
+    "type": "reference",
+    "intent": "encode_airline",
+    "category": "encoding",
+    "query": "encode air france pls",
+    "expected_command": "W/-ALAIR FRANCE",
+    "expected_signature": "W/-AL"
+  },
+  {
+    "id": "ref_060",
+    "type": "reference",
+    "intent": "encode_airline",
+    "category": "encoding",
+    "query": "what's the sabre code for air france",
+    "expected_command": "W/-ALAIR FRANCE",
+    "expected_signature": "W/-AL"
+  },
+  {
+    "id": "ref_061",
+    "type": "reference",
+    "intent": "encode_airline",
+    "category": "encoding",
+    "query": "air france airline code",
+    "expected_command": "W/-ALAIR FRANCE",
+    "expected_signature": "W/-AL"
+  },
+  {
+    "id": "ref_062",
+    "type": "reference",
+    "intent": "encode_airline",
+    "category": "encoding",
+    "query": "get me the 2-letter code for air france",
+    "expected_command": "W/-ALAIR FRANCE",
+    "expected_signature": "W/-AL"
+  },
+  {
+    "id": "ref_063",
+    "type": "reference",
+    "intent": "encode_airline",
+    "category": "encoding",
+    "query": "what is the 2-letter code for emirates",
+    "expected_command": "W/-ALEMIRATES",
+    "expected_signature": "W/-AL"
+  },
+  {
+    "id": "ref_064",
+    "type": "reference",
+    "intent": "encode_airline",
+    "category": "encoding",
+    "query": "encode emirates airline",
+    "expected_command": "W/-ALEMIRATES",
+    "expected_signature": "W/-AL"
+  },
+  {
+    "id": "ref_065",
+    "type": "reference",
+    "intent": "encode_airline",
+    "category": "encoding",
+    "query": "emirates airline code pls",
+    "expected_command": "W/-ALEMIRATES",
+    "expected_signature": "W/-AL"
+  },
+  {
+    "id": "ref_066",
+    "type": "reference",
+    "intent": "encode_airline",
+    "category": "encoding",
+    "query": "how do I get the sabre code for emirates",
+    "expected_command": "W/-ALEMIRATES",
+    "expected_signature": "W/-AL"
+  },
+  {
+    "id": "ref_067",
+    "type": "reference",
+    "intent": "encode_airline",
+    "category": "encoding",
+    "query": "find the iata code for emirates airlines",
+    "expected_command": "W/-ALEMIRATES",
+    "expected_signature": "W/-AL"
+  },
+  {
+    "id": "ref_068",
+    "type": "reference",
+    "intent": "encode_airline",
+    "category": "encoding",
+    "query": "airline code emirates",
+    "expected_command": "W/-ALEMIRATES",
+    "expected_signature": "W/-AL"
+  },
+  {
+    "id": "ref_069",
+    "type": "reference",
+    "intent": "encode_airline",
+    "category": "encoding",
+    "query": "what's the code for emirats airline",
+    "expected_command": "W/-ALEMIRATES",
+    "expected_signature": "W/-AL"
+  },
+  {
+    "id": "ref_070",
+    "type": "reference",
+    "intent": "encode_airline",
+    "category": "encoding",
+    "query": "encode airline name emirates",
+    "expected_command": "W/-ALEMIRATES",
+    "expected_signature": "W/-AL"
+  },
+  {
+    "id": "ref_071",
+    "type": "reference",
+    "intent": "encode_aircraft_type",
+    "category": "encoding",
+    "query": "what is the equipment code for airbus a320",
+    "expected_command": "W/EQ-AIRBUS A320",
+    "expected_signature": "W/EQ-"
+  },
+  {
+    "id": "ref_072",
+    "type": "reference",
+    "intent": "encode_aircraft_type",
+    "category": "encoding",
+    "query": "encode airbus a320 aircraft type",
+    "expected_command": "W/EQ-AIRBUS A320",
+    "expected_signature": "W/EQ-"
+  },
+  {
+    "id": "ref_073",
+    "type": "reference",
+    "intent": "encode_aircraft_type",
+    "category": "encoding",
+    "query": "how do i get the plane code for airbus a320",
+    "expected_command": "W/EQ-AIRBUS A320",
+    "expected_signature": "W/EQ-"
+  },
+  {
+    "id": "ref_074",
+    "type": "reference",
+    "intent": "encode_aircraft_type",
+    "category": "encoding",
+    "query": "airbus a320 equipment code pls",
+    "expected_command": "W/EQ-AIRBUS A320",
+    "expected_signature": "W/EQ-"
+  },
+  {
+    "id": "ref_075",
+    "type": "reference",
+    "intent": "encode_aircraft_type",
+    "category": "encoding",
+    "query": "find the aircraft code for a320",
+    "expected_command": "W/EQ-AIRBUS A320",
+    "expected_signature": "W/EQ-"
+  },
+  {
+    "id": "ref_076",
+    "type": "reference",
+    "intent": "encode_aircraft_type",
+    "category": "encoding",
+    "query": "w/eq airbus a320",
+    "expected_command": "W/EQ-AIRBUS A320",
+    "expected_signature": "W/EQ-"
+  },
+  {
+    "id": "ref_077",
+    "type": "reference",
+    "intent": "encode_aircraft_type",
+    "category": "encoding",
+    "query": "encode equipment airbus a320",
+    "expected_command": "W/EQ-AIRBUS A320",
+    "expected_signature": "W/EQ-"
+  },
+  {
+    "id": "ref_078",
+    "type": "reference",
+    "intent": "encode_aircraft_type",
+    "category": "encoding",
+    "query": "what's the sabre code for an airbus a320 plane",
+    "expected_command": "W/EQ-AIRBUS A320",
+    "expected_signature": "W/EQ-"
+  },
+  {
+    "id": "ref_079",
+    "type": "reference",
+    "intent": "encode_aircraft_type",
+    "category": "encoding",
+    "query": "what is the equipment code for a boeing 737",
+    "expected_command": "W/EQ-BOEING 737",
+    "expected_signature": "W/EQ-"
+  },
+  {
+    "id": "ref_080",
+    "type": "reference",
+    "intent": "encode_aircraft_type",
+    "category": "encoding",
+    "query": "encode boeing 737 aircraft type",
+    "expected_command": "W/EQ-BOEING 737",
+    "expected_signature": "W/EQ-"
+  },
+  {
+    "id": "ref_081",
+    "type": "reference",
+    "intent": "encode_aircraft_type",
+    "category": "encoding",
+    "query": "how do I find the plane code for a 737",
+    "expected_command": "W/EQ-BOEING 737",
+    "expected_signature": "W/EQ-"
+  },
+  {
+    "id": "ref_082",
+    "type": "reference",
+    "intent": "encode_aircraft_type",
+    "category": "encoding",
+    "query": "boeing 737 equipment code pls",
+    "expected_command": "W/EQ-BOEING 737",
+    "expected_signature": "W/EQ-"
+  },
+  {
+    "id": "ref_083",
+    "type": "reference",
+    "intent": "encode_aircraft_type",
+    "category": "encoding",
+    "query": "encode the boeing 737",
+    "expected_command": "W/EQ-BOEING 737",
+    "expected_signature": "W/EQ-"
+  },
+  {
+    "id": "ref_084",
+    "type": "reference",
+    "intent": "encode_aircraft_type",
+    "category": "encoding",
+    "query": "what's the sabre code for a boeing 737 aircraft",
+    "expected_command": "W/EQ-BOEING 737",
+    "expected_signature": "W/EQ-"
+  },
+  {
+    "id": "ref_085",
+    "type": "reference",
+    "intent": "encode_aircraft_type",
+    "category": "encoding",
+    "query": "find aircraft code boeing 737",
+    "expected_command": "W/EQ-BOEING 737",
+    "expected_signature": "W/EQ-"
+  },
+  {
+    "id": "ref_086",
+    "type": "reference",
+    "intent": "encode_aircraft_type",
+    "category": "encoding",
+    "query": "b737 equipment encode",
+    "expected_command": "W/EQ-BOEING 737",
+    "expected_signature": "W/EQ-"
+  },
+  {
+    "id": "ref_087",
+    "type": "reference",
+    "intent": "encode_aircraft_type",
+    "category": "encoding",
+    "query": "what is the equipment code for a boeing 777",
+    "expected_command": "W/EQ-BOEING 777",
+    "expected_signature": "W/EQ-"
+  },
+  {
+    "id": "ref_088",
+    "type": "reference",
+    "intent": "encode_aircraft_type",
+    "category": "encoding",
+    "query": "encode boeing 777",
+    "expected_command": "W/EQ-BOEING 777",
+    "expected_signature": "W/EQ-"
+  },
+  {
+    "id": "ref_089",
+    "type": "reference",
+    "intent": "encode_aircraft_type",
+    "category": "encoding",
+    "query": "boeing 777 aircraft code pls",
+    "expected_command": "W/EQ-BOEING 777",
+    "expected_signature": "W/EQ-"
+  },
+  {
+    "id": "ref_090",
+    "type": "reference",
+    "intent": "encode_aircraft_type",
+    "category": "encoding",
+    "query": "how do I find the plane code for boeing 777",
+    "expected_command": "W/EQ-BOEING 777",
+    "expected_signature": "W/EQ-"
+  },
+  {
+    "id": "ref_091",
+    "type": "reference",
+    "intent": "encode_aircraft_type",
+    "category": "encoding",
+    "query": "w/eq boeing 777",
+    "expected_command": "W/EQ-BOEING 777",
+    "expected_signature": "W/EQ-"
+  },
+  {
+    "id": "ref_092",
+    "type": "reference",
+    "intent": "encode_aircraft_type",
+    "category": "encoding",
+    "query": "aircraft type code boeing 777",
+    "expected_command": "W/EQ-BOEING 777",
+    "expected_signature": "W/EQ-"
+  },
+  {
+    "id": "ref_093",
+    "type": "reference",
+    "intent": "encode_aircraft_type",
+    "category": "encoding",
+    "query": "equipment code for the 777",
+    "expected_command": "W/EQ-BOEING 777",
+    "expected_signature": "W/EQ-"
+  },
+  {
+    "id": "ref_094",
+    "type": "reference",
+    "intent": "encode_aircraft_type",
+    "category": "encoding",
+    "query": "find the eq code for a 777",
+    "expected_command": "W/EQ-BOEING 777",
+    "expected_signature": "W/EQ-"
+  },
+  {
+    "id": "ref_095",
+    "type": "reference",
+    "intent": "decode_city_airport",
+    "category": "decoding",
+    "query": "what airport is CDG",
+    "expected_command": "W/*CDG",
+    "expected_signature": "W/*"
+  },
+  {
+    "id": "ref_096",
+    "type": "reference",
+    "intent": "decode_city_airport",
+    "category": "decoding",
+    "query": "decode the city code CDG",
+    "expected_command": "W/*CDG",
+    "expected_signature": "W/*"
+  },
+  {
+    "id": "ref_097",
+    "type": "reference",
+    "intent": "decode_city_airport",
+    "category": "decoding",
+    "query": "which city corresponds to CDG",
+    "expected_command": "W/*CDG",
+    "expected_signature": "W/*"
+  },
+  {
+    "id": "ref_098",
+    "type": "reference",
+    "intent": "decode_city_airport",
+    "category": "decoding",
+    "query": "airport CDG meaning",
+    "expected_command": "W/*CDG",
+    "expected_signature": "W/*"
+  },
+  {
+    "id": "ref_099",
+    "type": "reference",
+    "intent": "decode_city_airport",
+    "category": "decoding",
+    "query": "what city is CDG",
+    "expected_command": "W/*CDG",
+    "expected_signature": "W/*"
+  },
+  {
+    "id": "ref_100",
+    "type": "reference",
+    "intent": "decode_city_airport",
+    "category": "decoding",
+    "query": "decode CDG for me",
+    "expected_command": "W/*CDG",
+    "expected_signature": "W/*"
+  },
+  {
+    "id": "ref_101",
+    "type": "reference",
+    "intent": "decode_city_airport",
+    "category": "decoding",
+    "query": "CDG airport pls",
+    "expected_command": "W/*CDG",
+    "expected_signature": "W/*"
+  },
+  {
+    "id": "ref_102",
+    "type": "reference",
+    "intent": "decode_city_airport",
+    "category": "decoding",
+    "query": "what does CDG stand for",
+    "expected_command": "W/*CDG",
+    "expected_signature": "W/*"
+  },
+  {
+    "id": "ref_103",
+    "type": "reference",
+    "intent": "decode_city_airport",
+    "category": "decoding",
+    "query": "what airport is JFK",
+    "expected_command": "W/*JFK",
+    "expected_signature": "W/*"
+  },
+  {
+    "id": "ref_104",
+    "type": "reference",
+    "intent": "decode_city_airport",
+    "category": "decoding",
+    "query": "decode the city code JFK",
+    "expected_command": "W/*JFK",
+    "expected_signature": "W/*"
+  },
+  {
+    "id": "ref_105",
+    "type": "reference",
+    "intent": "decode_city_airport",
+    "category": "decoding",
+    "query": "which city corresponds to JFK",
+    "expected_command": "W/*JFK",
+    "expected_signature": "W/*"
+  },
+  {
+    "id": "ref_106",
+    "type": "reference",
+    "intent": "decode_city_airport",
+    "category": "decoding",
+    "query": "airport JFK meaning",
+    "expected_command": "W/*JFK",
+    "expected_signature": "W/*"
+  },
+  {
+    "id": "ref_107",
+    "type": "reference",
+    "intent": "decode_city_airport",
+    "category": "decoding",
+    "query": "what city is JFK code",
+    "expected_command": "W/*JFK",
+    "expected_signature": "W/*"
+  },
+  {
+    "id": "ref_108",
+    "type": "reference",
+    "intent": "decode_city_airport",
+    "category": "decoding",
+    "query": "decode JFK for me",
+    "expected_command": "W/*JFK",
+    "expected_signature": "W/*"
+  },
+  {
+    "id": "ref_109",
+    "type": "reference",
+    "intent": "decode_city_airport",
+    "category": "decoding",
+    "query": "what does JFK stand for",
+    "expected_command": "W/*JFK",
+    "expected_signature": "W/*"
+  },
+  {
+    "id": "ref_110",
+    "type": "reference",
+    "intent": "decode_city_airport",
+    "category": "decoding",
+    "query": "JFK airport full name pls",
+    "expected_command": "W/*JFK",
+    "expected_signature": "W/*"
+  },
+  {
+    "id": "ref_111",
+    "type": "reference",
+    "intent": "decode_city_airport",
+    "category": "decoding",
+    "query": "what airport is LHR",
+    "expected_command": "W/*LHR",
+    "expected_signature": "W/*"
+  },
+  {
+    "id": "ref_112",
+    "type": "reference",
+    "intent": "decode_city_airport",
+    "category": "decoding",
+    "query": "decode the city code LHR",
+    "expected_command": "W/*LHR",
+    "expected_signature": "W/*"
+  },
+  {
+    "id": "ref_113",
+    "type": "reference",
+    "intent": "decode_city_airport",
+    "category": "decoding",
+    "query": "which city corresponds to LHR",
+    "expected_command": "W/*LHR",
+    "expected_signature": "W/*"
+  },
+  {
+    "id": "ref_114",
+    "type": "reference",
+    "intent": "decode_city_airport",
+    "category": "decoding",
+    "query": "airport LHR meaning",
+    "expected_command": "W/*LHR",
+    "expected_signature": "W/*"
+  },
+  {
+    "id": "ref_115",
+    "type": "reference",
+    "intent": "decode_city_airport",
+    "category": "decoding",
+    "query": "what city is LHR",
+    "expected_command": "W/*LHR",
+    "expected_signature": "W/*"
+  },
+  {
+    "id": "ref_116",
+    "type": "reference",
+    "intent": "decode_city_airport",
+    "category": "decoding",
+    "query": "decode airport code LHR",
+    "expected_command": "W/*LHR",
+    "expected_signature": "W/*"
+  },
+  {
+    "id": "ref_117",
+    "type": "reference",
+    "intent": "decode_city_airport",
+    "category": "decoding",
+    "query": "what airport is this LHR",
+    "expected_command": "W/*LHR",
+    "expected_signature": "W/*"
+  },
+  {
+    "id": "ref_118",
+    "type": "reference",
+    "intent": "decode_city_airport",
+    "category": "decoding",
+    "query": "LHR airport pls",
+    "expected_command": "W/*LHR",
+    "expected_signature": "W/*"
+  },
+  {
+    "id": "ref_119",
+    "type": "reference",
+    "intent": "decode_airline",
+    "category": "decoding",
+    "query": "what airline is AF",
+    "expected_command": "W/*AF",
+    "expected_signature": "W/*"
+  },
+  {
+    "id": "ref_120",
+    "type": "reference",
+    "intent": "decode_airline",
+    "category": "decoding",
+    "query": "decode AF airline code",
+    "expected_command": "W/*AF",
+    "expected_signature": "W/*"
+  },
+  {
+    "id": "ref_121",
+    "type": "reference",
+    "intent": "decode_airline",
+    "category": "decoding",
+    "query": "AF carrier code meaning",
+    "expected_command": "W/*AF",
+    "expected_signature": "W/*"
+  },
+  {
+    "id": "ref_122",
+    "type": "reference",
+    "intent": "decode_airline",
+    "category": "decoding",
+    "query": "which airline does AF stand for",
+    "expected_command": "W/*AF",
+    "expected_signature": "W/*"
+  },
+  {
+    "id": "ref_123",
+    "type": "reference",
+    "intent": "decode_airline",
+    "category": "decoding",
+    "query": "what does AF mean in airlines",
+    "expected_command": "W/*AF",
+    "expected_signature": "W/*"
+  },
+  {
+    "id": "ref_124",
+    "type": "reference",
+    "intent": "decode_airline",
+    "category": "decoding",
+    "query": "translate airline code AF",
+    "expected_command": "W/*AF",
+    "expected_signature": "W/*"
+  },
+  {
+    "id": "ref_125",
+    "type": "reference",
+    "intent": "decode_airline",
+    "category": "decoding",
+    "query": "AF airline name pls",
+    "expected_command": "W/*AF",
+    "expected_signature": "W/*"
+  },
+  {
+    "id": "ref_126",
+    "type": "reference",
+    "intent": "decode_airline",
+    "category": "decoding",
+    "query": "carrier AF what airline",
+    "expected_command": "W/*AF",
+    "expected_signature": "W/*"
+  },
+  {
+    "id": "ref_127",
+    "type": "reference",
+    "intent": "decode_airline",
+    "category": "decoding",
+    "query": "what airline is LH",
+    "expected_command": "W/*LH",
+    "expected_signature": "W/*"
+  },
+  {
+    "id": "ref_128",
+    "type": "reference",
+    "intent": "decode_airline",
+    "category": "decoding",
+    "query": "decode airline code LH",
+    "expected_command": "W/*LH",
+    "expected_signature": "W/*"
+  },
+  {
+    "id": "ref_129",
+    "type": "reference",
+    "intent": "decode_airline",
+    "category": "decoding",
+    "query": "LH airline meaning",
+    "expected_command": "W/*LH",
+    "expected_signature": "W/*"
+  },
+  {
+    "id": "ref_130",
+    "type": "reference",
+    "intent": "decode_airline",
+    "category": "decoding",
+    "query": "which carrier is LH",
+    "expected_command": "W/*LH",
+    "expected_signature": "W/*"
+  },
+  {
+    "id": "ref_131",
+    "type": "reference",
+    "intent": "decode_airline",
+    "category": "decoding",
+    "query": "what does LH stand for",
+    "expected_command": "W/*LH",
+    "expected_signature": "W/*"
+  },
+  {
+    "id": "ref_132",
+    "type": "reference",
+    "intent": "decode_airline",
+    "category": "decoding",
+    "query": "airline LH full name",
+    "expected_command": "W/*LH",
+    "expected_signature": "W/*"
+  },
+  {
+    "id": "ref_133",
+    "type": "reference",
+    "intent": "decode_airline",
+    "category": "decoding",
+    "query": "translate LH carrier code",
+    "expected_command": "W/*LH",
+    "expected_signature": "W/*"
+  },
+  {
+    "id": "ref_134",
+    "type": "reference",
+    "intent": "decode_airline",
+    "category": "decoding",
+    "query": "LH - what airline is this",
+    "expected_command": "W/*LH",
+    "expected_signature": "W/*"
+  },
+  {
+    "id": "ref_135",
+    "type": "reference",
+    "intent": "decode_airline",
+    "category": "decoding",
+    "query": "what airline is DL",
+    "expected_command": "W/*DL",
+    "expected_signature": "W/*"
+  },
+  {
+    "id": "ref_136",
+    "type": "reference",
+    "intent": "decode_airline",
+    "category": "decoding",
+    "query": "decode airline code DL",
+    "expected_command": "W/*DL",
+    "expected_signature": "W/*"
+  },
+  {
+    "id": "ref_137",
+    "type": "reference",
+    "intent": "decode_airline",
+    "category": "decoding",
+    "query": "DL airline meaning",
+    "expected_command": "W/*DL",
+    "expected_signature": "W/*"
+  },
+  {
+    "id": "ref_138",
+    "type": "reference",
+    "intent": "decode_airline",
+    "category": "decoding",
+    "query": "which carrier is DL",
+    "expected_command": "W/*DL",
+    "expected_signature": "W/*"
+  },
+  {
+    "id": "ref_139",
+    "type": "reference",
+    "intent": "decode_airline",
+    "category": "decoding",
+    "query": "what does DL stand for",
+    "expected_command": "W/*DL",
+    "expected_signature": "W/*"
+  },
+  {
+    "id": "ref_140",
+    "type": "reference",
+    "intent": "decode_airline",
+    "category": "decoding",
+    "query": "airline DL pls",
+    "expected_command": "W/*DL",
+    "expected_signature": "W/*"
+  },
+  {
+    "id": "ref_141",
+    "type": "reference",
+    "intent": "decode_airline",
+    "category": "decoding",
+    "query": "DL - what airline",
+    "expected_command": "W/*DL",
+    "expected_signature": "W/*"
+  },
+  {
+    "id": "ref_142",
+    "type": "reference",
+    "intent": "decode_airline",
+    "category": "decoding",
+    "query": "translate DL airline code",
+    "expected_command": "W/*DL",
+    "expected_signature": "W/*"
+  },
+  {
+    "id": "ref_143",
+    "type": "reference",
+    "intent": "decode_aircraft_type",
+    "category": "decoding",
+    "query": "what plane is a 320",
+    "expected_command": "W/EQ*320",
+    "expected_signature": "W/EQ*"
+  },
+  {
+    "id": "ref_144",
+    "type": "reference",
+    "intent": "decode_aircraft_type",
+    "category": "decoding",
+    "query": "decode equipment code 320",
+    "expected_command": "W/EQ*320",
+    "expected_signature": "W/EQ*"
+  },
+  {
+    "id": "ref_145",
+    "type": "reference",
+    "intent": "decode_aircraft_type",
+    "category": "decoding",
+    "query": "what aircraft type is 320",
+    "expected_command": "W/EQ*320",
+    "expected_signature": "W/EQ*"
+  },
+  {
+    "id": "ref_146",
+    "type": "reference",
+    "intent": "decode_aircraft_type",
+    "category": "decoding",
+    "query": "equipment code 320 meaning",
+    "expected_command": "W/EQ*320",
+    "expected_signature": "W/EQ*"
+  },
+  {
+    "id": "ref_147",
+    "type": "reference",
+    "intent": "decode_aircraft_type",
+    "category": "decoding",
+    "query": "translate 320 aircraft code",
+    "expected_command": "W/EQ*320",
+    "expected_signature": "W/EQ*"
+  },
+  {
+    "id": "ref_148",
+    "type": "reference",
+    "intent": "decode_aircraft_type",
+    "category": "decoding",
+    "query": "what does 320 stand for in sabre",
+    "expected_command": "W/EQ*320",
+    "expected_signature": "W/EQ*"
+  },
+  {
+    "id": "ref_149",
+    "type": "reference",
+    "intent": "decode_aircraft_type",
+    "category": "decoding",
+    "query": "decode 320 plane type",
+    "expected_command": "W/EQ*320",
+    "expected_signature": "W/EQ*"
+  },
+  {
+    "id": "ref_150",
+    "type": "reference",
+    "intent": "decode_aircraft_type",
+    "category": "decoding",
+    "query": "320 aircraft - what is it",
+    "expected_command": "W/EQ*320",
+    "expected_signature": "W/EQ*"
+  },
+  {
+    "id": "ref_151",
+    "type": "reference",
+    "intent": "decode_aircraft_type",
+    "category": "decoding",
+    "query": "what aircraft is 737",
+    "expected_command": "W/EQ*737",
+    "expected_signature": "W/EQ*"
+  },
+  {
+    "id": "ref_152",
+    "type": "reference",
+    "intent": "decode_aircraft_type",
+    "category": "decoding",
+    "query": "decode the 737 equipment code",
+    "expected_command": "W/EQ*737",
+    "expected_signature": "W/EQ*"
+  },
+  {
+    "id": "ref_153",
+    "type": "reference",
+    "intent": "decode_aircraft_type",
+    "category": "decoding",
+    "query": "what plane type is 737",
+    "expected_command": "W/EQ*737",
+    "expected_signature": "W/EQ*"
+  },
+  {
+    "id": "ref_154",
+    "type": "reference",
+    "intent": "decode_aircraft_type",
+    "category": "decoding",
+    "query": "equipment code 737 meaning",
+    "expected_command": "W/EQ*737",
+    "expected_signature": "W/EQ*"
+  },
+  {
+    "id": "ref_155",
+    "type": "reference",
+    "intent": "decode_aircraft_type",
+    "category": "decoding",
+    "query": "translate 737 aircraft type",
+    "expected_command": "W/EQ*737",
+    "expected_signature": "W/EQ*"
+  },
+  {
+    "id": "ref_156",
+    "type": "reference",
+    "intent": "decode_aircraft_type",
+    "category": "decoding",
+    "query": "what does 737 mean in sabre",
+    "expected_command": "W/EQ*737",
+    "expected_signature": "W/EQ*"
+  },
+  {
+    "id": "ref_157",
+    "type": "reference",
+    "intent": "decode_aircraft_type",
+    "category": "decoding",
+    "query": "can you decode 737 for me",
+    "expected_command": "W/EQ*737",
+    "expected_signature": "W/EQ*"
+  },
+  {
+    "id": "ref_158",
+    "type": "reference",
+    "intent": "decode_aircraft_type",
+    "category": "decoding",
+    "query": "737 aircraft type pls",
+    "expected_command": "W/EQ*737",
+    "expected_signature": "W/EQ*"
+  },
+  {
+    "id": "ref_159",
+    "type": "reference",
+    "intent": "decode_aircraft_type",
+    "category": "decoding",
+    "query": "what aircraft is 777",
+    "expected_command": "W/EQ*777",
+    "expected_signature": "W/EQ*"
+  },
+  {
+    "id": "ref_160",
+    "type": "reference",
+    "intent": "decode_aircraft_type",
+    "category": "decoding",
+    "query": "decode equipment code 777",
+    "expected_command": "W/EQ*777",
+    "expected_signature": "W/EQ*"
+  },
+  {
+    "id": "ref_161",
+    "type": "reference",
+    "intent": "decode_aircraft_type",
+    "category": "decoding",
+    "query": "what plane is a 777",
+    "expected_command": "W/EQ*777",
+    "expected_signature": "W/EQ*"
+  },
+  {
+    "id": "ref_162",
+    "type": "reference",
+    "intent": "decode_aircraft_type",
+    "category": "decoding",
+    "query": "equipment code 777 meaning",
+    "expected_command": "W/EQ*777",
+    "expected_signature": "W/EQ*"
+  },
+  {
+    "id": "ref_163",
+    "type": "reference",
+    "intent": "decode_aircraft_type",
+    "category": "decoding",
+    "query": "translate 777 aircraft type",
+    "expected_command": "W/EQ*777",
+    "expected_signature": "W/EQ*"
+  },
+  {
+    "id": "ref_164",
+    "type": "reference",
+    "intent": "decode_aircraft_type",
+    "category": "decoding",
+    "query": "777 plane type pls",
+    "expected_command": "W/EQ*777",
+    "expected_signature": "W/EQ*"
+  },
+  {
+    "id": "ref_165",
+    "type": "reference",
+    "intent": "decode_aircraft_type",
+    "category": "decoding",
+    "query": "what does 777 mean in sabre",
+    "expected_command": "W/EQ*777",
+    "expected_signature": "W/EQ*"
+  },
+  {
+    "id": "ref_166",
+    "type": "reference",
+    "intent": "decode_aircraft_type",
+    "category": "decoding",
+    "query": "decode 777 eq code",
+    "expected_command": "W/EQ*777",
+    "expected_signature": "W/EQ*"
+  },
+  {
+    "id": "ref_167",
+    "type": "reference",
+    "intent": "find_closest_airports_state",
+    "category": "encoding",
+    "query": "what are the closest airports to columbus ohio",
+    "expected_command": "W/-CYCOLUMBUS, OH",
+    "expected_signature": "W/-CY"
+  },
+  {
+    "id": "ref_168",
+    "type": "reference",
+    "intent": "find_closest_airports_state",
+    "category": "encoding",
+    "query": "find nearest airports to columbus oh",
+    "expected_command": "W/-CYCOLUMBUS, OH",
+    "expected_signature": "W/-CY"
+  },
+  {
+    "id": "ref_169",
+    "type": "reference",
+    "intent": "find_closest_airports_state",
+    "category": "encoding",
+    "query": "show me airports near columbus in ohio state",
+    "expected_command": "W/-CYCOLUMBUS, OH",
+    "expected_signature": "W/-CY"
+  },
+  {
+    "id": "ref_170",
+    "type": "reference",
+    "intent": "find_closest_airports_state",
+    "category": "encoding",
+    "query": "closest airports to columbus ohio pls",
+    "expected_command": "W/-CYCOLUMBUS, OH",
+    "expected_signature": "W/-CY"
+  },
+  {
+    "id": "ref_171",
+    "type": "reference",
+    "intent": "find_closest_airports_state",
+    "category": "encoding",
+    "query": "airports around columbus oh",
+    "expected_command": "W/-CYCOLUMBUS, OH",
+    "expected_signature": "W/-CY"
+  },
+  {
+    "id": "ref_172",
+    "type": "reference",
+    "intent": "find_closest_airports_state",
+    "category": "encoding",
+    "query": "nearest airports to this city columbus ohio",
+    "expected_command": "W/-CYCOLUMBUS, OH",
+    "expected_signature": "W/-CY"
+  },
+  {
+    "id": "ref_173",
+    "type": "reference",
+    "intent": "find_closest_airports_state",
+    "category": "encoding",
+    "query": "find nearby airports columbus, oh",
+    "expected_command": "W/-CYCOLUMBUS, OH",
+    "expected_signature": "W/-CY"
+  },
+  {
+    "id": "ref_174",
+    "type": "reference",
+    "intent": "find_closest_airports_state",
+    "category": "encoding",
+    "query": "what airports are closest to columbus ohio area",
+    "expected_command": "W/-CYCOLUMBUS, OH",
+    "expected_signature": "W/-CY"
+  },
+  {
+    "id": "ref_175",
+    "type": "reference",
+    "intent": "find_closest_airports_state",
+    "category": "encoding",
+    "query": "what are the closest airports to Dallas Texas",
+    "expected_command": "W/-CYDALLAS, TX",
+    "expected_signature": "W/-CY"
+  },
+  {
+    "id": "ref_176",
+    "type": "reference",
+    "intent": "find_closest_airports_state",
+    "category": "encoding",
+    "query": "find nearest airports to dallas tx",
+    "expected_command": "W/-CYDALLAS, TX",
+    "expected_signature": "W/-CY"
+  },
+  {
+    "id": "ref_177",
+    "type": "reference",
+    "intent": "find_closest_airports_state",
+    "category": "encoding",
+    "query": "show me airports near dallas in texas",
+    "expected_command": "W/-CYDALLAS, TX",
+    "expected_signature": "W/-CY"
+  },
+  {
+    "id": "ref_178",
+    "type": "reference",
+    "intent": "find_closest_airports_state",
+    "category": "encoding",
+    "query": "airports around dallas tx pls",
+    "expected_command": "W/-CYDALLAS, TX",
+    "expected_signature": "W/-CY"
+  },
+  {
+    "id": "ref_179",
+    "type": "reference",
+    "intent": "find_closest_airports_state",
+    "category": "encoding",
+    "query": "closest airports to dallas, tx",
+    "expected_command": "W/-CYDALLAS, TX",
+    "expected_signature": "W/-CY"
+  },
+  {
+    "id": "ref_180",
+    "type": "reference",
+    "intent": "find_closest_airports_state",
+    "category": "encoding",
+    "query": "nearest airports dallas state tx",
+    "expected_command": "W/-CYDALLAS, TX",
+    "expected_signature": "W/-CY"
+  },
+  {
+    "id": "ref_181",
+    "type": "reference",
+    "intent": "find_closest_airports_state",
+    "category": "encoding",
+    "query": "find nearby airports for dallas texas",
+    "expected_command": "W/-CYDALLAS, TX",
+    "expected_signature": "W/-CY"
+  },
+  {
+    "id": "ref_182",
+    "type": "reference",
+    "intent": "find_closest_airports_state",
+    "category": "encoding",
+    "query": "airports closest to dallas tx area",
+    "expected_command": "W/-CYDALLAS, TX",
+    "expected_signature": "W/-CY"
+  },
+  {
+    "id": "ref_183",
+    "type": "reference",
+    "intent": "find_closest_airports_state",
+    "category": "encoding",
+    "query": "what are the closest airports to miami florida",
+    "expected_command": "W/-CYMIAMI, FL",
+    "expected_signature": "W/-CY"
+  },
+  {
+    "id": "ref_184",
+    "type": "reference",
+    "intent": "find_closest_airports_state",
+    "category": "encoding",
+    "query": "find nearest airports to miami fl",
+    "expected_command": "W/-CYMIAMI, FL",
+    "expected_signature": "W/-CY"
+  },
+  {
+    "id": "ref_185",
+    "type": "reference",
+    "intent": "find_closest_airports_state",
+    "category": "encoding",
+    "query": "show me airports near miami in florida",
+    "expected_command": "W/-CYMIAMI, FL",
+    "expected_signature": "W/-CY"
+  },
+  {
+    "id": "ref_186",
+    "type": "reference",
+    "intent": "find_closest_airports_state",
+    "category": "encoding",
+    "query": "airports around miami fla",
+    "expected_command": "W/-CYMIAMI, FL",
+    "expected_signature": "W/-CY"
+  },
+  {
+    "id": "ref_187",
+    "type": "reference",
+    "intent": "find_closest_airports_state",
+    "category": "encoding",
+    "query": "closest airports to miami state code fl",
+    "expected_command": "W/-CYMIAMI, FL",
+    "expected_signature": "W/-CY"
+  },
+  {
+    "id": "ref_188",
+    "type": "reference",
+    "intent": "find_closest_airports_state",
+    "category": "encoding",
+    "query": "find nearby airports miami florida pls",
+    "expected_command": "W/-CYMIAMI, FL",
+    "expected_signature": "W/-CY"
+  },
+  {
+    "id": "ref_189",
+    "type": "reference",
+    "intent": "find_closest_airports_state",
+    "category": "encoding",
+    "query": "nearest airports in florida for miami",
+    "expected_command": "W/-CYMIAMI, FL",
+    "expected_signature": "W/-CY"
+  },
+  {
+    "id": "ref_190",
+    "type": "reference",
+    "intent": "find_closest_airports_state",
+    "category": "encoding",
+    "query": "airports closest to miami, fl",
+    "expected_command": "W/-CYMIAMI, FL",
+    "expected_signature": "W/-CY"
+  },
+  {
+    "id": "ref_191",
+    "type": "reference",
+    "intent": "find_closest_airports_country",
+    "category": "encoding",
+    "query": "closest airports to vancouver canada",
+    "expected_command": "W/-CYVANCOUVER, CA",
+    "expected_signature": "W/-CY"
+  },
+  {
+    "id": "ref_192",
+    "type": "reference",
+    "intent": "find_closest_airports_country",
+    "category": "encoding",
+    "query": "find nearest airports to vancouver ca",
+    "expected_command": "W/-CYVANCOUVER, CA",
+    "expected_signature": "W/-CY"
+  },
+  {
+    "id": "ref_193",
+    "type": "reference",
+    "intent": "find_closest_airports_country",
+    "category": "encoding",
+    "query": "what are the 10 closest airports near vancouver",
+    "expected_command": "W/-CYVANCOUVER, CA",
+    "expected_signature": "W/-CY"
+  },
+  {
+    "id": "ref_194",
+    "type": "reference",
+    "intent": "find_closest_airports_country",
+    "category": "encoding",
+    "query": "airports around vancouver country code ca",
+    "expected_command": "W/-CYVANCOUVER, CA",
+    "expected_signature": "W/-CY"
+  },
+  {
+    "id": "ref_195",
+    "type": "reference",
+    "intent": "find_closest_airports_country",
+    "category": "encoding",
+    "query": "nearest airports in vancouver canada pls",
+    "expected_command": "W/-CYVANCOUVER, CA",
+    "expected_signature": "W/-CY"
+  },
+  {
+    "id": "ref_196",
+    "type": "reference",
+    "intent": "find_closest_airports_country",
+    "category": "encoding",
+    "query": "find nearby airports vancouver, ca",
+    "expected_command": "W/-CYVANCOUVER, CA",
+    "expected_signature": "W/-CY"
+  },
+  {
+    "id": "ref_197",
+    "type": "reference",
+    "intent": "find_closest_airports_country",
+    "category": "encoding",
+    "query": "closest intl airports to vancouver canada",
+    "expected_command": "W/-CYVANCOUVER, CA",
+    "expected_signature": "W/-CY"
+  },
+  {
+    "id": "ref_198",
+    "type": "reference",
+    "intent": "find_closest_airports_country",
+    "category": "encoding",
+    "query": "which airports are closest to vancouver bc canada",
+    "expected_command": "W/-CYVANCOUVER, CA",
+    "expected_signature": "W/-CY"
+  },
+  {
+    "id": "ref_199",
+    "type": "reference",
+    "intent": "find_closest_airports_country",
+    "category": "encoding",
+    "query": "find the 10 closest airports to Paris France",
+    "expected_command": "W/-CYPARIS, FR",
+    "expected_signature": "W/-CY"
+  },
+  {
+    "id": "ref_200",
+    "type": "reference",
+    "intent": "find_closest_airports_country",
+    "category": "encoding",
+    "query": "what are the nearest airports around Paris FR",
+    "expected_command": "W/-CYPARIS, FR",
+    "expected_signature": "W/-CY"
+  },
+  {
+    "id": "ref_201",
+    "type": "reference",
+    "intent": "find_closest_airports_country",
+    "category": "encoding",
+    "query": "closest airports to paris country code FR",
+    "expected_command": "W/-CYPARIS, FR",
+    "expected_signature": "W/-CY"
+  },
+  {
+    "id": "ref_202",
+    "type": "reference",
+    "intent": "find_closest_airports_country",
+    "category": "encoding",
+    "query": "airports near paris france pls",
+    "expected_command": "W/-CYPARIS, FR",
+    "expected_signature": "W/-CY"
+  },
+  {
+    "id": "ref_203",
+    "type": "reference",
+    "intent": "find_closest_airports_country",
+    "category": "encoding",
+    "query": "find nearby airports paris, FR",
+    "expected_command": "W/-CYPARIS, FR",
+    "expected_signature": "W/-CY"
+  },
+  {
+    "id": "ref_204",
+    "type": "reference",
+    "intent": "find_closest_airports_country",
+    "category": "encoding",
+    "query": "10 nearest airports to Paris in France",
+    "expected_command": "W/-CYPARIS, FR",
+    "expected_signature": "W/-CY"
+  },
+  {
+    "id": "ref_205",
+    "type": "reference",
+    "intent": "find_closest_airports_country",
+    "category": "encoding",
+    "query": "closest intl airports to paris fr",
+    "expected_command": "W/-CYPARIS, FR",
+    "expected_signature": "W/-CY"
+  },
+  {
+    "id": "ref_206",
+    "type": "reference",
+    "intent": "find_closest_airports_country",
+    "category": "encoding",
+    "query": "airports closest to paris country FR",
+    "expected_command": "W/-CYPARIS, FR",
+    "expected_signature": "W/-CY"
+  },
+  {
+    "id": "ref_207",
+    "type": "reference",
+    "intent": "find_closest_airports_country",
+    "category": "encoding",
+    "query": "find the 10 closest airports to Sydney Australia",
+    "expected_command": "W/-CYSYDNEY, AU",
+    "expected_signature": "W/-CY"
+  },
+  {
+    "id": "ref_208",
+    "type": "reference",
+    "intent": "find_closest_airports_country",
+    "category": "encoding",
+    "query": "nearest airports around Sydney AU",
+    "expected_command": "W/-CYSYDNEY, AU",
+    "expected_signature": "W/-CY"
+  },
+  {
+    "id": "ref_209",
+    "type": "reference",
+    "intent": "find_closest_airports_country",
+    "category": "encoding",
+    "query": "what airports are near Sydney in Australia",
+    "expected_command": "W/-CYSYDNEY, AU",
+    "expected_signature": "W/-CY"
+  },
+  {
+    "id": "ref_210",
+    "type": "reference",
+    "intent": "find_closest_airports_country",
+    "category": "encoding",
+    "query": "closest airports to sydney aus",
+    "expected_command": "W/-CYSYDNEY, AU",
+    "expected_signature": "W/-CY"
+  },
+  {
+    "id": "ref_211",
+    "type": "reference",
+    "intent": "find_closest_airports_country",
+    "category": "encoding",
+    "query": "airports nearby Sydney country code AU",
+    "expected_command": "W/-CYSYDNEY, AU",
+    "expected_signature": "W/-CY"
+  },
+  {
+    "id": "ref_212",
+    "type": "reference",
+    "intent": "find_closest_airports_country",
+    "category": "encoding",
+    "query": "find closest apts to sydney australia pls",
+    "expected_command": "W/-CYSYDNEY, AU",
+    "expected_signature": "W/-CY"
+  },
+  {
+    "id": "ref_213",
+    "type": "reference",
+    "intent": "find_closest_airports_country",
+    "category": "encoding",
+    "query": "10 nearest airports sydney country AU",
+    "expected_command": "W/-CYSYDNEY, AU",
+    "expected_signature": "W/-CY"
+  },
+  {
+    "id": "ref_214",
+    "type": "reference",
+    "intent": "find_closest_airports_country",
+    "category": "encoding",
+    "query": "what intl airports are closest to Sydney",
+    "expected_command": "W/-CYSYDNEY, AU",
+    "expected_signature": "W/-CY"
+  },
+  {
+    "id": "ref_215",
+    "type": "reference",
+    "intent": "find_closest_airports_airport",
+    "category": "encoding",
+    "query": "what airports are closest to LHR",
+    "expected_command": "W/-ATLHR",
+    "expected_signature": "W/-AT"
+  },
+  {
+    "id": "ref_216",
+    "type": "reference",
+    "intent": "find_closest_airports_airport",
+    "category": "encoding",
+    "query": "find nearby airports to london heathrow",
+    "expected_command": "W/-ATLHR",
+    "expected_signature": "W/-AT"
+  },
+  {
+    "id": "ref_217",
+    "type": "reference",
+    "intent": "find_closest_airports_airport",
+    "category": "encoding",
+    "query": "show me alternative airports near LHR",
+    "expected_command": "W/-ATLHR",
+    "expected_signature": "W/-AT"
+  },
+  {
+    "id": "ref_218",
+    "type": "reference",
+    "intent": "find_closest_airports_airport",
+    "category": "encoding",
+    "query": "airports around heathrow",
+    "expected_command": "W/-ATLHR",
+    "expected_signature": "W/-AT"
+  },
+  {
+    "id": "ref_219",
+    "type": "reference",
+    "intent": "find_closest_airports_airport",
+    "category": "encoding",
+    "query": "nearest airports to this code LHR",
+    "expected_command": "W/-ATLHR",
+    "expected_signature": "W/-AT"
+  },
+  {
+    "id": "ref_220",
+    "type": "reference",
+    "intent": "find_closest_airports_airport",
+    "category": "encoding",
+    "query": "find airports close to LHR pls",
+    "expected_command": "W/-ATLHR",
+    "expected_signature": "W/-AT"
+  },
+  {
+    "id": "ref_221",
+    "type": "reference",
+    "intent": "find_closest_airports_airport",
+    "category": "encoding",
+    "query": "search for nearby airports from LHR",
+    "expected_command": "W/-ATLHR",
+    "expected_signature": "W/-AT"
+  },
+  {
+    "id": "ref_222",
+    "type": "reference",
+    "intent": "find_closest_airports_airport",
+    "category": "encoding",
+    "query": "what are the closest airports 2 heathrow",
+    "expected_command": "W/-ATLHR",
+    "expected_signature": "W/-AT"
+  },
+  {
+    "id": "ref_223",
+    "type": "reference",
+    "intent": "find_closest_airports_airport",
+    "category": "encoding",
+    "query": "what airports are close to jfk",
+    "expected_command": "W/-ATJFK",
+    "expected_signature": "W/-AT"
+  },
+  {
+    "id": "ref_224",
+    "type": "reference",
+    "intent": "find_closest_airports_airport",
+    "category": "encoding",
+    "query": "find nearby airports to jfk",
+    "expected_command": "W/-ATJFK",
+    "expected_signature": "W/-AT"
+  },
+  {
+    "id": "ref_225",
+    "type": "reference",
+    "intent": "find_closest_airports_airport",
+    "category": "encoding",
+    "query": "search for alternative airports near jfk",
+    "expected_command": "W/-ATJFK",
+    "expected_signature": "W/-AT"
+  },
+  {
+    "id": "ref_226",
+    "type": "reference",
+    "intent": "find_closest_airports_airport",
+    "category": "encoding",
+    "query": "airports around jfk",
+    "expected_command": "W/-ATJFK",
+    "expected_signature": "W/-AT"
+  },
+  {
+    "id": "ref_227",
+    "type": "reference",
+    "intent": "find_closest_airports_airport",
+    "category": "encoding",
+    "query": "nearest airports to jfk code",
+    "expected_command": "W/-ATJFK",
+    "expected_signature": "W/-AT"
+  },
+  {
+    "id": "ref_228",
+    "type": "reference",
+    "intent": "find_closest_airports_airport",
+    "category": "encoding",
+    "query": "find closest airports from jfk",
+    "expected_command": "W/-ATJFK",
+    "expected_signature": "W/-AT"
+  },
+  {
+    "id": "ref_229",
+    "type": "reference",
+    "intent": "find_closest_airports_airport",
+    "category": "encoding",
+    "query": "what are the closest airports to jfk",
+    "expected_command": "W/-ATJFK",
+    "expected_signature": "W/-AT"
+  },
+  {
+    "id": "ref_230",
+    "type": "reference",
+    "intent": "find_closest_airports_airport",
+    "category": "encoding",
+    "query": "airports near jfk pls",
+    "expected_command": "W/-ATJFK",
+    "expected_signature": "W/-AT"
+  },
+  {
+    "id": "ref_231",
+    "type": "reference",
+    "intent": "find_closest_airports_airport",
+    "category": "encoding",
+    "query": "what airports are close to DXB",
+    "expected_command": "W/-ATDXB",
+    "expected_signature": "W/-AT"
+  },
+  {
+    "id": "ref_232",
+    "type": "reference",
+    "intent": "find_closest_airports_airport",
+    "category": "encoding",
+    "query": "find nearby airports to dubai",
+    "expected_command": "W/-ATDXB",
+    "expected_signature": "W/-AT"
+  },
+  {
+    "id": "ref_233",
+    "type": "reference",
+    "intent": "find_closest_airports_airport",
+    "category": "encoding",
+    "query": "search for alternative airports near DXB",
+    "expected_command": "W/-ATDXB",
+    "expected_signature": "W/-AT"
+  },
+  {
+    "id": "ref_234",
+    "type": "reference",
+    "intent": "find_closest_airports_airport",
+    "category": "encoding",
+    "query": "airports around dubai international",
+    "expected_command": "W/-ATDXB",
+    "expected_signature": "W/-AT"
+  },
+  {
+    "id": "ref_235",
+    "type": "reference",
+    "intent": "find_closest_airports_airport",
+    "category": "encoding",
+    "query": "show me the closest airports to DXB",
+    "expected_command": "W/-ATDXB",
+    "expected_signature": "W/-AT"
+  },
+  {
+    "id": "ref_236",
+    "type": "reference",
+    "intent": "find_closest_airports_airport",
+    "category": "encoding",
+    "query": "nearest airports to this code DXB pls",
+    "expected_command": "W/-ATDXB",
+    "expected_signature": "W/-AT"
+  },
+  {
+    "id": "ref_237",
+    "type": "reference",
+    "intent": "find_closest_airports_airport",
+    "category": "encoding",
+    "query": "find nearby airports from DXB",
+    "expected_command": "W/-ATDXB",
+    "expected_signature": "W/-AT"
+  },
+  {
+    "id": "ref_238",
+    "type": "reference",
+    "intent": "find_closest_airports_airport",
+    "category": "encoding",
+    "query": "what r the closest airports 2 dubai",
+    "expected_command": "W/-ATDXB",
+    "expected_signature": "W/-AT"
+  },
+  {
+    "id": "ref_239",
+    "type": "reference",
+    "intent": "find_closest_airports_military",
+    "category": "encoding",
+    "query": "find the 10 closest airports to Fort Hood Texas",
+    "expected_command": "W/-MBFORT HOOD,TX",
+    "expected_signature": "W/-MB"
+  },
+  {
+    "id": "ref_240",
+    "type": "reference",
+    "intent": "find_closest_airports_military",
+    "category": "encoding",
+    "query": "what airports are nearest to Fort Hood TX",
+    "expected_command": "W/-MBFORT HOOD,TX",
+    "expected_signature": "W/-MB"
+  },
+  {
+    "id": "ref_241",
+    "type": "reference",
+    "intent": "find_closest_airports_military",
+    "category": "encoding",
+    "query": "closest airports near Fort Hood military base",
+    "expected_command": "W/-MBFORT HOOD,TX",
+    "expected_signature": "W/-MB"
+  },
+  {
+    "id": "ref_242",
+    "type": "reference",
+    "intent": "find_closest_airports_military",
+    "category": "encoding",
+    "query": "airports around Fort Hood TX pls",
+    "expected_command": "W/-MBFORT HOOD,TX",
+    "expected_signature": "W/-MB"
+  },
+  {
+    "id": "ref_243",
+    "type": "reference",
+    "intent": "find_closest_airports_military",
+    "category": "encoding",
+    "query": "find nearby airports to Fort Hood base",
+    "expected_command": "W/-MBFORT HOOD,TX",
+    "expected_signature": "W/-MB"
+  },
+  {
+    "id": "ref_244",
+    "type": "reference",
+    "intent": "find_closest_airports_military",
+    "category": "encoding",
+    "query": "Fort Hood TX - nearest airports",
+    "expected_command": "W/-MBFORT HOOD,TX",
+    "expected_signature": "W/-MB"
+  },
+  {
+    "id": "ref_245",
+    "type": "reference",
+    "intent": "find_closest_airports_military",
+    "category": "encoding",
+    "query": "closest airport to Fort Hood Texas",
+    "expected_command": "W/-MBFORT HOOD,TX",
+    "expected_signature": "W/-MB"
+  },
+  {
+    "id": "ref_246",
+    "type": "reference",
+    "intent": "find_closest_airports_military",
+    "category": "encoding",
+    "query": "airports near Fort Hood,TX military installation",
+    "expected_command": "W/-MBFORT HOOD,TX",
+    "expected_signature": "W/-MB"
+  },
+  {
+    "id": "ref_247",
+    "type": "reference",
+    "intent": "find_closest_airports_military",
+    "category": "encoding",
+    "query": "what airports are closest to Camp Pendleton California",
+    "expected_command": "W/-MBCAMP PENDLETON,CA",
+    "expected_signature": "W/-MB"
+  },
+  {
+    "id": "ref_248",
+    "type": "reference",
+    "intent": "find_closest_airports_military",
+    "category": "encoding",
+    "query": "find nearest airports to Camp Pendleton CA",
+    "expected_command": "W/-MBCAMP PENDLETON,CA",
+    "expected_signature": "W/-MB"
+  },
+  {
+    "id": "ref_249",
+    "type": "reference",
+    "intent": "find_closest_airports_military",
+    "category": "encoding",
+    "query": "closest airports military base Camp Pendleton",
+    "expected_command": "W/-MBCAMP PENDLETON,CA",
+    "expected_signature": "W/-MB"
+  },
+  {
+    "id": "ref_250",
+    "type": "reference",
+    "intent": "find_closest_airports_military",
+    "category": "encoding",
+    "query": "airports near camp pendleton ca pls",
+    "expected_command": "W/-MBCAMP PENDLETON,CA",
+    "expected_signature": "W/-MB"
+  },
+  {
+    "id": "ref_251",
+    "type": "reference",
+    "intent": "find_closest_airports_military",
+    "category": "encoding",
+    "query": "show me 10 closest airports to Camp Pendleton",
+    "expected_command": "W/-MBCAMP PENDLETON,CA",
+    "expected_signature": "W/-MB"
+  },
+  {
+    "id": "ref_252",
+    "type": "reference",
+    "intent": "find_closest_airports_military",
+    "category": "encoding",
+    "query": "nearby airports for Camp Pendleton, California",
+    "expected_command": "W/-MBCAMP PENDLETON,CA",
+    "expected_signature": "W/-MB"
+  },
+  {
+    "id": "ref_253",
+    "type": "reference",
+    "intent": "find_closest_airports_military",
+    "category": "encoding",
+    "query": "find airports around Camp Pendleton mil base",
+    "expected_command": "W/-MBCAMP PENDLETON,CA",
+    "expected_signature": "W/-MB"
+  },
+  {
+    "id": "ref_254",
+    "type": "reference",
+    "intent": "find_closest_airports_military",
+    "category": "encoding",
+    "query": "closest airport to camp pendleton ca",
+    "expected_command": "W/-MBCAMP PENDLETON,CA",
+    "expected_signature": "W/-MB"
+  },
+  {
+    "id": "ref_255",
+    "type": "reference",
+    "intent": "find_closest_airports_military",
+    "category": "encoding",
+    "query": "closest airports to fort bragg north carolina",
+    "expected_command": "W/-MBFORT BRAGG,NC",
+    "expected_signature": "W/-MB"
+  },
+  {
+    "id": "ref_256",
+    "type": "reference",
+    "intent": "find_closest_airports_military",
+    "category": "encoding",
+    "query": "find 10 nearest airports to fort bragg nc",
+    "expected_command": "W/-MBFORT BRAGG,NC",
+    "expected_signature": "W/-MB"
+  },
+  {
+    "id": "ref_257",
+    "type": "reference",
+    "intent": "find_closest_airports_military",
+    "category": "encoding",
+    "query": "what airports are near fort bragg",
+    "expected_command": "W/-MBFORT BRAGG,NC",
+    "expected_signature": "W/-MB"
+  },
+  {
+    "id": "ref_258",
+    "type": "reference",
+    "intent": "find_closest_airports_military",
+    "category": "encoding",
+    "query": "airports around fort bragg military base",
+    "expected_command": "W/-MBFORT BRAGG,NC",
+    "expected_signature": "W/-MB"
+  },
+  {
+    "id": "ref_259",
+    "type": "reference",
+    "intent": "find_closest_airports_military",
+    "category": "encoding",
+    "query": "fort bragg nc closest airport pls",
+    "expected_command": "W/-MBFORT BRAGG,NC",
+    "expected_signature": "W/-MB"
+  },
+  {
+    "id": "ref_260",
+    "type": "reference",
+    "intent": "find_closest_airports_military",
+    "category": "encoding",
+    "query": "nearby airports fort bragg",
+    "expected_command": "W/-MBFORT BRAGG,NC",
+    "expected_signature": "W/-MB"
+  },
+  {
+    "id": "ref_261",
+    "type": "reference",
+    "intent": "find_closest_airports_military",
+    "category": "encoding",
+    "query": "find airports closest to fort bragg,nc",
+    "expected_command": "W/-MBFORT BRAGG,NC",
+    "expected_signature": "W/-MB"
+  },
+  {
+    "id": "ref_262",
+    "type": "reference",
+    "intent": "find_closest_airports_military",
+    "category": "encoding",
+    "query": "airport search fort bragg base",
+    "expected_command": "W/-MBFORT BRAGG,NC",
+    "expected_signature": "W/-MB"
+  },
+  {
+    "id": "ref_263",
+    "type": "reference",
+    "intent": "distance_between_airports",
+    "category": "encoding",
+    "query": "what is the distance between LAX and LHR",
+    "expected_command": "W/-ATLAX≠ATLHR",
+    "expected_signature": "W/-AT"
+  },
+  {
+    "id": "ref_264",
+    "type": "reference",
+    "intent": "distance_between_airports",
+    "category": "encoding",
+    "query": "how far is LAX from LHR",
+    "expected_command": "W/-ATLAX≠ATLHR",
+    "expected_signature": "W/-AT"
+  },
+  {
+    "id": "ref_265",
+    "type": "reference",
+    "intent": "distance_between_airports",
+    "category": "encoding",
+    "query": "calculate the mileage between LAX and LHR",
+    "expected_command": "W/-ATLAX≠ATLHR",
+    "expected_signature": "W/-AT"
+  },
+  {
+    "id": "ref_266",
+    "type": "reference",
+    "intent": "distance_between_airports",
+    "category": "encoding",
+    "query": "distance LAX to LHR pls",
+    "expected_command": "W/-ATLAX≠ATLHR",
+    "expected_signature": "W/-AT"
+  },
+  {
+    "id": "ref_267",
+    "type": "reference",
+    "intent": "distance_between_airports",
+    "category": "encoding",
+    "query": "how many miles between these two airports LAX LHR",
+    "expected_command": "W/-ATLAX≠ATLHR",
+    "expected_signature": "W/-AT"
+  },
+  {
+    "id": "ref_268",
+    "type": "reference",
+    "intent": "distance_between_airports",
+    "category": "encoding",
+    "query": "mileage from LAX to LHR",
+    "expected_command": "W/-ATLAX≠ATLHR",
+    "expected_signature": "W/-AT"
+  },
+  {
+    "id": "ref_269",
+    "type": "reference",
+    "intent": "distance_between_airports",
+    "category": "encoding",
+    "query": "what's the distance LAX LHR",
+    "expected_command": "W/-ATLAX≠ATLHR",
+    "expected_signature": "W/-AT"
+  },
+  {
+    "id": "ref_270",
+    "type": "reference",
+    "intent": "distance_between_airports",
+    "category": "encoding",
+    "query": "calculate distance between LAX and LHR airports",
+    "expected_command": "W/-ATLAX≠ATLHR",
+    "expected_signature": "W/-AT"
+  },
+  {
+    "id": "ref_271",
+    "type": "reference",
+    "intent": "distance_between_airports",
+    "category": "encoding",
+    "query": "what is the distance between JFK and CDG",
+    "expected_command": "W/-ATJFK≠ATCDG",
+    "expected_signature": "W/-AT"
+  },
+  {
+    "id": "ref_272",
+    "type": "reference",
+    "intent": "distance_between_airports",
+    "category": "encoding",
+    "query": "how far is it from JFK to CDG",
+    "expected_command": "W/-ATJFK≠ATCDG",
+    "expected_signature": "W/-AT"
+  },
+  {
+    "id": "ref_273",
+    "type": "reference",
+    "intent": "distance_between_airports",
+    "category": "encoding",
+    "query": "calculate the mileage between JFK and CDG airports",
+    "expected_command": "W/-ATJFK≠ATCDG",
+    "expected_signature": "W/-AT"
+  },
+  {
+    "id": "ref_274",
+    "type": "reference",
+    "intent": "distance_between_airports",
+    "category": "encoding",
+    "query": "distance jfk cdg",
+    "expected_command": "W/-ATJFK≠ATCDG",
+    "expected_signature": "W/-AT"
+  },
+  {
+    "id": "ref_275",
+    "type": "reference",
+    "intent": "distance_between_airports",
+    "category": "encoding",
+    "query": "how many miles between new york and paris airports",
+    "expected_command": "W/-ATJFK≠ATCDG",
+    "expected_signature": "W/-AT"
+  },
+  {
+    "id": "ref_276",
+    "type": "reference",
+    "intent": "distance_between_airports",
+    "category": "encoding",
+    "query": "can you get the distance from JFK to Charles de Gaulle",
+    "expected_command": "W/-ATJFK≠ATCDG",
+    "expected_signature": "W/-AT"
+  },
+  {
+    "id": "ref_277",
+    "type": "reference",
+    "intent": "distance_between_airports",
+    "category": "encoding",
+    "query": "mileage between these two airports jfk and cdg pls",
+    "expected_command": "W/-ATJFK≠ATCDG",
+    "expected_signature": "W/-AT"
+  },
+  {
+    "id": "ref_278",
+    "type": "reference",
+    "intent": "distance_between_airports",
+    "category": "encoding",
+    "query": "what's the distance between JFK and CDG",
+    "expected_command": "W/-ATJFK≠ATCDG",
+    "expected_signature": "W/-AT"
+  },
+  {
+    "id": "ref_279",
+    "type": "reference",
+    "intent": "distance_between_airports",
+    "category": "encoding",
+    "query": "what is the distance between dubai and singapore",
+    "expected_command": "W/-ATDXB≠ATSIN",
+    "expected_signature": "W/-AT"
+  },
+  {
+    "id": "ref_280",
+    "type": "reference",
+    "intent": "distance_between_airports",
+    "category": "encoding",
+    "query": "how far is DXB from SIN",
+    "expected_command": "W/-ATDXB≠ATSIN",
+    "expected_signature": "W/-AT"
+  },
+  {
+    "id": "ref_281",
+    "type": "reference",
+    "intent": "distance_between_airports",
+    "category": "encoding",
+    "query": "calculate the mileage between DXB and SIN airports",
+    "expected_command": "W/-ATDXB≠ATSIN",
+    "expected_signature": "W/-AT"
+  },
+  {
+    "id": "ref_282",
+    "type": "reference",
+    "intent": "distance_between_airports",
+    "category": "encoding",
+    "query": "distance from dubai to singapore airport",
+    "expected_command": "W/-ATDXB≠ATSIN",
+    "expected_signature": "W/-AT"
+  },
+  {
+    "id": "ref_283",
+    "type": "reference",
+    "intent": "distance_between_airports",
+    "category": "encoding",
+    "query": "how many miles between these two airports DXB and SIN",
+    "expected_command": "W/-ATDXB≠ATSIN",
+    "expected_signature": "W/-AT"
+  },
+  {
+    "id": "ref_284",
+    "type": "reference",
+    "intent": "distance_between_airports",
+    "category": "encoding",
+    "query": "what's the distance DXB to SIN",
+    "expected_command": "W/-ATDXB≠ATSIN",
+    "expected_signature": "W/-AT"
+  },
+  {
+    "id": "ref_285",
+    "type": "reference",
+    "intent": "distance_between_airports",
+    "category": "encoding",
+    "query": "mileage calculation dubai singapore",
+    "expected_command": "W/-ATDXB≠ATSIN",
+    "expected_signature": "W/-AT"
+  },
+  {
+    "id": "ref_286",
+    "type": "reference",
+    "intent": "distance_between_airports",
+    "category": "encoding",
+    "query": "distance between DXB≠SIN pls",
+    "expected_command": "W/-ATDXB≠ATSIN",
+    "expected_signature": "W/-AT"
+  },
+  {
+    "id": "ref_287",
+    "type": "reference",
+    "intent": "display_similar_name_list",
+    "category": "encoding",
+    "query": "show me all the springfield cities",
+    "expected_command": "W/-CYSPRINGFIELD",
+    "expected_signature": "W/-CY"
+  },
+  {
+    "id": "ref_288",
+    "type": "reference",
+    "intent": "display_similar_name_list",
+    "category": "encoding",
+    "query": "list similar city names for springfield",
+    "expected_command": "W/-CYSPRINGFIELD",
+    "expected_signature": "W/-CY"
+  },
+  {
+    "id": "ref_289",
+    "type": "reference",
+    "intent": "display_similar_name_list",
+    "category": "encoding",
+    "query": "springfield - which state is it in?",
+    "expected_command": "W/-CYSPRINGFIELD",
+    "expected_signature": "W/-CY"
+  },
+  {
+    "id": "ref_290",
+    "type": "reference",
+    "intent": "display_similar_name_list",
+    "category": "encoding",
+    "query": "find springfield without knowing the state",
+    "expected_command": "W/-CYSPRINGFIELD",
+    "expected_signature": "W/-CY"
+  },
+  {
+    "id": "ref_291",
+    "type": "reference",
+    "intent": "display_similar_name_list",
+    "category": "encoding",
+    "query": "all cities named springfield pls",
+    "expected_command": "W/-CYSPRINGFIELD",
+    "expected_signature": "W/-CY"
+  },
+  {
+    "id": "ref_292",
+    "type": "reference",
+    "intent": "display_similar_name_list",
+    "category": "encoding",
+    "query": "springfield city name match",
+    "expected_command": "W/-CYSPRINGFIELD",
+    "expected_signature": "W/-CY"
+  },
+  {
+    "id": "ref_293",
+    "type": "reference",
+    "intent": "display_similar_name_list",
+    "category": "encoding",
+    "query": "display springfield ambiguous cities",
+    "expected_command": "W/-CYSPRINGFIELD",
+    "expected_signature": "W/-CY"
+  },
+  {
+    "id": "ref_294",
+    "type": "reference",
+    "intent": "display_similar_name_list",
+    "category": "encoding",
+    "query": "springfield - show all options",
+    "expected_command": "W/-CYSPRINGFIELD",
+    "expected_signature": "W/-CY"
+  },
+  {
+    "id": "ref_295",
+    "type": "reference",
+    "intent": "display_similar_name_list",
+    "category": "encoding",
+    "query": "show me all cities named santa monica",
+    "expected_command": "W/-CYSANTA MONICA",
+    "expected_signature": "W/-CY"
+  },
+  {
+    "id": "ref_296",
+    "type": "reference",
+    "intent": "display_similar_name_list",
+    "category": "encoding",
+    "query": "find santa monica city without state info",
+    "expected_command": "W/-CYSANTA MONICA",
+    "expected_signature": "W/-CY"
+  },
+  {
+    "id": "ref_297",
+    "type": "reference",
+    "intent": "display_similar_name_list",
+    "category": "encoding",
+    "query": "list similar city names for santa monica",
+    "expected_command": "W/-CYSANTA MONICA",
+    "expected_signature": "W/-CY"
+  },
+  {
+    "id": "ref_298",
+    "type": "reference",
+    "intent": "display_similar_name_list",
+    "category": "encoding",
+    "query": "santa monica - display matching cities",
+    "expected_command": "W/-CYSANTA MONICA",
+    "expected_signature": "W/-CY"
+  },
+  {
+    "id": "ref_299",
+    "type": "reference",
+    "intent": "display_similar_name_list",
+    "category": "encoding",
+    "query": "cities called santa monica pls",
+    "expected_command": "W/-CYSANTA MONICA",
+    "expected_signature": "W/-CY"
+  },
+  {
+    "id": "ref_300",
+    "type": "reference",
+    "intent": "display_similar_name_list",
+    "category": "encoding",
+    "query": "what cities match santa monica?",
+    "expected_command": "W/-CYSANTA MONICA",
+    "expected_signature": "W/-CY"
+  },
+  {
+    "id": "ref_301",
+    "type": "reference",
+    "intent": "display_similar_name_list",
+    "category": "encoding",
+    "query": "santa monica city name search",
+    "expected_command": "W/-CYSANTA MONICA",
+    "expected_signature": "W/-CY"
+  },
+  {
+    "id": "ref_302",
+    "type": "reference",
+    "intent": "display_similar_name_list",
+    "category": "encoding",
+    "query": "find all santa monica locations",
+    "expected_command": "W/-CYSANTA MONICA",
+    "expected_signature": "W/-CY"
+  },
+  {
+    "id": "ref_303",
+    "type": "reference",
+    "intent": "display_similar_name_list",
+    "category": "encoding",
+    "query": "show me all cities named Richmond",
+    "expected_command": "W/-CYRICHMOND",
+    "expected_signature": "W/-CY"
+  },
+  {
+    "id": "ref_304",
+    "type": "reference",
+    "intent": "display_similar_name_list",
+    "category": "encoding",
+    "query": "find Richmond without state",
+    "expected_command": "W/-CYRICHMOND",
+    "expected_signature": "W/-CY"
+  },
+  {
+    "id": "ref_305",
+    "type": "reference",
+    "intent": "display_similar_name_list",
+    "category": "encoding",
+    "query": "list similar Richmond city names",
+    "expected_command": "W/-CYRICHMOND",
+    "expected_signature": "W/-CY"
+  },
+  {
+    "id": "ref_306",
+    "type": "reference",
+    "intent": "display_similar_name_list",
+    "category": "encoding",
+    "query": "Richmond city name match",
+    "expected_command": "W/-CYRICHMOND",
+    "expected_signature": "W/-CY"
+  },
+  {
+    "id": "ref_307",
+    "type": "reference",
+    "intent": "display_similar_name_list",
+    "category": "encoding",
+    "query": "display cities with name Richmond",
+    "expected_command": "W/-CYRICHMOND",
+    "expected_signature": "W/-CY"
+  },
+  {
+    "id": "ref_308",
+    "type": "reference",
+    "intent": "display_similar_name_list",
+    "category": "encoding",
+    "query": "search for Richmond ambiguous cities",
+    "expected_command": "W/-CYRICHMOND",
+    "expected_signature": "W/-CY"
+  },
+  {
+    "id": "ref_309",
+    "type": "reference",
+    "intent": "display_similar_name_list",
+    "category": "encoding",
+    "query": "what cities are named Richmond",
+    "expected_command": "W/-CYRICHMOND",
+    "expected_signature": "W/-CY"
+  },
+  {
+    "id": "ref_310",
+    "type": "reference",
+    "intent": "display_similar_name_list",
+    "category": "encoding",
+    "query": "Richmond - find all locations with this name",
+    "expected_command": "W/-CYRICHMOND",
+    "expected_signature": "W/-CY"
+  },
+  {
+    "id": "ref_311",
+    "type": "reference",
+    "intent": "select_similar_name_list",
+    "category": "encoding",
+    "query": "select line 1 from the similar name list",
+    "expected_command": "W/-SL1",
+    "expected_signature": "W/-SL"
+  },
+  {
+    "id": "ref_312",
+    "type": "reference",
+    "intent": "select_similar_name_list",
+    "category": "encoding",
+    "query": "pick the first option from similar names",
+    "expected_command": "W/-SL1",
+    "expected_signature": "W/-SL"
+  },
+  {
+    "id": "ref_313",
+    "type": "reference",
+    "intent": "select_similar_name_list",
+    "category": "encoding",
+    "query": "choose line 1",
+    "expected_command": "W/-SL1",
+    "expected_signature": "W/-SL"
+  },
+  {
+    "id": "ref_314",
+    "type": "reference",
+    "intent": "select_similar_name_list",
+    "category": "encoding",
+    "query": "select the first city from the list",
+    "expected_command": "W/-SL1",
+    "expected_signature": "W/-SL"
+  },
+  {
+    "id": "ref_315",
+    "type": "reference",
+    "intent": "select_similar_name_list",
+    "category": "encoding",
+    "query": "which one is line 1",
+    "expected_command": "W/-SL1",
+    "expected_signature": "W/-SL"
+  },
+  {
+    "id": "ref_316",
+    "type": "reference",
+    "intent": "select_similar_name_list",
+    "category": "encoding",
+    "query": "take option 1 from similar names pls",
+    "expected_command": "W/-SL1",
+    "expected_signature": "W/-SL"
+  },
+  {
+    "id": "ref_317",
+    "type": "reference",
+    "intent": "select_similar_name_list",
+    "category": "encoding",
+    "query": "select line number 1",
+    "expected_command": "W/-SL1",
+    "expected_signature": "W/-SL"
+  },
+  {
+    "id": "ref_318",
+    "type": "reference",
+    "intent": "select_similar_name_list",
+    "category": "encoding",
+    "query": "select line 2 from the similar name list",
+    "expected_command": "W/-SL2",
+    "expected_signature": "W/-SL"
+  },
+  {
+    "id": "ref_319",
+    "type": "reference",
+    "intent": "select_similar_name_list",
+    "category": "encoding",
+    "query": "pick the second option from city choices",
+    "expected_command": "W/-SL2",
+    "expected_signature": "W/-SL"
+  },
+  {
+    "id": "ref_320",
+    "type": "reference",
+    "intent": "select_similar_name_list",
+    "category": "encoding",
+    "query": "choose line 2",
+    "expected_command": "W/-SL2",
+    "expected_signature": "W/-SL"
+  },
+  {
+    "id": "ref_321",
+    "type": "reference",
+    "intent": "select_similar_name_list",
+    "category": "encoding",
+    "query": "select the 2nd city from the list",
+    "expected_command": "W/-SL2",
+    "expected_signature": "W/-SL"
+  },
+  {
+    "id": "ref_322",
+    "type": "reference",
+    "intent": "select_similar_name_list",
+    "category": "encoding",
+    "query": "which one is line 2 in the similar names",
+    "expected_command": "W/-SL2",
+    "expected_signature": "W/-SL"
+  },
+  {
+    "id": "ref_323",
+    "type": "reference",
+    "intent": "select_similar_name_list",
+    "category": "encoding",
+    "query": "go with the second option pls",
+    "expected_command": "W/-SL2",
+    "expected_signature": "W/-SL"
+  },
+  {
+    "id": "ref_324",
+    "type": "reference",
+    "intent": "select_similar_name_list",
+    "category": "encoding",
+    "query": "take line number 2",
+    "expected_command": "W/-SL2",
+    "expected_signature": "W/-SL"
+  },
+  {
+    "id": "ref_325",
+    "type": "reference",
+    "intent": "select_similar_name_list",
+    "category": "encoding",
+    "query": "select line 3 from the similar name list",
+    "expected_command": "W/-SL3",
+    "expected_signature": "W/-SL"
+  },
+  {
+    "id": "ref_326",
+    "type": "reference",
+    "intent": "select_similar_name_list",
+    "category": "encoding",
+    "query": "pick option 3 from the city options",
+    "expected_command": "W/-SL3",
+    "expected_signature": "W/-SL"
+  },
+  {
+    "id": "ref_327",
+    "type": "reference",
+    "intent": "select_similar_name_list",
+    "category": "encoding",
+    "query": "choose the third city from the list",
+    "expected_command": "W/-SL3",
+    "expected_signature": "W/-SL"
+  },
+  {
+    "id": "ref_328",
+    "type": "reference",
+    "intent": "select_similar_name_list",
+    "category": "encoding",
+    "query": "select 3rd option from similar names",
+    "expected_command": "W/-SL3",
+    "expected_signature": "W/-SL"
+  },
+  {
+    "id": "ref_329",
+    "type": "reference",
+    "intent": "select_similar_name_list",
+    "category": "encoding",
+    "query": "how do I pick line 3",
+    "expected_command": "W/-SL3",
+    "expected_signature": "W/-SL"
+  },
+  {
+    "id": "ref_330",
+    "type": "reference",
+    "intent": "select_similar_name_list",
+    "category": "encoding",
+    "query": "go with option 3 from the similar names",
+    "expected_command": "W/-SL3",
+    "expected_signature": "W/-SL"
+  },
+  {
+    "id": "ref_331",
+    "type": "reference",
+    "intent": "select_similar_name_list",
+    "category": "encoding",
+    "query": "select third choice from the list",
+    "expected_command": "W/-SL3",
+    "expected_signature": "W/-SL"
+  },
+  {
+    "id": "ref_332",
+    "type": "reference",
+    "intent": "redisplay_similar_name_list",
+    "category": "encoding",
+    "query": "show the similar name list again",
+    "expected_command": "W/-SL*",
+    "expected_signature": "W/-SL*"
+  },
+  {
+    "id": "ref_333",
+    "type": "reference",
+    "intent": "redisplay_similar_name_list",
+    "category": "encoding",
+    "query": "redisplay the last name options",
+    "expected_command": "W/-SL*",
+    "expected_signature": "W/-SL*"
+  },
+  {
+    "id": "ref_334",
+    "type": "reference",
+    "intent": "redisplay_similar_name_list",
+    "category": "encoding",
+    "query": "bring back the similar names I just saw",
+    "expected_command": "W/-SL*",
+    "expected_signature": "W/-SL*"
+  },
+  {
+    "id": "ref_335",
+    "type": "reference",
+    "intent": "redisplay_similar_name_list",
+    "category": "encoding",
+    "query": "can you show me those name choices again?",
+    "expected_command": "W/-SL*",
+    "expected_signature": "W/-SL*"
+  },
+  {
+    "id": "ref_336",
+    "type": "reference",
+    "intent": "redisplay_similar_name_list",
+    "category": "encoding",
+    "query": "display the similar name list once more",
+    "expected_command": "W/-SL*",
+    "expected_signature": "W/-SL*"
+  },
+  {
+    "id": "ref_337",
+    "type": "reference",
+    "intent": "redisplay_similar_name_list",
+    "category": "encoding",
+    "query": "re-show the name list pls",
+    "expected_command": "W/-SL*",
+    "expected_signature": "W/-SL*"
+  },
+  {
+    "id": "ref_338",
+    "type": "reference",
+    "intent": "redisplay_similar_name_list",
+    "category": "encoding",
+    "query": "what were those similar names again?",
+    "expected_command": "W/-SL*",
+    "expected_signature": "W/-SL*"
+  },
+  {
+    "id": "ref_339",
+    "type": "reference",
+    "intent": "request_flight_availability",
+    "category": "availability",
+    "query": "find flights from JFK to London Heathrow on March 10 at 11am",
+    "expected_command": "110MARJFKLHR11A",
+    "expected_signature": "1"
+  },
+  {
+    "id": "ref_340",
+    "type": "reference",
+    "intent": "request_flight_availability",
+    "category": "availability",
+    "query": "search available flights departing JFK arriving LHR March 10 11A",
+    "expected_command": "110MARJFKLHR11A",
+    "expected_signature": "1"
+  },
+  {
+    "id": "ref_341",
+    "type": "reference",
+    "intent": "request_flight_availability",
+    "category": "availability",
+    "query": "check flight availability JFK to LHR 10 Mar 11 in the morning",
+    "expected_command": "110MARJFKLHR11A",
+    "expected_signature": "1"
+  },
+  {
+    "id": "ref_342",
+    "type": "reference",
+    "intent": "request_flight_availability",
+    "category": "availability",
+    "query": "what flights are available from New York to London on the 10th of March at 11",
+    "expected_command": "110MARJFKLHR11A",
+    "expected_signature": "1"
+  },
+  {
+    "id": "ref_343",
+    "type": "reference",
+    "intent": "request_flight_availability",
+    "category": "availability",
+    "query": "city pair availability JFK LHR March 10 11am pls",
+    "expected_command": "110MARJFKLHR11A",
+    "expected_signature": "1"
+  },
+  {
+    "id": "ref_344",
+    "type": "reference",
+    "intent": "request_flight_availability",
+    "category": "availability",
+    "query": "show me flights between JFK and Heathrow 110MAR 11A",
+    "expected_command": "110MARJFKLHR11A",
+    "expected_signature": "1"
+  },
+  {
+    "id": "ref_345",
+    "type": "reference",
+    "intent": "request_flight_availability",
+    "category": "availability",
+    "query": "get available flights ny to london 10 march morning departure",
+    "expected_command": "110MARJFKLHR11A",
+    "expected_signature": "1"
+  },
+  {
+    "id": "ref_346",
+    "type": "reference",
+    "intent": "request_flight_availability",
+    "category": "availability",
+    "query": "flights from jfk lhr 10mar 11a - check availability",
+    "expected_command": "110MARJFKLHR11A",
+    "expected_signature": "1"
+  },
+  {
+    "id": "ref_347",
+    "type": "reference",
+    "intent": "request_flight_availability",
+    "category": "availability",
+    "query": "find flights from Paris CDG to Dubai on January 15th",
+    "expected_command": "115JANCDGDXB",
+    "expected_signature": "1"
+  },
+  {
+    "id": "ref_348",
+    "type": "reference",
+    "intent": "request_flight_availability",
+    "category": "availability",
+    "query": "search available flights CDG to DXB 15 Jan",
+    "expected_command": "115JANCDGDXB",
+    "expected_signature": "1"
+  },
+  {
+    "id": "ref_349",
+    "type": "reference",
+    "intent": "request_flight_availability",
+    "category": "availability",
+    "query": "check flight availability Paris to Dubai January 15",
+    "expected_command": "115JANCDGDXB",
+    "expected_signature": "1"
+  },
+  {
+    "id": "ref_350",
+    "type": "reference",
+    "intent": "request_flight_availability",
+    "category": "availability",
+    "query": "flights from cdg dxb jan 15 pls",
+    "expected_command": "115JANCDGDXB",
+    "expected_signature": "1"
+  },
+  {
+    "id": "ref_351",
+    "type": "reference",
+    "intent": "request_flight_availability",
+    "category": "availability",
+    "query": "what flights between CDG and DXB on 15JAN?",
+    "expected_command": "115JANCDGDXB",
+    "expected_signature": "1"
+  },
+  {
+    "id": "ref_352",
+    "type": "reference",
+    "intent": "request_flight_availability",
+    "category": "availability",
+    "query": "show me flights from Paris Charles de Gaulle to Dubai on the 15th of January",
+    "expected_command": "115JANCDGDXB",
+    "expected_signature": "1"
+  },
+  {
+    "id": "ref_353",
+    "type": "reference",
+    "intent": "request_flight_availability",
+    "category": "availability",
+    "query": "availability check CDG-DXB 15 January",
+    "expected_command": "115JANCDGDXB",
+    "expected_signature": "1"
+  },
+  {
+    "id": "ref_354",
+    "type": "reference",
+    "intent": "request_flight_availability",
+    "category": "availability",
+    "query": "find available flights 15 Jan CDG DXB",
+    "expected_command": "115JANCDGDXB",
+    "expected_signature": "1"
+  },
+  {
+    "id": "ref_355",
+    "type": "reference",
+    "intent": "request_flight_availability",
+    "category": "availability",
+    "query": "find flights from Chicago to Los Angeles on April 22 at 6pm",
+    "expected_command": "122APRORDLAX6P",
+    "expected_signature": "1"
+  },
+  {
+    "id": "ref_356",
+    "type": "reference",
+    "intent": "request_flight_availability",
+    "category": "availability",
+    "query": "search available flights ORD to LAX April 22 6P",
+    "expected_command": "122APRORDLAX6P",
+    "expected_signature": "1"
+  },
+  {
+    "id": "ref_357",
+    "type": "reference",
+    "intent": "request_flight_availability",
+    "category": "availability",
+    "query": "check flight availability Chicago-LAX 22 April 6 PM",
+    "expected_command": "122APRORDLAX6P",
+    "expected_signature": "1"
+  },
+  {
+    "id": "ref_358",
+    "type": "reference",
+    "intent": "request_flight_availability",
+    "category": "availability",
+    "query": "flights from ORD to LAX April 22 evening",
+    "expected_command": "122APRORDLAX6P",
+    "expected_signature": "1"
+  },
+  {
+    "id": "ref_359",
+    "type": "reference",
+    "intent": "request_flight_availability",
+    "category": "availability",
+    "query": "what flights are available ORD LAX 22APR 6PM",
+    "expected_command": "122APRORDLAX6P",
+    "expected_signature": "1"
+  },
+  {
+    "id": "ref_360",
+    "type": "reference",
+    "intent": "request_flight_availability",
+    "category": "availability",
+    "query": "find me flights CHI to LA on the 22nd at 6 in the evening",
+    "expected_command": "122APRORDLAX6P",
+    "expected_signature": "1"
+  },
+  {
+    "id": "ref_361",
+    "type": "reference",
+    "intent": "request_flight_availability",
+    "category": "availability",
+    "query": "city pair availability ORD LAX 22 April 6 PM pls",
+    "expected_command": "122APRORDLAX6P",
+    "expected_signature": "1"
+  },
+  {
+    "id": "ref_362",
+    "type": "reference",
+    "intent": "request_flight_availability",
+    "category": "availability",
+    "query": "search for flights Midway to Los Angeles April 22 at 6pm",
+    "expected_command": "122APRORDLAX6P",
+    "expected_signature": "1"
+  },
+  {
+    "id": "ref_363",
+    "type": "reference",
+    "intent": "request_additional_availability",
+    "category": "availability",
+    "query": "show me more flights",
+    "expected_command": "1*",
+    "expected_signature": "1*"
+  },
+  {
+    "id": "ref_364",
+    "type": "reference",
+    "intent": "request_additional_availability",
+    "category": "availability",
+    "query": "next page of availability",
+    "expected_command": "1*",
+    "expected_signature": "1*"
+  },
+  {
+    "id": "ref_365",
+    "type": "reference",
+    "intent": "request_additional_availability",
+    "category": "availability",
+    "query": "can I see additional options",
+    "expected_command": "1*",
+    "expected_signature": "1*"
+  },
+  {
+    "id": "ref_366",
+    "type": "reference",
+    "intent": "request_additional_availability",
+    "category": "availability",
+    "query": "display more flight results",
+    "expected_command": "1*",
+    "expected_signature": "1*"
+  },
+  {
+    "id": "ref_367",
+    "type": "reference",
+    "intent": "request_additional_availability",
+    "category": "availability",
+    "query": "give me the next set of flights",
+    "expected_command": "1*",
+    "expected_signature": "1*"
+  },
+  {
+    "id": "ref_368",
+    "type": "reference",
+    "intent": "request_additional_availability",
+    "category": "availability",
+    "query": "more options pls",
+    "expected_command": "1*",
+    "expected_signature": "1*"
+  },
+  {
+    "id": "ref_369",
+    "type": "reference",
+    "intent": "request_additional_availability",
+    "category": "availability",
+    "query": "show additional flights",
+    "expected_command": "1*",
+    "expected_signature": "1*"
+  },
+  {
+    "id": "ref_370",
+    "type": "reference",
+    "intent": "request_additional_availability",
+    "category": "availability",
+    "query": "what else you got",
+    "expected_command": "1*",
+    "expected_signature": "1*"
+  },
+  {
+    "id": "ref_371",
+    "type": "reference",
+    "intent": "redisplay_last_availability",
+    "category": "availability",
+    "query": "redisplay the last availability",
+    "expected_command": "1*R",
+    "expected_signature": "1*R"
+  },
+  {
+    "id": "ref_372",
+    "type": "reference",
+    "intent": "redisplay_last_availability",
+    "category": "availability",
+    "query": "bring back my last flight search",
+    "expected_command": "1*R",
+    "expected_signature": "1*R"
+  },
+  {
+    "id": "ref_373",
+    "type": "reference",
+    "intent": "redisplay_last_availability",
+    "category": "availability",
+    "query": "show the flights I just looked at again",
+    "expected_command": "1*R",
+    "expected_signature": "1*R"
+  },
+  {
+    "id": "ref_374",
+    "type": "reference",
+    "intent": "redisplay_last_availability",
+    "category": "availability",
+    "query": "refresh the availability list",
+    "expected_command": "1*R",
+    "expected_signature": "1*R"
+  },
+  {
+    "id": "ref_375",
+    "type": "reference",
+    "intent": "redisplay_last_availability",
+    "category": "availability",
+    "query": "pull up the previous search results",
+    "expected_command": "1*R",
+    "expected_signature": "1*R"
+  },
+  {
+    "id": "ref_376",
+    "type": "reference",
+    "intent": "redisplay_last_availability",
+    "category": "availability",
+    "query": "re-show last availability pls",
+    "expected_command": "1*R",
+    "expected_signature": "1*R"
+  },
+  {
+    "id": "ref_377",
+    "type": "reference",
+    "intent": "redisplay_last_availability",
+    "category": "availability",
+    "query": "get the last flight availability back",
+    "expected_command": "1*R",
+    "expected_signature": "1*R"
+  },
+  {
+    "id": "ref_378",
+    "type": "reference",
+    "intent": "redisplay_last_availability",
+    "category": "availability",
+    "query": "redisplay previous search",
+    "expected_command": "1*R",
+    "expected_signature": "1*R"
+  },
+  {
+    "id": "ref_379",
+    "type": "reference",
+    "intent": "redisplay_original_availability",
+    "category": "availability",
+    "query": "show me the original availability",
+    "expected_command": "1*OA",
+    "expected_signature": "1*OA"
+  },
+  {
+    "id": "ref_380",
+    "type": "reference",
+    "intent": "redisplay_original_availability",
+    "category": "availability",
+    "query": "go back to my first search results",
+    "expected_command": "1*OA",
+    "expected_signature": "1*OA"
+  },
+  {
+    "id": "ref_381",
+    "type": "reference",
+    "intent": "redisplay_original_availability",
+    "category": "availability",
+    "query": "redisplay original flights",
+    "expected_command": "1*OA",
+    "expected_signature": "1*OA"
+  },
+  {
+    "id": "ref_382",
+    "type": "reference",
+    "intent": "redisplay_original_availability",
+    "category": "availability",
+    "query": "undo my modifications and show original",
+    "expected_command": "1*OA",
+    "expected_signature": "1*OA"
+  },
+  {
+    "id": "ref_383",
+    "type": "reference",
+    "intent": "redisplay_original_availability",
+    "category": "availability",
+    "query": "reset to original availability pls",
+    "expected_command": "1*OA",
+    "expected_signature": "1*OA"
+  },
+  {
+    "id": "ref_384",
+    "type": "reference",
+    "intent": "redisplay_original_availability",
+    "category": "availability",
+    "query": "back to original search",
+    "expected_command": "1*OA",
+    "expected_signature": "1*OA"
+  },
+  {
+    "id": "ref_385",
+    "type": "reference",
+    "intent": "redisplay_original_availability",
+    "category": "availability",
+    "query": "restore original availability display",
+    "expected_command": "1*OA",
+    "expected_signature": "1*OA"
+  },
+  {
+    "id": "ref_386",
+    "type": "reference",
+    "intent": "display_additional_classes",
+    "category": "availability",
+    "query": "show me all the booking classes for this flight",
+    "expected_command": "1*C",
+    "expected_signature": "1*C"
+  },
+  {
+    "id": "ref_387",
+    "type": "reference",
+    "intent": "display_additional_classes",
+    "category": "availability",
+    "query": "how do I see additional classes of service",
+    "expected_command": "1*C",
+    "expected_signature": "1*C"
+  },
+  {
+    "id": "ref_388",
+    "type": "reference",
+    "intent": "display_additional_classes",
+    "category": "availability",
+    "query": "display hidden inventory buckets",
+    "expected_command": "1*C",
+    "expected_signature": "1*C"
+  },
+  {
+    "id": "ref_389",
+    "type": "reference",
+    "intent": "display_additional_classes",
+    "category": "availability",
+    "query": "show more booking codes",
+    "expected_command": "1*C",
+    "expected_signature": "1*C"
+  },
+  {
+    "id": "ref_390",
+    "type": "reference",
+    "intent": "display_additional_classes",
+    "category": "availability",
+    "query": "see all flight classes",
+    "expected_command": "1*C",
+    "expected_signature": "1*C"
+  },
+  {
+    "id": "ref_391",
+    "type": "reference",
+    "intent": "display_additional_classes",
+    "category": "availability",
+    "query": "display hidden classes",
+    "expected_command": "1*C",
+    "expected_signature": "1*C"
+  },
+  {
+    "id": "ref_392",
+    "type": "reference",
+    "intent": "display_additional_classes",
+    "category": "availability",
+    "query": "what other cabin classes are available",
+    "expected_command": "1*C",
+    "expected_signature": "1*C"
+  },
+  {
+    "id": "ref_393",
+    "type": "reference",
+    "intent": "verify_flight_info_from_cpa",
+    "category": "availability",
+    "query": "show me the details for flight on line 1",
+    "expected_command": "VA*1",
+    "expected_signature": "VA*"
+  },
+  {
+    "id": "ref_394",
+    "type": "reference",
+    "intent": "verify_flight_info_from_cpa",
+    "category": "availability",
+    "query": "verify the stops and equipment for this availability line",
+    "expected_command": "VA*1",
+    "expected_signature": "VA*"
+  },
+  {
+    "id": "ref_395",
+    "type": "reference",
+    "intent": "verify_flight_info_from_cpa",
+    "category": "availability",
+    "query": "check the flight info from the cpa display",
+    "expected_command": "VA*1",
+    "expected_signature": "VA*"
+  },
+  {
+    "id": "ref_396",
+    "type": "reference",
+    "intent": "verify_flight_info_from_cpa",
+    "category": "availability",
+    "query": "check flight details from availability",
+    "expected_command": "VA*1",
+    "expected_signature": "VA*"
+  },
+  {
+    "id": "ref_397",
+    "type": "reference",
+    "intent": "verify_flight_info_from_cpa",
+    "category": "availability",
+    "query": "verify segment info",
+    "expected_command": "VA*1",
+    "expected_signature": "VA*"
+  },
+  {
+    "id": "ref_398",
+    "type": "reference",
+    "intent": "verify_flight_info_from_cpa",
+    "category": "availability",
+    "query": "show flight info for line 1",
+    "expected_command": "VA*1",
+    "expected_signature": "VA*"
+  },
+  {
+    "id": "ref_399",
+    "type": "reference",
+    "intent": "verify_flight_info_from_cpa",
+    "category": "availability",
+    "query": "what are the details for segment 1",
+    "expected_command": "VA*1",
+    "expected_signature": "VA*"
+  },
+  {
+    "id": "ref_400",
+    "type": "reference",
+    "intent": "verify_flight_info_from_cpa",
+    "category": "availability",
+    "query": "show me the details for flight on line 3",
+    "expected_command": "VA*3",
+    "expected_signature": "VA*"
+  },
+  {
+    "id": "ref_401",
+    "type": "reference",
+    "intent": "verify_flight_info_from_cpa",
+    "category": "availability",
+    "query": "verify the stops and equipment for availability line 3",
+    "expected_command": "VA*3",
+    "expected_signature": "VA*"
+  },
+  {
+    "id": "ref_402",
+    "type": "reference",
+    "intent": "verify_flight_info_from_cpa",
+    "category": "availability",
+    "query": "check the flight info from cpa segment 3",
+    "expected_command": "VA*3",
+    "expected_signature": "VA*"
+  },
+  {
+    "id": "ref_403",
+    "type": "reference",
+    "intent": "verify_flight_info_from_cpa",
+    "category": "availability",
+    "query": "what are the details for line 3 on this display",
+    "expected_command": "VA*3",
+    "expected_signature": "VA*"
+  },
+  {
+    "id": "ref_404",
+    "type": "reference",
+    "intent": "verify_flight_info_from_cpa",
+    "category": "availability",
+    "query": "verify segment 3 info",
+    "expected_command": "VA*3",
+    "expected_signature": "VA*"
+  },
+  {
+    "id": "ref_405",
+    "type": "reference",
+    "intent": "verify_flight_info_from_cpa",
+    "category": "availability",
+    "query": "show flight details for line 3",
+    "expected_command": "VA*3",
+    "expected_signature": "VA*"
+  },
+  {
+    "id": "ref_406",
+    "type": "reference",
+    "intent": "verify_flight_info_from_cpa",
+    "category": "availability",
+    "query": "check segment number 3 from the availability",
+    "expected_command": "VA*3",
+    "expected_signature": "VA*"
+  },
+  {
+    "id": "ref_407",
+    "type": "reference",
+    "intent": "verify_flight_info_from_cpa",
+    "category": "availability",
+    "query": "show me the details for segment 5",
+    "expected_command": "VA*5",
+    "expected_signature": "VA*"
+  },
+  {
+    "id": "ref_408",
+    "type": "reference",
+    "intent": "verify_flight_info_from_cpa",
+    "category": "availability",
+    "query": "verify the flight info from line 5",
+    "expected_command": "VA*5",
+    "expected_signature": "VA*"
+  },
+  {
+    "id": "ref_409",
+    "type": "reference",
+    "intent": "verify_flight_info_from_cpa",
+    "category": "availability",
+    "query": "check the stops and equipment for availability line 5",
+    "expected_command": "VA*5",
+    "expected_signature": "VA*"
+  },
+  {
+    "id": "ref_410",
+    "type": "reference",
+    "intent": "verify_flight_info_from_cpa",
+    "category": "availability",
+    "query": "what's the flight info on cpa line 5",
+    "expected_command": "VA*5",
+    "expected_signature": "VA*"
+  },
+  {
+    "id": "ref_411",
+    "type": "reference",
+    "intent": "verify_flight_info_from_cpa",
+    "category": "availability",
+    "query": "display flight details for segment 5",
+    "expected_command": "VA*5",
+    "expected_signature": "VA*"
+  },
+  {
+    "id": "ref_412",
+    "type": "reference",
+    "intent": "verify_flight_info_from_cpa",
+    "category": "availability",
+    "query": "verify segment 5 info",
+    "expected_command": "VA*5",
+    "expected_signature": "VA*"
+  },
+  {
+    "id": "ref_413",
+    "type": "reference",
+    "intent": "verify_flight_info_from_cpa",
+    "category": "availability",
+    "query": "show me line 5 flight details from the availability",
+    "expected_command": "VA*5",
+    "expected_signature": "VA*"
+  },
+  {
+    "id": "ref_414",
+    "type": "reference",
+    "intent": "verify_flight_info_range",
+    "category": "availability",
+    "query": "verify flight info for segments 1 through 3",
+    "expected_command": "VA*1-3",
+    "expected_signature": "VA*"
+  },
+  {
+    "id": "ref_415",
+    "type": "reference",
+    "intent": "verify_flight_info_range",
+    "category": "availability",
+    "query": "show me details for lines 1 to 3",
+    "expected_command": "VA*1-3",
+    "expected_signature": "VA*"
+  },
+  {
+    "id": "ref_416",
+    "type": "reference",
+    "intent": "verify_flight_info_range",
+    "category": "availability",
+    "query": "check flight details for range 1-3",
+    "expected_command": "VA*1-3",
+    "expected_signature": "VA*"
+  },
+  {
+    "id": "ref_417",
+    "type": "reference",
+    "intent": "verify_flight_info_range",
+    "category": "availability",
+    "query": "va* 1 dash 3",
+    "expected_command": "VA*1-3",
+    "expected_signature": "VA*"
+  },
+  {
+    "id": "ref_418",
+    "type": "reference",
+    "intent": "verify_flight_info_range",
+    "category": "availability",
+    "query": "verify info on those three flights",
+    "expected_command": "VA*1-3",
+    "expected_signature": "VA*"
+  },
+  {
+    "id": "ref_419",
+    "type": "reference",
+    "intent": "verify_flight_info_range",
+    "category": "availability",
+    "query": "display flight data for segments 1 2 and 3",
+    "expected_command": "VA*1-3",
+    "expected_signature": "VA*"
+  },
+  {
+    "id": "ref_420",
+    "type": "reference",
+    "intent": "verify_flight_info_range",
+    "category": "availability",
+    "query": "check availability details lines 1-3 pls",
+    "expected_command": "VA*1-3",
+    "expected_signature": "VA*"
+  },
+  {
+    "id": "ref_421",
+    "type": "reference",
+    "intent": "verify_flight_info_range",
+    "category": "availability",
+    "query": "show flight info for the first three options",
+    "expected_command": "VA*1-3",
+    "expected_signature": "VA*"
+  },
+  {
+    "id": "ref_422",
+    "type": "reference",
+    "intent": "verify_flight_info_range",
+    "category": "availability",
+    "query": "verify flight info for segments 2 through 4",
+    "expected_command": "VA*2-4",
+    "expected_signature": "VA*"
+  },
+  {
+    "id": "ref_423",
+    "type": "reference",
+    "intent": "verify_flight_info_range",
+    "category": "availability",
+    "query": "show me details for lines 2 to 4",
+    "expected_command": "VA*2-4",
+    "expected_signature": "VA*"
+  },
+  {
+    "id": "ref_424",
+    "type": "reference",
+    "intent": "verify_flight_info_range",
+    "category": "availability",
+    "query": "check flight information range 2-4",
+    "expected_command": "VA*2-4",
+    "expected_signature": "VA*"
+  },
+  {
+    "id": "ref_425",
+    "type": "reference",
+    "intent": "verify_flight_info_range",
+    "category": "availability",
+    "query": "display availability details for segments 2, 3, and 4",
+    "expected_command": "VA*2-4",
+    "expected_signature": "VA*"
+  },
+  {
+    "id": "ref_426",
+    "type": "reference",
+    "intent": "verify_flight_info_range",
+    "category": "availability",
+    "query": "verify info for those middle segments 2 through 4",
+    "expected_command": "VA*2-4",
+    "expected_signature": "VA*"
+  },
+  {
+    "id": "ref_427",
+    "type": "reference",
+    "intent": "verify_flight_info_range",
+    "category": "availability",
+    "query": "show flight details for lines 2-4 pls",
+    "expected_command": "VA*2-4",
+    "expected_signature": "VA*"
+  },
+  {
+    "id": "ref_428",
+    "type": "reference",
+    "intent": "verify_flight_info_range",
+    "category": "availability",
+    "query": "check CPA segments 2 to 4",
+    "expected_command": "VA*2-4",
+    "expected_signature": "VA*"
+  },
+  {
+    "id": "ref_429",
+    "type": "reference",
+    "intent": "verify_flight_info_range",
+    "category": "availability",
+    "query": "verify flight info for segments 5 through 8",
+    "expected_command": "VA*5-8",
+    "expected_signature": "VA*"
+  },
+  {
+    "id": "ref_430",
+    "type": "reference",
+    "intent": "verify_flight_info_range",
+    "category": "availability",
+    "query": "show me details for lines 5 to 8",
+    "expected_command": "VA*5-8",
+    "expected_signature": "VA*"
+  },
+  {
+    "id": "ref_431",
+    "type": "reference",
+    "intent": "verify_flight_info_range",
+    "category": "availability",
+    "query": "check flight details for CPA segments 5-8",
+    "expected_command": "VA*5-8",
+    "expected_signature": "VA*"
+  },
+  {
+    "id": "ref_432",
+    "type": "reference",
+    "intent": "verify_flight_info_range",
+    "category": "availability",
+    "query": "verify info on those flights 5 through 8",
+    "expected_command": "VA*5-8",
+    "expected_signature": "VA*"
+  },
+  {
+    "id": "ref_433",
+    "type": "reference",
+    "intent": "verify_flight_info_range",
+    "category": "availability",
+    "query": "display flight info range 5 to 8 pls",
+    "expected_command": "VA*5-8",
+    "expected_signature": "VA*"
+  },
+  {
+    "id": "ref_434",
+    "type": "reference",
+    "intent": "verify_flight_info_range",
+    "category": "availability",
+    "query": "check availability details for segments 5 through 8",
+    "expected_command": "VA*5-8",
+    "expected_signature": "VA*"
+  },
+  {
+    "id": "ref_435",
+    "type": "reference",
+    "intent": "verify_flight_info_range",
+    "category": "availability",
+    "query": "show flight verification for lines 5-8",
+    "expected_command": "VA*5-8",
+    "expected_signature": "VA*"
+  },
+  {
+    "id": "ref_436",
+    "type": "reference",
+    "intent": "verify_flight_info_specific",
+    "category": "availability",
+    "query": "verify the flight info for line 1 and line 4",
+    "expected_command": "VA*1/4",
+    "expected_signature": "VA*"
+  },
+  {
+    "id": "ref_437",
+    "type": "reference",
+    "intent": "verify_flight_info_specific",
+    "category": "availability",
+    "query": "show details for segments 1 and 4",
+    "expected_command": "VA*1/4",
+    "expected_signature": "VA*"
+  },
+  {
+    "id": "ref_438",
+    "type": "reference",
+    "intent": "verify_flight_info_specific",
+    "category": "availability",
+    "query": "check details for non-consecutive lines 1 and 4",
+    "expected_command": "VA*1/4",
+    "expected_signature": "VA*"
+  },
+  {
+    "id": "ref_439",
+    "type": "reference",
+    "intent": "verify_flight_info_specific",
+    "category": "availability",
+    "query": "verify specific flights on lines 1 and 4",
+    "expected_command": "VA*1/4",
+    "expected_signature": "VA*"
+  },
+  {
+    "id": "ref_440",
+    "type": "reference",
+    "intent": "verify_flight_info_specific",
+    "category": "availability",
+    "query": "display info for separate segments 1 and 4",
+    "expected_command": "VA*1/4",
+    "expected_signature": "VA*"
+  },
+  {
+    "id": "ref_441",
+    "type": "reference",
+    "intent": "verify_flight_info_specific",
+    "category": "availability",
+    "query": "can you show me details for lines 1 and 4 pls",
+    "expected_command": "VA*1/4",
+    "expected_signature": "VA*"
+  },
+  {
+    "id": "ref_442",
+    "type": "reference",
+    "intent": "verify_flight_info_specific",
+    "category": "availability",
+    "query": "check availability details for non-consecutive segments 1 and 4",
+    "expected_command": "VA*1/4",
+    "expected_signature": "VA*"
+  },
+  {
+    "id": "ref_443",
+    "type": "reference",
+    "intent": "verify_flight_info_specific",
+    "category": "availability",
+    "query": "verify the flight info for line 2 and line 5",
+    "expected_command": "VA*2/5",
+    "expected_signature": "VA*"
+  },
+  {
+    "id": "ref_444",
+    "type": "reference",
+    "intent": "verify_flight_info_specific",
+    "category": "availability",
+    "query": "show details for segments 2 and 5",
+    "expected_command": "VA*2/5",
+    "expected_signature": "VA*"
+  },
+  {
+    "id": "ref_445",
+    "type": "reference",
+    "intent": "verify_flight_info_specific",
+    "category": "availability",
+    "query": "check details for these non-consecutive flights 2 and 5",
+    "expected_command": "VA*2/5",
+    "expected_signature": "VA*"
+  },
+  {
+    "id": "ref_446",
+    "type": "reference",
+    "intent": "verify_flight_info_specific",
+    "category": "availability",
+    "query": "verify specific lines 2 and 5",
+    "expected_command": "VA*2/5",
+    "expected_signature": "VA*"
+  },
+  {
+    "id": "ref_447",
+    "type": "reference",
+    "intent": "verify_flight_info_specific",
+    "category": "availability",
+    "query": "show info for separate availability segments 2 and 5",
+    "expected_command": "VA*2/5",
+    "expected_signature": "VA*"
+  },
+  {
+    "id": "ref_448",
+    "type": "reference",
+    "intent": "verify_flight_info_specific",
+    "category": "availability",
+    "query": "check flight details for line 2 and line 5 pls",
+    "expected_command": "VA*2/5",
+    "expected_signature": "VA*"
+  },
+  {
+    "id": "ref_449",
+    "type": "reference",
+    "intent": "verify_flight_info_specific",
+    "category": "availability",
+    "query": "display info for non-consecutive segments 2 and 5",
+    "expected_command": "VA*2/5",
+    "expected_signature": "VA*"
+  },
+  {
+    "id": "ref_450",
+    "type": "reference",
+    "intent": "verify_flight_info_specific",
+    "category": "availability",
+    "query": "verify flight info for segments 1 and 3",
+    "expected_command": "VA*1/3",
+    "expected_signature": "VA*"
+  },
+  {
+    "id": "ref_451",
+    "type": "reference",
+    "intent": "verify_flight_info_specific",
+    "category": "availability",
+    "query": "show details for line 1 and line 3",
+    "expected_command": "VA*1/3",
+    "expected_signature": "VA*"
+  },
+  {
+    "id": "ref_452",
+    "type": "reference",
+    "intent": "verify_flight_info_specific",
+    "category": "availability",
+    "query": "check the non-consecutive flights on lines 1 and 3",
+    "expected_command": "VA*1/3",
+    "expected_signature": "VA*"
+  },
+  {
+    "id": "ref_453",
+    "type": "reference",
+    "intent": "verify_flight_info_specific",
+    "category": "availability",
+    "query": "display info for segments 1 and 3 only",
+    "expected_command": "VA*1/3",
+    "expected_signature": "VA*"
+  },
+  {
+    "id": "ref_454",
+    "type": "reference",
+    "intent": "verify_flight_info_specific",
+    "category": "availability",
+    "query": "verify these separate flight segments 1 and 3",
+    "expected_command": "VA*1/3",
+    "expected_signature": "VA*"
+  },
+  {
+    "id": "ref_455",
+    "type": "reference",
+    "intent": "verify_flight_info_specific",
+    "category": "availability",
+    "query": "show me details for lines 1 & 3",
+    "expected_command": "VA*1/3",
+    "expected_signature": "VA*"
+  },
+  {
+    "id": "ref_456",
+    "type": "reference",
+    "intent": "verify_flight_info_specific",
+    "category": "availability",
+    "query": "check flight details for non-consecutive lines 1 and 3",
+    "expected_command": "VA*1/3",
+    "expected_signature": "VA*"
+  }
+]

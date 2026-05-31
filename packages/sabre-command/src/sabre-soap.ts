@@ -362,6 +362,75 @@ export async function runSabreHostCommand(
 	}
 }
 
+/**
+ * Run a sequence of host commands within a single Sabre session.
+ * Each command executes in the context left by the previous one.
+ * Optionally discards the transaction at the end.
+ * Returns one result per command, in order.
+ */
+export async function runSabreHostCommandSequence(
+	cfg: SabreEnvConfig,
+	hostCommands: string[],
+	options: RunHostCommandOptions = {},
+): Promise<SabreCommandResult[]> {
+	if (hostCommands.length === 0) return [];
+	const { discardTransaction = false } = options;
+	const conversationId = crypto.randomUUID();
+	const createXml = await postSoap(cfg.soapUrl, sessionCreateEnvelope(cfg, conversationId));
+	const faultCreate = extractFaultString(createXml);
+	if (faultCreate) {
+		throw new Error(`SessionCreate fault: ${faultCreate}`);
+	}
+	const token = extractBinarySecurityToken(createXml);
+	if (!token) {
+		throw new Error("SessionCreate: no BinarySecurityToken in response");
+	}
+	const results: SabreCommandResult[] = [];
+	try {
+		for (const hostCommand of hostCommands) {
+			const cmdXml = await postSoap(
+				cfg.soapUrl,
+				sabreCommandEnvelope(cfg, conversationId, token, hostCommand),
+			);
+			const faultCmd = extractFaultString(cmdXml);
+			if (faultCmd) {
+				throw new Error(`SabreCommandLLSRQ fault: ${faultCmd}`);
+			}
+			const interp = interpretSabreLlsResult(cmdXml);
+			if (!interp.ok) {
+				throw new Error(interp.detail ?? "Sabre host rejected the command");
+			}
+			results.push({
+				rawXml: cmdXml,
+				screen: extractSabreCommandResponse(cmdXml),
+			});
+		}
+
+		if (discardTransaction) {
+			const ignXml = await postSoap(
+				cfg.soapUrl,
+				ignoreTransactionEnvelope(cfg, conversationId, token),
+				SOAP_ACTION_IGNORE,
+			);
+			const ignInterp = interpretSabreLlsResult(ignXml);
+			if (!ignInterp.ok) {
+				throw new Error(
+					`IgnoreTransactionLLSRQ failed: ${ignInterp.detail ?? "unknown"}`,
+				);
+			}
+			for (const r of results) r.discardedTransaction = true;
+		}
+
+		return results;
+	} finally {
+		try {
+			await postSoap(cfg.soapUrl, sessionCloseEnvelope(cfg, conversationId, token));
+		} catch {
+			// best-effort close
+		}
+	}
+}
+
 /** Validate-only: run host command, then IgnoreTransactionLLSRQ (no EndTransaction). */
 export async function validateSabreHostCommand(
 	cfg: SabreEnvConfig,

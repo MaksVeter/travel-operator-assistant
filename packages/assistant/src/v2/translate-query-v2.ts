@@ -8,8 +8,8 @@ import {
 } from "core";
 import { rewriteQuery } from "./rewrite-query.ts";
 import { findRelevantChunksV2 } from "./hybrid-search.ts";
+import { augmentRetrieval } from "./augment-retrieval.ts";
 import { classifyIntent } from "./classify-intent.ts";
-import { filterContext } from "./filter-context.ts";
 import { assemblePromptV2 } from "./assemble-prompt-v2.ts";
 import { validateAndNormalize } from "./validate-command.ts";
 import { addTurnToSession, getSessionHistory } from "./session.ts";
@@ -24,7 +24,7 @@ import type {
 export function loadV2Config(): V2Config {
 	return {
 		retrievalTopK: Number.parseInt(process.env.V2_RETRIEVAL_TOP_K ?? "6", 10),
-		contextLimit: Number.parseInt(process.env.V2_CONTEXT_LIMIT ?? "3", 10),
+		contextLimit: Number.parseInt(process.env.V2_CONTEXT_LIMIT ?? "6", 10),
 		scoreThreshold: Number.parseFloat(
 			process.env.V2_SCORE_THRESHOLD ?? "0",
 		),
@@ -98,12 +98,19 @@ export async function translateQueryV2(
 
 	// 4. Hybrid search
 	const searchStart = Date.now();
-	const { chunks: retrievedChunks, queryVector } = await findRelevantChunksV2(
+	const { chunks: retrievedRaw, queryVector } = await findRelevantChunksV2(
 		search,
 		embedder,
 		config.opensearchIndex,
 		rewrittenQuery,
 		v2Config.retrievalTopK,
+	);
+	const retrievedChunks = await augmentRetrieval(
+		retrievedRaw,
+		boundedQuery,
+		search,
+		config.opensearchIndex,
+		sessionHistory?.length ? sessionHistory : undefined,
 	);
 	timings.embed = searchStart - embedStart;
 	timings.search = Date.now() - searchStart;
@@ -131,16 +138,12 @@ export async function translateQueryV2(
 		);
 	}
 
-	// 6. Filter & deduplicate context
+	// 6. Context — top-N chunks in retrieval order (no intent re-ranking)
 	const filterStart = Date.now();
-	const filteredChunks = filterContext(retrievedChunks, predictedIntents, {
-		scoreThreshold: v2Config.scoreThreshold,
-		contextLimit: v2Config.contextLimit,
-		intentConfidenceThreshold: v2Config.intentConfidenceThreshold,
-	});
+	const filteredChunks = retrievedChunks.slice(0, v2Config.contextLimit);
 	timings.filter = Date.now() - filterStart;
 
-	log.info(`Filtered to ${filteredChunks.length} chunks`);
+	log.info(`Using ${filteredChunks.length} chunks in retrieval order`);
 
 	// 7. Assemble V2 prompt (with session history for context)
 	const { system, user } = assemblePromptV2(
