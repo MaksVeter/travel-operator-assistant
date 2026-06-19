@@ -17,14 +17,12 @@ QUERIES=(
 	"what is the airline code for Japan Airlines"
 )
 
-echo "CLI debug smoke test (POST translate only in CLI logs)"
+echo "CLI debug smoke test (v2 pipeline, stderr = steps, stdout = command)"
 echo ""
 
 for q in "${QUERIES[@]}"; do
 	echo "================================================================"
-	echo "Query: $q"
-	echo "----------------------------------------------------------------"
-	bun run packages/cli/src/main.ts -- --debug "$q" || true
+	bun run packages/cli/src/main.ts -- --v2 --debug "$q" || true
 	echo ""
 done
 

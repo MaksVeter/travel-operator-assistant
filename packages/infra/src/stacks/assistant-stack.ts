@@ -89,8 +89,8 @@ export class AssistantStack extends cdk.Stack {
 			),
 			handler: "handler",
 			role: this.lambdaRole,
-			timeout: cdk.Duration.seconds(30),
-			memorySize: 512,
+			timeout: cdk.Duration.seconds(60),
+			memorySize: 1024,
 			bundling: {
 				minify: false,
 				sourceMap: true,
@@ -115,6 +115,12 @@ export class AssistantStack extends cdk.Stack {
 				MAX_QUERY_TOKENS: process.env.MAX_QUERY_TOKENS ?? "4000",
 				ASSISTANT_DEBUG: process.env.ASSISTANT_DEBUG ?? "0",
 				LOG_LEVEL: process.env.LOG_LEVEL ?? "info",
+				V2_RETRIEVAL_TOP_K: process.env.V2_RETRIEVAL_TOP_K ?? "6",
+				V2_CONTEXT_LIMIT: process.env.V2_CONTEXT_LIMIT ?? "6",
+				V2_SCORE_THRESHOLD: process.env.V2_SCORE_THRESHOLD ?? "0",
+				V2_INTENT_CONFIDENCE_THRESHOLD:
+					process.env.V2_INTENT_CONFIDENCE_THRESHOLD ?? "0.6",
+				V2_ENABLE_RETRY: process.env.V2_ENABLE_RETRY ?? "true",
 			},
 			logGroup: assistantLogGroup,
 		});
@@ -129,13 +135,20 @@ export class AssistantStack extends cdk.Stack {
 			},
 			defaultCorsPreflightOptions: {
 				allowOrigins: ["*"],
-				allowMethods: ["POST", "OPTIONS"],
+				allowMethods: ["GET", "POST", "OPTIONS"],
 				allowHeaders: ["Content-Type", "X-Assistant-Debug"],
 			},
 		});
 
 		const translateResource = api.root.addResource("translate");
 		translateResource.addMethod(
+			"POST",
+			new apigateway.LambdaIntegration(fn),
+		);
+
+		const v2Resource = api.root.addResource("v2");
+		const v2TranslateResource = v2Resource.addResource("translate");
+		v2TranslateResource.addMethod(
 			"POST",
 			new apigateway.LambdaIntegration(fn),
 		);

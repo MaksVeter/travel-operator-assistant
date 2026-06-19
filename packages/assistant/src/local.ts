@@ -1,25 +1,10 @@
-import fs from "node:fs";
-import path from "node:path";
 import { loadConfig, log } from "core";
 import { translateQuery } from "./translate-query.ts";
+import { loadIntentCentroids } from "./load-intent-centroids.ts";
 import { translateQueryV2 } from "./v2/translate-query-v2.ts";
-import type { IntentCentroid } from "./v2/types.ts";
 
 const config = loadConfig();
-
-// Load intent centroids for V2 (if available)
-let intentCentroids: IntentCentroid[] = [];
-const centroidsPath = path.join(process.cwd(), "data", "intent-centroids.json");
-if (fs.existsSync(centroidsPath)) {
-	intentCentroids = JSON.parse(
-		fs.readFileSync(centroidsPath, "utf8"),
-	) as IntentCentroid[];
-	log.info(`Loaded ${intentCentroids.length} intent centroids for V2`);
-} else {
-	log.warn(
-		`Intent centroids not found at ${centroidsPath} — V2 intent classification disabled`,
-	);
-}
+const intentCentroids = loadIntentCentroids();
 
 function isDebugRequest(req: Request): boolean {
 	return (

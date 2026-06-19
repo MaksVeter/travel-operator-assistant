@@ -1,5 +1,11 @@
 import type { IntentPrediction } from "./types.ts";
 import { validateCommandForIntent } from "./dsl-patterns.ts";
+import {
+	type NormalizeContext,
+	buildRetryHint,
+	normalizeSabreCommand,
+	shouldRetryCommand,
+} from "./sabre-command-normalize.ts";
 
 const REFUSAL_TOKEN = "REFUSE";
 
@@ -8,22 +14,20 @@ export type ValidationResult = {
 	isRefusal: boolean;
 	validationApplied: boolean;
 	normalized: boolean;
+	/** Set when a follow-up LLM retry is recommended. */
+	retryHint?: string;
 };
 
 /**
  * Post-process and validate LLM output.
- * - Strips markdown artifacts
- * - Detects refusals
- * - Validates against DSL patterns
- * - Normalizes whitespace
  */
 export function validateAndNormalize(
 	rawOutput: string,
 	predictedIntents: IntentPrediction[] | null,
+	context?: NormalizeContext,
 ): ValidationResult {
 	let text = rawOutput.trim();
 
-	// Strip markdown code fences
 	if (text.startsWith("```") && text.endsWith("```")) {
 		text = text.slice(3, -3).trim();
 	}
@@ -31,7 +35,6 @@ export function validateAndNormalize(
 		text = text.slice(1, -1).trim();
 	}
 
-	// Strip surrounding quotes
 	if (
 		(text.startsWith('"') && text.endsWith('"')) ||
 		(text.startsWith("'") && text.endsWith("'"))
@@ -39,7 +42,6 @@ export function validateAndNormalize(
 		text = text.slice(1, -1).trim();
 	}
 
-	// Detect refusal
 	if (
 		text === REFUSAL_TOKEN ||
 		text.toLowerCase().startsWith("i cannot") ||
@@ -55,31 +57,34 @@ export function validateAndNormalize(
 		};
 	}
 
-	// If output contains multiple lines, take only the first non-empty line
 	const lines = text.split("\n").filter((l) => l.trim().length > 0);
 	if (lines.length > 1) {
 		text = lines[0]!.trim();
 	}
 
-	// Normalize: collapse internal whitespace where appropriate
-	// But preserve single spaces in commands like W/-CCNEW YORK
-	let normalized = false;
+	text = sanitizeSabreHomoglyphs(text);
 
-	// Validate against predicted intent pattern
+	const sabreNorm = normalizeSabreCommand(text, context);
+	text = sabreNorm.command;
+	let normalized = sabreNorm.normalized;
+
 	let validationApplied = false;
 	if (predictedIntents?.length && predictedIntents[0]!.confidence >= 0.7) {
-		const topIntent = predictedIntents[0]!.intent;
-		const isValid = validateCommandForIntent(text, topIntent);
+		validateCommandForIntent(text, predictedIntents[0]!.intent);
 		validationApplied = true;
+	}
 
-		// If starts with expected signature, command is structurally plausible
-		if (!isValid && predictedIntents[0]!.dsl_signature) {
-			const sig = predictedIntents[0]!.dsl_signature;
-			if (!text.startsWith(sig)) {
-				// Command doesn't even start with expected signature — likely wrong
-				// But don't override, just flag it (retry handled by orchestrator)
-			}
-		}
+	let retryHint: string | undefined;
+	if (
+		context &&
+		shouldRetryCommand(
+			text,
+			context.query,
+			context.hasSession,
+			sabreNorm.issues,
+		)
+	) {
+		retryHint = buildRetryHint(sabreNorm.issues, context.query);
 	}
 
 	return {
@@ -87,15 +92,42 @@ export function validateAndNormalize(
 		isRefusal: false,
 		validationApplied,
 		normalized,
+		retryHint,
 	};
+}
+
+function sanitizeSabreHomoglyphs(text: string): string {
+	const map: Record<string, string> = {
+		"\u0410": "A",
+		"\u0412": "B",
+		"\u0415": "E",
+		"\u041A": "K",
+		"\u041C": "M",
+		"\u041D": "H",
+		"\u041E": "O",
+		"\u0420": "R",
+		"\u0421": "C",
+		"\u0422": "T",
+		"\u0425": "X",
+		"\u0391": "A",
+		"\u0392": "B",
+		"\u0395": "E",
+		"\u039A": "K",
+		"\u039C": "M",
+		"\u039F": "O",
+		"\u03A1": "R",
+		"\u03A4": "T",
+		"\u03A7": "X",
+	};
+	return [...text].map((ch) => map[ch] ?? ch).join("");
 }
 
 function formatRefusal(): string {
 	return `I cannot build a Sabre command from your request.
 
 Examples of how to phrase a request:
-- What is the three-letter city code for Knoxville in Sabre?
-- What is the airport designator for Charles de Gaulle Airport?
-- What is the two-letter carrier code for Delta Air Lines?
-- Decode the airport code LHR to the full airport name.`;
+- What is the three-letter city code for a city in Sabre?
+- What is the airport designator for an international airport?
+- What is the two-letter carrier code for an airline?
+- Decode an airport code to the full airport name.`;
 }

@@ -1,0 +1,793 @@
+[
+  {
+    "intent": "encode_city",
+    "type": "reference",
+    "category": "encoding",
+    "expected_command": "W/-CCPARIS",
+    "expected_signature": "W/-CC"
+  },
+  {
+    "intent": "encode_city",
+    "type": "reference",
+    "category": "encoding",
+    "expected_command": "W/-CCLONDON",
+    "expected_signature": "W/-CC"
+  },
+  {
+    "intent": "encode_city",
+    "type": "reference",
+    "category": "encoding",
+    "expected_command": "W/-CCTOKYO",
+    "expected_signature": "W/-CC"
+  },
+  {
+    "intent": "encode_airport",
+    "type": "reference",
+    "category": "encoding",
+    "expected_command": "W/-APHEATHROW",
+    "expected_signature": "W/-AP"
+  },
+  {
+    "intent": "encode_airport",
+    "type": "reference",
+    "category": "encoding",
+    "expected_command": "W/-APCHARLES DE GAULLE",
+    "expected_signature": "W/-AP"
+  },
+  {
+    "intent": "encode_airport",
+    "type": "reference",
+    "category": "encoding",
+    "expected_command": "W/-APJOHN F KENNEDY",
+    "expected_signature": "W/-AP"
+  },
+  {
+    "intent": "encode_airline",
+    "type": "reference",
+    "category": "encoding",
+    "expected_command": "W/-ALLUFTHANSA",
+    "expected_signature": "W/-AL"
+  },
+  {
+    "intent": "encode_airline",
+    "type": "reference",
+    "category": "encoding",
+    "expected_command": "W/-ALAIR FRANCE",
+    "expected_signature": "W/-AL"
+  },
+  {
+    "intent": "encode_airline",
+    "type": "reference",
+    "category": "encoding",
+    "expected_command": "W/-ALEMIRATES",
+    "expected_signature": "W/-AL"
+  },
+  {
+    "intent": "encode_aircraft_type",
+    "type": "reference",
+    "category": "encoding",
+    "expected_command": "W/EQ-AIRBUS A320",
+    "expected_signature": "W/EQ-"
+  },
+  {
+    "intent": "encode_aircraft_type",
+    "type": "reference",
+    "category": "encoding",
+    "expected_command": "W/EQ-BOEING 737",
+    "expected_signature": "W/EQ-"
+  },
+  {
+    "intent": "encode_aircraft_type",
+    "type": "reference",
+    "category": "encoding",
+    "expected_command": "W/EQ-BOEING 777",
+    "expected_signature": "W/EQ-"
+  },
+  {
+    "intent": "decode_city_airport",
+    "type": "reference",
+    "category": "decoding",
+    "expected_command": "W/*CDG",
+    "expected_signature": "W/*"
+  },
+  {
+    "intent": "decode_city_airport",
+    "type": "reference",
+    "category": "decoding",
+    "expected_command": "W/*JFK",
+    "expected_signature": "W/*"
+  },
+  {
+    "intent": "decode_city_airport",
+    "type": "reference",
+    "category": "decoding",
+    "expected_command": "W/*LHR",
+    "expected_signature": "W/*"
+  },
+  {
+    "intent": "decode_airline",
+    "type": "reference",
+    "category": "decoding",
+    "expected_command": "W/*AF",
+    "expected_signature": "W/*"
+  },
+  {
+    "intent": "decode_airline",
+    "type": "reference",
+    "category": "decoding",
+    "expected_command": "W/*LH",
+    "expected_signature": "W/*"
+  },
+  {
+    "intent": "decode_airline",
+    "type": "reference",
+    "category": "decoding",
+    "expected_command": "W/*DL",
+    "expected_signature": "W/*"
+  },
+  {
+    "intent": "decode_aircraft_type",
+    "type": "reference",
+    "category": "decoding",
+    "expected_command": "W/EQ*320",
+    "expected_signature": "W/EQ*"
+  },
+  {
+    "intent": "decode_aircraft_type",
+    "type": "reference",
+    "category": "decoding",
+    "expected_command": "W/EQ*737",
+    "expected_signature": "W/EQ*"
+  },
+  {
+    "intent": "decode_aircraft_type",
+    "type": "reference",
+    "category": "decoding",
+    "expected_command": "W/EQ*777",
+    "expected_signature": "W/EQ*"
+  },
+  {
+    "intent": "find_closest_airports_state",
+    "type": "reference",
+    "category": "encoding",
+    "expected_command": "W/-CYCOLUMBUS, OH",
+    "expected_signature": "W/-CY"
+  },
+  {
+    "intent": "find_closest_airports_state",
+    "type": "reference",
+    "category": "encoding",
+    "expected_command": "W/-CYDALLAS, TX",
+    "expected_signature": "W/-CY"
+  },
+  {
+    "intent": "find_closest_airports_state",
+    "type": "reference",
+    "category": "encoding",
+    "expected_command": "W/-CYMIAMI, FL",
+    "expected_signature": "W/-CY"
+  },
+  {
+    "intent": "find_closest_airports_country",
+    "type": "reference",
+    "category": "encoding",
+    "expected_command": "W/-CYVANCOUVER, CA",
+    "expected_signature": "W/-CY"
+  },
+  {
+    "intent": "find_closest_airports_country",
+    "type": "reference",
+    "category": "encoding",
+    "expected_command": "W/-CYPARIS, FR",
+    "expected_signature": "W/-CY"
+  },
+  {
+    "intent": "find_closest_airports_country",
+    "type": "reference",
+    "category": "encoding",
+    "expected_command": "W/-CYSYDNEY, AU",
+    "expected_signature": "W/-CY"
+  },
+  {
+    "intent": "find_closest_airports_airport",
+    "type": "reference",
+    "category": "encoding",
+    "expected_command": "W/-ATLHR",
+    "expected_signature": "W/-AT"
+  },
+  {
+    "intent": "find_closest_airports_airport",
+    "type": "reference",
+    "category": "encoding",
+    "expected_command": "W/-ATJFK",
+    "expected_signature": "W/-AT"
+  },
+  {
+    "intent": "find_closest_airports_airport",
+    "type": "reference",
+    "category": "encoding",
+    "expected_command": "W/-ATDXB",
+    "expected_signature": "W/-AT"
+  },
+  {
+    "intent": "find_closest_airports_military",
+    "type": "reference",
+    "category": "encoding",
+    "expected_command": "W/-MBFORT HOOD,TX",
+    "expected_signature": "W/-MB"
+  },
+  {
+    "intent": "find_closest_airports_military",
+    "type": "reference",
+    "category": "encoding",
+    "expected_command": "W/-MBCAMP PENDLETON,CA",
+    "expected_signature": "W/-MB"
+  },
+  {
+    "intent": "find_closest_airports_military",
+    "type": "reference",
+    "category": "encoding",
+    "expected_command": "W/-MBFORT BRAGG,NC",
+    "expected_signature": "W/-MB"
+  },
+  {
+    "intent": "distance_between_airports",
+    "type": "reference",
+    "category": "encoding",
+    "expected_command": "W/-ATLAX≠ATLHR",
+    "expected_signature": "W/-AT"
+  },
+  {
+    "intent": "distance_between_airports",
+    "type": "reference",
+    "category": "encoding",
+    "expected_command": "W/-ATJFK≠ATCDG",
+    "expected_signature": "W/-AT"
+  },
+  {
+    "intent": "distance_between_airports",
+    "type": "reference",
+    "category": "encoding",
+    "expected_command": "W/-ATDXB≠ATSIN",
+    "expected_signature": "W/-AT"
+  },
+  {
+    "intent": "display_similar_name_list",
+    "type": "reference",
+    "category": "encoding",
+    "expected_command": "W/-CYSPRINGFIELD",
+    "expected_signature": "W/-CY"
+  },
+  {
+    "intent": "display_similar_name_list",
+    "type": "reference",
+    "category": "encoding",
+    "expected_command": "W/-CYSANTA MONICA",
+    "expected_signature": "W/-CY"
+  },
+  {
+    "intent": "display_similar_name_list",
+    "type": "reference",
+    "category": "encoding",
+    "expected_command": "W/-CYRICHMOND",
+    "expected_signature": "W/-CY"
+  },
+  {
+    "intent": "select_similar_name_list",
+    "type": "reference",
+    "category": "encoding",
+    "expected_command": "W/-SL1",
+    "expected_signature": "W/-SL"
+  },
+  {
+    "intent": "select_similar_name_list",
+    "type": "reference",
+    "category": "encoding",
+    "expected_command": "W/-SL2",
+    "expected_signature": "W/-SL"
+  },
+  {
+    "intent": "select_similar_name_list",
+    "type": "reference",
+    "category": "encoding",
+    "expected_command": "W/-SL3",
+    "expected_signature": "W/-SL"
+  },
+  {
+    "intent": "redisplay_similar_name_list",
+    "type": "reference",
+    "category": "encoding",
+    "expected_command": "W/-SL*",
+    "expected_signature": "W/-SL*"
+  },
+  {
+    "intent": "request_flight_availability",
+    "type": "reference",
+    "category": "availability",
+    "expected_command": "110MARJFKLHR11A",
+    "expected_signature": "1"
+  },
+  {
+    "intent": "request_flight_availability",
+    "type": "reference",
+    "category": "availability",
+    "expected_command": "115JANCDGDXB",
+    "expected_signature": "1"
+  },
+  {
+    "intent": "request_flight_availability",
+    "type": "reference",
+    "category": "availability",
+    "expected_command": "122APRORDLAX6P",
+    "expected_signature": "1"
+  },
+  {
+    "intent": "request_additional_availability",
+    "type": "reference",
+    "category": "availability",
+    "expected_command": "1*",
+    "expected_signature": "1*"
+  },
+  {
+    "intent": "redisplay_last_availability",
+    "type": "reference",
+    "category": "availability",
+    "expected_command": "1*R",
+    "expected_signature": "1*R"
+  },
+  {
+    "intent": "redisplay_original_availability",
+    "type": "reference",
+    "category": "availability",
+    "expected_command": "1*OA",
+    "expected_signature": "1*OA"
+  },
+  {
+    "intent": "display_additional_classes",
+    "type": "reference",
+    "category": "availability",
+    "expected_command": "1*C",
+    "expected_signature": "1*C"
+  },
+  {
+    "intent": "verify_flight_info_from_cpa",
+    "type": "reference",
+    "category": "availability",
+    "expected_command": "VA*1",
+    "expected_signature": "VA*"
+  },
+  {
+    "intent": "verify_flight_info_from_cpa",
+    "type": "reference",
+    "category": "availability",
+    "expected_command": "VA*3",
+    "expected_signature": "VA*"
+  },
+  {
+    "intent": "verify_flight_info_from_cpa",
+    "type": "reference",
+    "category": "availability",
+    "expected_command": "VA*5",
+    "expected_signature": "VA*"
+  },
+  {
+    "intent": "verify_flight_info_range",
+    "type": "reference",
+    "category": "availability",
+    "expected_command": "VA*1-3",
+    "expected_signature": "VA*"
+  },
+  {
+    "intent": "verify_flight_info_range",
+    "type": "reference",
+    "category": "availability",
+    "expected_command": "VA*2-4",
+    "expected_signature": "VA*"
+  },
+  {
+    "intent": "verify_flight_info_range",
+    "type": "reference",
+    "category": "availability",
+    "expected_command": "VA*5-8",
+    "expected_signature": "VA*"
+  },
+  {
+    "intent": "verify_flight_info_specific",
+    "type": "reference",
+    "category": "availability",
+    "expected_command": "VA*1/4",
+    "expected_signature": "VA*"
+  },
+  {
+    "intent": "verify_flight_info_specific",
+    "type": "reference",
+    "category": "availability",
+    "expected_command": "VA*2/5",
+    "expected_signature": "VA*"
+  },
+  {
+    "intent": "verify_flight_info_specific",
+    "type": "reference",
+    "category": "availability",
+    "expected_command": "VA*1/3",
+    "expected_signature": "VA*"
+  },
+  {
+    "intent": "change_departure_time",
+    "type": "multi_turn",
+    "category": "availability",
+    "turns": [
+      { "expected_command": "110MARJFKLHR", "expected_signature": "1" },
+      { "expected_command": "1*2P", "expected_signature": "1*" }
+    ]
+  },
+  {
+    "intent": "change_departure_time",
+    "type": "multi_turn",
+    "category": "availability",
+    "turns": [
+      { "expected_command": "115JANCDGDXB", "expected_signature": "1" },
+      { "expected_command": "1*10A", "expected_signature": "1*" }
+    ]
+  },
+  {
+    "intent": "change_departure_time",
+    "type": "multi_turn",
+    "category": "availability",
+    "turns": [
+      { "expected_command": "122APRORDLAX", "expected_signature": "1" },
+      { "expected_command": "1*6P", "expected_signature": "1*" }
+    ]
+  },
+  {
+    "intent": "add_days_to_availability",
+    "type": "multi_turn",
+    "category": "availability",
+    "turns": [
+      { "expected_command": "110MARJFKLHR", "expected_signature": "1" },
+      { "expected_command": "1‡3", "expected_signature": "1‡" }
+    ]
+  },
+  {
+    "intent": "add_days_to_availability",
+    "type": "multi_turn",
+    "category": "availability",
+    "turns": [
+      { "expected_command": "115JANCDGDXB", "expected_signature": "1" },
+      { "expected_command": "1‡1", "expected_signature": "1‡" }
+    ]
+  },
+  {
+    "intent": "add_days_to_availability",
+    "type": "multi_turn",
+    "category": "availability",
+    "turns": [
+      { "expected_command": "122APRORDLAX", "expected_signature": "1" },
+      { "expected_command": "1‡7", "expected_signature": "1‡" }
+    ]
+  },
+  {
+    "intent": "subtract_days_from_availability",
+    "type": "multi_turn",
+    "category": "availability",
+    "turns": [
+      { "expected_command": "110MARJFKLHR", "expected_signature": "1" },
+      { "expected_command": "1-2", "expected_signature": "1-" }
+    ]
+  },
+  {
+    "intent": "subtract_days_from_availability",
+    "type": "multi_turn",
+    "category": "availability",
+    "turns": [
+      { "expected_command": "115JANCDGDXB", "expected_signature": "1" },
+      { "expected_command": "1-4", "expected_signature": "1-" }
+    ]
+  },
+  {
+    "intent": "subtract_days_from_availability",
+    "type": "multi_turn",
+    "category": "availability",
+    "turns": [
+      { "expected_command": "122APRORDLAX", "expected_signature": "1" },
+      { "expected_command": "1-1", "expected_signature": "1-" }
+    ]
+  },
+  {
+    "intent": "change_arrival_city",
+    "type": "multi_turn",
+    "category": "availability",
+    "turns": [
+      { "expected_command": "110MARJFKLHR", "expected_signature": "1" },
+      { "expected_command": "1*ACDG", "expected_signature": "1*A" }
+    ]
+  },
+  {
+    "intent": "change_arrival_city",
+    "type": "multi_turn",
+    "category": "availability",
+    "turns": [
+      { "expected_command": "115JANLAXSYD", "expected_signature": "1" },
+      { "expected_command": "1*AMEL", "expected_signature": "1*A" }
+    ]
+  },
+  {
+    "intent": "change_arrival_city",
+    "type": "multi_turn",
+    "category": "availability",
+    "turns": [
+      { "expected_command": "122APRDFWFRA", "expected_signature": "1" },
+      { "expected_command": "1*AAMS", "expected_signature": "1*A" }
+    ]
+  },
+  {
+    "intent": "change_departure_city",
+    "type": "multi_turn",
+    "category": "availability",
+    "turns": [
+      { "expected_command": "110MARJFKLHR", "expected_signature": "1" },
+      { "expected_command": "1*DBOS", "expected_signature": "1*D" }
+    ]
+  },
+  {
+    "intent": "change_departure_city",
+    "type": "multi_turn",
+    "category": "availability",
+    "turns": [
+      { "expected_command": "115JANLAXSYD", "expected_signature": "1" },
+      { "expected_command": "1*DSEA", "expected_signature": "1*D" }
+    ]
+  },
+  {
+    "intent": "change_departure_city",
+    "type": "multi_turn",
+    "category": "availability",
+    "turns": [
+      { "expected_command": "122APRDFWFRA", "expected_signature": "1" },
+      { "expected_command": "1*DATL", "expected_signature": "1*D" }
+    ]
+  },
+  {
+    "intent": "change_city_pair",
+    "type": "multi_turn",
+    "category": "availability",
+    "turns": [
+      { "expected_command": "110MARJFKLHR", "expected_signature": "1" },
+      { "expected_command": "1*BOSCDG", "expected_signature": "1*" }
+    ]
+  },
+  {
+    "intent": "change_city_pair",
+    "type": "multi_turn",
+    "category": "availability",
+    "turns": [
+      { "expected_command": "115JANLAXSYD", "expected_signature": "1" },
+      { "expected_command": "1*SEAAKL", "expected_signature": "1*" }
+    ]
+  },
+  {
+    "intent": "change_city_pair",
+    "type": "multi_turn",
+    "category": "availability",
+    "turns": [
+      { "expected_command": "122APRDFWFRA", "expected_signature": "1" },
+      { "expected_command": "1*MIALHR", "expected_signature": "1*" }
+    ]
+  },
+  {
+    "intent": "request_return_availability_time",
+    "type": "multi_turn",
+    "category": "availability",
+    "turns": [
+      { "expected_command": "110MARJFKLHR", "expected_signature": "1" },
+      { "expected_command": "1R6P", "expected_signature": "1R" }
+    ]
+  },
+  {
+    "intent": "request_return_availability_time",
+    "type": "multi_turn",
+    "category": "availability",
+    "turns": [
+      { "expected_command": "115JANCDGDXB", "expected_signature": "1" },
+      { "expected_command": "1R8P", "expected_signature": "1R" }
+    ]
+  },
+  {
+    "intent": "request_return_availability_time",
+    "type": "multi_turn",
+    "category": "availability",
+    "turns": [
+      { "expected_command": "122APRORDLAX", "expected_signature": "1" },
+      { "expected_command": "1R945P", "expected_signature": "1R" }
+    ]
+  },
+  {
+    "intent": "request_return_availability_add_days",
+    "type": "multi_turn",
+    "category": "availability",
+    "turns": [
+      { "expected_command": "110MARJFKLHR", "expected_signature": "1" },
+      { "expected_command": "1R‡7", "expected_signature": "1R‡" }
+    ]
+  },
+  {
+    "intent": "request_return_availability_add_days",
+    "type": "multi_turn",
+    "category": "availability",
+    "turns": [
+      { "expected_command": "115JANCDGDXB", "expected_signature": "1" },
+      { "expected_command": "1R‡3", "expected_signature": "1R‡" }
+    ]
+  },
+  {
+    "intent": "request_return_availability_add_days",
+    "type": "multi_turn",
+    "category": "availability",
+    "turns": [
+      { "expected_command": "122APRORDLAX", "expected_signature": "1" },
+      { "expected_command": "1R‡14", "expected_signature": "1R‡" }
+    ]
+  },
+  {
+    "intent": "request_return_availability_sub_days",
+    "type": "multi_turn",
+    "category": "availability",
+    "turns": [
+      { "expected_command": "110MARJFKLHR", "expected_signature": "1" },
+      { "expected_command": "1R-2", "expected_signature": "1R-" }
+    ]
+  },
+  {
+    "intent": "request_return_availability_sub_days",
+    "type": "multi_turn",
+    "category": "availability",
+    "turns": [
+      { "expected_command": "115JANCDGDXB", "expected_signature": "1" },
+      { "expected_command": "1R-1", "expected_signature": "1R-" }
+    ]
+  },
+  {
+    "intent": "request_return_availability_sub_days",
+    "type": "multi_turn",
+    "category": "availability",
+    "turns": [
+      { "expected_command": "122APRORDLAX", "expected_signature": "1" },
+      { "expected_command": "1R-5", "expected_signature": "1R-" }
+    ]
+  },
+  {
+    "intent": "request_return_availability_add_days_time",
+    "type": "multi_turn",
+    "category": "availability",
+    "turns": [
+      { "expected_command": "110MARJFKLHR", "expected_signature": "1" },
+      { "expected_command": "1R‡5*10A", "expected_signature": "1R‡" }
+    ]
+  },
+  {
+    "intent": "request_return_availability_add_days_time",
+    "type": "multi_turn",
+    "category": "availability",
+    "turns": [
+      { "expected_command": "115JANCDGDXB", "expected_signature": "1" },
+      { "expected_command": "1R‡2*2P", "expected_signature": "1R‡" }
+    ]
+  },
+  {
+    "intent": "request_return_availability_add_days_time",
+    "type": "multi_turn",
+    "category": "availability",
+    "turns": [
+      { "expected_command": "122APRORDLAX", "expected_signature": "1" },
+      { "expected_command": "1R‡10*8A", "expected_signature": "1R‡" }
+    ]
+  },
+  {
+    "intent": "request_return_availability_sub_days_time",
+    "type": "multi_turn",
+    "category": "availability",
+    "turns": [
+      { "expected_command": "110MARJFKLHR", "expected_signature": "1" },
+      { "expected_command": "1R-3*4P", "expected_signature": "1R-" }
+    ]
+  },
+  {
+    "intent": "request_return_availability_sub_days_time",
+    "type": "multi_turn",
+    "category": "availability",
+    "turns": [
+      { "expected_command": "115JANCDGDXB", "expected_signature": "1" },
+      { "expected_command": "1R-1*6P", "expected_signature": "1R-" }
+    ]
+  },
+  {
+    "intent": "request_return_availability_sub_days_time",
+    "type": "multi_turn",
+    "category": "availability",
+    "turns": [
+      { "expected_command": "122APRORDLAX", "expected_signature": "1" },
+      { "expected_command": "1R-4*8P", "expected_signature": "1R-" }
+    ]
+  },
+  {
+    "intent": "request_return_availability_date",
+    "type": "multi_turn",
+    "category": "availability",
+    "turns": [
+      { "expected_command": "110MARJFKLHR", "expected_signature": "1" },
+      { "expected_command": "1R15", "expected_signature": "1R" }
+    ]
+  },
+  {
+    "intent": "request_return_availability_date",
+    "type": "multi_turn",
+    "category": "availability",
+    "turns": [
+      { "expected_command": "115JANCDGDXB", "expected_signature": "1" },
+      { "expected_command": "1R20", "expected_signature": "1R" }
+    ]
+  },
+  {
+    "intent": "request_return_availability_date",
+    "type": "multi_turn",
+    "category": "availability",
+    "turns": [
+      { "expected_command": "122APRORDLAX", "expected_signature": "1" },
+      { "expected_command": "1R28", "expected_signature": "1R" }
+    ]
+  },
+  {
+    "intent": "request_return_availability_month",
+    "type": "multi_turn",
+    "category": "availability",
+    "turns": [
+      { "expected_command": "110MARJFKLHR", "expected_signature": "1" },
+      { "expected_command": "1R15APR", "expected_signature": "1R" }
+    ]
+  },
+  {
+    "intent": "request_return_availability_month",
+    "type": "multi_turn",
+    "category": "availability",
+    "turns": [
+      { "expected_command": "115JANCDGDXB", "expected_signature": "1" },
+      { "expected_command": "1R20FEB", "expected_signature": "1R" }
+    ]
+  },
+  {
+    "intent": "request_return_availability_month",
+    "type": "multi_turn",
+    "category": "availability",
+    "turns": [
+      { "expected_command": "122APRORDLAX", "expected_signature": "1" },
+      { "expected_command": "1R05MAY", "expected_signature": "1R" }
+    ]
+  },
+  {
+    "intent": "request_return_availability_date_time",
+    "type": "multi_turn",
+    "category": "availability",
+    "turns": [
+      { "expected_command": "110MARJFKLHR", "expected_signature": "1" },
+      { "expected_command": "1R15APR10A", "expected_signature": "1R" }
+    ]
+  },
+  {
+    "intent": "request_return_availability_date_time",
+    "type": "multi_turn",
+    "category": "availability",
+    "turns": [
+      { "expected_command": "115JANCDGDXB", "expected_signature": "1" },
+      { "expected_command": "1R20FEB2P", "expected_signature": "1R" }
+    ]
+  },
+  {
+    "intent": "request_return_availability_date_time",
+    "type": "multi_turn",
+    "category": "availability",
+    "turns": [
+      { "expected_command": "122APRORDLAX", "expected_signature": "1" },
+      { "expected_command": "1R05MAY6P", "expected_signature": "1R" }
+    ]
+  }
+]

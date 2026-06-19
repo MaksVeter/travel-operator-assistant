@@ -160,13 +160,35 @@ export async function translateQueryV2(
 
 	log.info(`Raw LLM output: "${rawOutput}"`);
 
-	// 9. DSL validate & normalize
-	let result = validateAndNormalize(rawOutput, predictedIntents);
+	const validateContext = {
+		query: boundedQuery,
+		hasSession: Boolean(sessionHistory?.length),
+	};
 
-	// Optional retry if validation detects issues and confidence is high
+	// 9. DSL validate & normalize
+	let result = validateAndNormalize(rawOutput, predictedIntents, validateContext);
+
+	// Retry on format issues (initial availability, city pair, return time)
+	if (v2Config.enableRetry && !result.isRefusal && result.retryHint) {
+		log.info(`Retry (format): ${result.retryHint.slice(0, 80)}…`);
+		const retryUser = `${user}\n\nIMPORTANT: Your previous answer "${result.command}" was incorrect. ${result.retryHint}`;
+		const retryOutput = await llm.completeWithSystem(system, retryUser);
+		const retryResult = validateAndNormalize(
+			retryOutput,
+			predictedIntents,
+			validateContext,
+		);
+		if (!retryResult.isRefusal) {
+			result = retryResult;
+			log.info(`Format retry: "${result.command}"`);
+		}
+	}
+
+	// Retry if signature mismatch and confidence is high
 	if (
 		v2Config.enableRetry &&
 		!result.isRefusal &&
+		!result.retryHint &&
 		result.validationApplied &&
 		predictedIntents?.[0]?.confidence &&
 		predictedIntents[0].confidence >= 0.8
@@ -181,13 +203,17 @@ export async function translateQueryV2(
 			);
 			const retryUser = `${user}\n\nIMPORTANT: The command MUST start with "${topIntent.dsl_signature}". Your previous answer "${result.command}" was incorrect.`;
 			const retryOutput = await llm.completeWithSystem(system, retryUser);
-			const retryResult = validateAndNormalize(retryOutput, predictedIntents);
+			const retryResult = validateAndNormalize(
+				retryOutput,
+				predictedIntents,
+				validateContext,
+			);
 			if (
 				!retryResult.isRefusal &&
 				retryResult.command.startsWith(topIntent.dsl_signature)
 			) {
 				result = retryResult;
-				log.info(`Retry succeeded: "${result.command}"`);
+				log.info(`Signature retry succeeded: "${result.command}"`);
 			}
 		}
 	}

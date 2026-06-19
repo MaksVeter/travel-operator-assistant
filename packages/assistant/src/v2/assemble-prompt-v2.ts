@@ -26,13 +26,20 @@ RULES:
 - Encode commands (signatures starting with W/-CC, W/-AP, W/-AL, W/EQ-) produce codes from names; decode commands (W/*, W/EQ*) look up names from codes — pick encode vs decode based on what the user asked for
 - For equipment encode (W/EQ-): use the full equipment name from the catalog Example when the Example shows a full name
 - For military base or facility lookup: include state/region suffix when the user provides it (e.g. ",NC")
-- Distance between airports (W/-AT): use W/-AT followed by each 3-letter airport code with AT prefix, separated by ≠ (e.g. W/-ATJFK≠ATCDG)
+- Distance between airports (W/-AT): use W/-AT followed by each 3-letter airport code with AT prefix, separated by ≠ — match the catalog Example format
 - Similar name list (W/-CY): list ambiguous city names when the user names a city without state/country
 - Select from similar names (W/-SL): when the user picks a line/option number, output W/-SLN — a prior list display is not required
 - Verify flight info from CPA (VA*): when verifying/checking segment details from availability without a line number, use line 1 (VA*1) per the catalog Example
 - Redisplay last availability (1*R): when the user asks to bring back the previous availability search
-- When SESSION CONTEXT shows a prior initial availability command (e.g. 110MARJFKLHR), follow-up requests are MODIFIERS — output 1*, 1‡, 1-, 1*CITY, or 1R… commands, NOT a new initial 1DATE search
-- Return availability modifiers use 1R signatures (1R6P, 1R‡3, 1RMAR, etc.) — pick the catalog entry matching the requested change (time, days, date, month)
+- When SESSION CONTEXT shows a prior initial availability command, follow-up requests are MODIFIERS — output 1*, 1‡, 1-, 1*ORIGINDEST, or 1R… commands, NOT a new initial 1DATE search
+- Outbound day modifiers (no "return" in request): use 1‡N to add days or 1-N to subtract days on the current search
+- Return availability modifiers (request mentions "return"): use 1R… signatures — 1R‡N*TIME to add days with time, 1R-N*TIME to subtract days with time, 1RTIME for time only, 1RDDMMM for date, 1RDDMMM TIME for date+time — copy format from catalog Example
+- City pair change (1*): concatenate two full 3-letter origin and destination codes with no separator (six letters total) — do not truncate codes to two letters
+- Initial availability (signature 1): ONE continuous string — 1 + DDMMM + 3-letter origin + 3-letter destination, NO spaces. Use standard IATA airport codes for cities or airports named by the user (primary airport of that city). Never truncate codes to two letters. Never use 1* for a new search when there is no SESSION CONTEXT
+- Change departure city: 1*D + 3-letter city code (D prefix per catalog Example)
+- Return time format: no colons (e.g. 6P not 6:00P) — match catalog Example
+- Return date in month: use DDMMM with two-digit day when Example shows it (e.g. 05MAY not 5MAY)
+- Return availability modifiers use 1R signatures — pick the catalog entry matching the requested change (time, days, date, month)
 - When a catalog entry matches and required values are in the user message, output the command — prefer A over REFUSE`;
 
 export type AssembledPrompt = {
@@ -109,7 +116,7 @@ ${sessionBlock}${sessionRoutingHint}
 ---
 USER REQUEST: ${originalQuery}
 
-If SESSION CONTEXT shows a prior availability search, treat this as a modifier follow-up — use 1*, 1‡, 1-, 1*CITY, or 1R… from the catalog, not a new initial search. If the user is searching for flights between cities on a date (no prior session), use signature "1". For implicit phrasing, still output the matching catalog command when [1] is a clear match — do not REFUSE merely because the wording is indirect.`;
+If there is NO SESSION CONTEXT and the user requests flights between places on a date, output initial availability (signature "1") as one string: 1DDMMMORIGINDEST. If SESSION CONTEXT shows a prior search, this is a modifier — use 1*, 1‡, 1-, 1*ORIGINDEST (six letters), or 1R… — not a new initial search. For implicit phrasing, still output the matching catalog command when [1] is a clear match — do not REFUSE merely because the wording is indirect.`;
 
 	return {
 		system: SYSTEM_PROMPT,

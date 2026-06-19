@@ -1,10 +1,9 @@
 #!/usr/bin/env bun
 /**
- * Evaluate the assistant against `data/validation-dataset.json`.
- * Supports both `reference` and `multi_turn` test case types.
+ * Evaluate the assistant against reference (single-turn) test cases.
  *
  * Sends each NL query via POST /translate or /v2/translate.
- * For multi_turn cases, sends turns sequentially with history (V2 only; V1 skips multi_turn).
+ * `multi_turn` cases are skipped by default; pass `--include-multi-turn` to evaluate them.
  *
  * Metrics per test case:
  *   - signature_match: generated command starts with expected_signature
@@ -19,8 +18,8 @@
  * Usage:
  *   bun run evaluate:v1
  *   bun run evaluate:v2:reference
- *   bun run evaluate:v2:multi-turn
  *   bun run scripts/evaluate-assistant-dataset.ts --in data/validation-dataset-reference.json
+ *   bun run scripts/evaluate-assistant-dataset.ts --include-multi-turn --in data/validation-dataset-multi-turn.json
  *   bun run scripts/evaluate-assistant-dataset.ts --limit 50
  *   bun run scripts/evaluate-assistant-dataset.ts --endpoint /v2/translate
  *   bun run scripts/evaluate-assistant-dataset.ts --no-cache
@@ -562,23 +561,6 @@ function buildSummary(results: EvalRow[], elapsedMs: number) {
 		}
 	}
 
-	const multiTurnRows = results.filter((r) => r.type === "multi_turn" && r.turns);
-	const turn1OkRows = multiTurnRows.filter((r) => r.turns![0]!.success);
-	const multiTurn =
-		multiTurnRows.length > 0
-			? {
-					cases: multiTurnRows.length,
-					turn1Success: turn1OkRows.length,
-					turn2Success: multiTurnRows.filter((r) => r.turns![1]?.success)
-						.length,
-					bothTurnsSuccess: multiTurnRows.filter(
-						(r) => r.turns![0]!.success && r.turns![1]?.success,
-					).length,
-					turn2GivenTurn1Ok: turn1OkRows.filter((r) => r.turns![1]?.success)
-						.length,
-				}
-			: null;
-
 	return {
 		evaluated,
 		signatureMatch,
@@ -599,23 +581,6 @@ function buildSummary(results: EvalRow[], elapsedMs: number) {
 		elapsedMs,
 		byCategory,
 		byIntent,
-		...(multiTurn
-			? {
-					multiTurn: {
-						...multiTurn,
-						turn1SuccessRate: pct(multiTurn.turn1Success, multiTurn.cases),
-						turn2SuccessRate: pct(multiTurn.turn2Success, multiTurn.cases),
-						bothTurnsSuccessRate: pct(
-							multiTurn.bothTurnsSuccess,
-							multiTurn.cases,
-						),
-						turn2GivenTurn1OkRate: pct(
-							multiTurn.turn2GivenTurn1Ok,
-							multiTurn.turn1Success || 1,
-						),
-					},
-				}
-			: {}),
 	};
 }
 
@@ -650,32 +615,6 @@ function printFooter(
 			`intent accuracy:     ${s.intentCorrect} / ${s.intentTotal} (${s.intentAccuracy}%)`,
 		);
 	console.log(`refusal rate:        ${s.refusals} / ${s.evaluated} (${s.refusalRate}%)`);
-	if ("multiTurn" in s && s.multiTurn) {
-		const m = s.multiTurn as {
-			cases: number;
-			turn1Success: number;
-			turn1SuccessRate: number;
-			turn2Success: number;
-			turn2SuccessRate: number;
-			bothTurnsSuccess: number;
-			bothTurnsSuccessRate: number;
-			turn2GivenTurn1Ok: number;
-			turn2GivenTurn1OkRate: number;
-		};
-		console.log("\nmulti-turn:");
-		console.log(
-			`  turn1 success:       ${m.turn1Success} / ${m.cases} (${m.turn1SuccessRate}%)`,
-		);
-		console.log(
-			`  turn2 success:       ${m.turn2Success} / ${m.cases} (${m.turn2SuccessRate}%)`,
-		);
-		console.log(
-			`  both turns success:  ${m.bothTurnsSuccess} / ${m.cases} (${m.bothTurnsSuccessRate}%)`,
-		);
-		console.log(
-			`  turn2 | turn1 ok:    ${m.turn2GivenTurn1Ok} / ${m.turn1Success} (${m.turn2GivenTurn1OkRate}%)`,
-		);
-	}
 	console.log(`API errors:          ${s.apiErrors}`);
 	console.log(`truncated queries:   ${s.truncated}`);
 	console.log(`elapsed:             ${(elapsedMs / 1000).toFixed(1)}s`);
@@ -752,7 +691,11 @@ function printFooter(
 
 function parseArgs(argv: string[]) {
 	const cwd = process.cwd();
-	const defaultDataset = path.join(cwd, "data", "validation-dataset.json");
+	const defaultDataset = path.join(
+		cwd,
+		"data",
+		"validation-dataset-reference.json",
+	);
 	const defaultResults = path.join(cwd, "data", "assistant-eval-results.json");
 	let input = defaultDataset;
 	let output = defaultResults;
@@ -762,6 +705,7 @@ function parseArgs(argv: string[]) {
 	let offset = 0;
 	let useCache = true;
 	let endpoint = "/translate";
+	let includeMultiTurn = false;
 
 	for (let i = 2; i < argv.length; i++) {
 		const a = argv[i];
@@ -770,7 +714,9 @@ function parseArgs(argv: string[]) {
 			if (!v) throw new Error(`Missing value after ${a}`);
 			return v;
 		};
-		if (a === "--no-cache") {
+		if (a === "--include-multi-turn") {
+			includeMultiTurn = true;
+		} else if (a === "--no-cache") {
 			useCache = false;
 		} else if (a === "--in" && argv[i + 1]) {
 			input = path.resolve(take());
@@ -794,7 +740,17 @@ function parseArgs(argv: string[]) {
 		output = path.join(cwd, "data", `assistant-eval-results-${suffix}.json`);
 	}
 
-	return { input, output, delayMs, retries, limit, offset, useCache, endpoint };
+	return {
+		input,
+		output,
+		delayMs,
+		retries,
+		limit,
+		offset,
+		useCache,
+		endpoint,
+		includeMultiTurn,
+	};
 }
 
 // ── Main ──
@@ -809,6 +765,7 @@ async function main() {
 		offset,
 		useCache,
 		endpoint,
+		includeMultiTurn,
 	} = parseArgs(process.argv);
 	const apiUrl = pickBaseUrl();
 	console.log(`Endpoint: ${endpoint}`);
@@ -822,18 +779,15 @@ async function main() {
 		? (allData as TestCase[])
 		: (allData as LegacyRow[]).map((r, i) => convertLegacyRow(r, i));
 
-	const isV1 = endpoint === "/translate";
-	const multiTurnExcluded = isV1
-		? allTestCases.filter((tc) => tc.type === "multi_turn").length
-		: 0;
-	const eligibleTestCases = isV1
-		? allTestCases.filter((tc) => tc.type !== "multi_turn")
-		: allTestCases;
+	const multiTurnExcluded = includeMultiTurn
+		? 0
+		: allTestCases.filter((tc) => tc.type === "multi_turn").length;
+	const eligibleTestCases = includeMultiTurn
+		? allTestCases
+		: allTestCases.filter((tc) => tc.type !== "multi_turn");
 
-	if (isV1 && multiTurnExcluded > 0) {
-		console.log(
-			`V1: skipping ${multiTurnExcluded} multi_turn case(s) (V1 has no session/history support)`,
-		);
+	if (multiTurnExcluded > 0) {
+		console.log(`Skipping ${multiTurnExcluded} multi_turn case(s) (reference-only eval)`);
 	}
 
 	let slice = eligibleTestCases.slice(offset);
@@ -904,7 +858,7 @@ async function main() {
 				for (const row of prev.results) {
 					const e = cacheEntryToEvalRow(row);
 					if (!e) continue;
-					if (isV1 && e.type === "multi_turn") continue;
+					if (!includeMultiTurn && e.type === "multi_turn") continue;
 					mergedById.set(e.id, { ...e, fromCache: true });
 				}
 			}
@@ -928,7 +882,7 @@ async function main() {
 			retriesPerQuery: retries,
 			cacheEnabled: useCache,
 			endpoint,
-			v1ReferenceOnly: isV1,
+			referenceOnly: !includeMultiTurn,
 			multiTurnExcluded,
 			resultsFromCache: fromCache,
 			resultsFromApi: fromApi,

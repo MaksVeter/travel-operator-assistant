@@ -70,7 +70,7 @@ export function buildSessionRoutingHint(history?: SessionTurn[]): string {
 		return 'SESSION HINT: Previous command was a return availability modifier. Follow-up commands likely start with "1R" (e.g. 1R‡, 1R-, 1R6P).';
 	}
 	if (isInitialAvailabilityCommand(cmd)) {
-		return 'SESSION HINT: Previous command was an initial availability search. This follow-up is a MODIFIER on that search — use signatures like 1*, 1‡, 1-, 1*CITY, or 1R… from the catalog. Do NOT output a new initial 1DATEORIGINDEST command.';
+		return 'SESSION HINT: Previous command was an initial availability search. This follow-up is a MODIFIER — use 1*, 1‡, 1-, or 1*ORIGINDEST for outbound changes. Use 1R… signatures ONLY when the user explicitly mentions return flights. Do NOT output a new initial 1DATEORIGINDEST command.';
 	}
 	return "";
 }
@@ -96,6 +96,7 @@ export function isAddDaysToAvailabilityQuery(query: string): boolean {
 		/\b(add|extend|forward|move)\b.*\bdays?\b/.test(q) ||
 		/\bnext day\b/.test(q) ||
 		/\bdays?\s+(later|forward)\b/.test(q) ||
+		/\blater\b.*\bdays?\b/.test(q) ||
 		/\bextend by \d+ days?\b/.test(q)
 	);
 }

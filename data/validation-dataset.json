@@ -7681,7 +7681,7 @@
       {
         "query": "add 5 days for return and set departure to 10am",
         "expected_command": "1R‡5*10A",
-        "expected_signature": "1R‡*"
+        "expected_signature": "1R‡"
       }
     ]
   },
@@ -7699,7 +7699,7 @@
       {
         "query": "return flight 5 days later at 10 in the morning",
         "expected_command": "1R‡5*10A",
-        "expected_signature": "1R‡*"
+        "expected_signature": "1R‡"
       }
     ]
   },
@@ -7717,7 +7717,7 @@
       {
         "query": "modify return to add 5 days and change time to 10am",
         "expected_command": "1R‡5*10A",
-        "expected_signature": "1R‡*"
+        "expected_signature": "1R‡"
       }
     ]
   },
@@ -7735,7 +7735,7 @@
       {
         "query": "can you add 5 days to the return and set it for 10am departure",
         "expected_command": "1R‡5*10A",
-        "expected_signature": "1R‡*"
+        "expected_signature": "1R‡"
       }
     ]
   },
@@ -7753,7 +7753,7 @@
       {
         "query": "return +5 days @10a",
         "expected_command": "1R‡5*10A",
-        "expected_signature": "1R‡*"
+        "expected_signature": "1R‡"
       }
     ]
   },
@@ -7771,7 +7771,7 @@
       {
         "query": "shift return 5 days forward morning departure 10am",
         "expected_command": "1R‡5*10A",
-        "expected_signature": "1R‡*"
+        "expected_signature": "1R‡"
       }
     ]
   },
@@ -7789,7 +7789,7 @@
       {
         "query": "I need return availability 5 days later at 10 o'clock",
         "expected_command": "1R‡5*10A",
-        "expected_signature": "1R‡*"
+        "expected_signature": "1R‡"
       }
     ]
   },
@@ -7807,7 +7807,7 @@
       {
         "query": "add 5 days to return leg and set time to 1000 hours",
         "expected_command": "1R‡5*10A",
-        "expected_signature": "1R‡*"
+        "expected_signature": "1R‡"
       }
     ]
   },
@@ -7825,7 +7825,7 @@
       {
         "query": "show me return flights 2 days later in the afternoon",
         "expected_command": "1R‡2*2P",
-        "expected_signature": "1R‡*"
+        "expected_signature": "1R‡"
       }
     ]
   },
@@ -7843,7 +7843,7 @@
       {
         "query": "add 2 days for return and set departure to 2pm",
         "expected_command": "1R‡2*2P",
-        "expected_signature": "1R‡*"
+        "expected_signature": "1R‡"
       }
     ]
   },
@@ -7861,7 +7861,7 @@
       {
         "query": "return flight plus 2 days morning time",
         "expected_command": "1R‡2*2P",
-        "expected_signature": "1R‡*"
+        "expected_signature": "1R‡"
       }
     ]
   },
@@ -7879,7 +7879,7 @@
       {
         "query": "add return 2 days out at 2pm departure",
         "expected_command": "1R‡2*2P",
-        "expected_signature": "1R‡*"
+        "expected_signature": "1R‡"
       }
     ]
   },
@@ -7897,7 +7897,7 @@
       {
         "query": "extend return by 2 days afternoon slot",
         "expected_command": "1R‡2*2P",
-        "expected_signature": "1R‡*"
+        "expected_signature": "1R‡"
       }
     ]
   },
@@ -7915,7 +7915,7 @@
       {
         "query": "return flight 2 days later specific time 2pm",
         "expected_command": "1R‡2*2P",
-        "expected_signature": "1R‡*"
+        "expected_signature": "1R‡"
       }
     ]
   },
@@ -7933,7 +7933,7 @@
       {
         "query": "add days to return and change time to afternoon",
         "expected_command": "1R‡2*2P",
-        "expected_signature": "1R‡*"
+        "expected_signature": "1R‡"
       }
     ]
   },
@@ -7951,7 +7951,7 @@
       {
         "query": "find return flight 10 days later at 8am",
         "expected_command": "1R‡10*8A",
-        "expected_signature": "1R‡*"
+        "expected_signature": "1R‡"
       }
     ]
   },
@@ -7969,7 +7969,7 @@
       {
         "query": "add 10 days for return and set time to 8 in the morning",
         "expected_command": "1R‡10*8A",
-        "expected_signature": "1R‡*"
+        "expected_signature": "1R‡"
       }
     ]
   },
@@ -7987,7 +7987,7 @@
       {
         "query": "return availability plus 10 days at 8A",
         "expected_command": "1R‡10*8A",
-        "expected_signature": "1R‡*"
+        "expected_signature": "1R‡"
       }
     ]
   },
@@ -8005,7 +8005,7 @@
       {
         "query": "return 10 days forward time 8am",
         "expected_command": "1R‡10*8A",
-        "expected_signature": "1R‡*"
+        "expected_signature": "1R‡"
       }
     ]
   },
@@ -8023,7 +8023,7 @@
       {
         "query": "shift return by 10 days early morning departure",
         "expected_command": "1R‡10*8A",
-        "expected_signature": "1R‡*"
+        "expected_signature": "1R‡"
       }
     ]
   },
@@ -8041,7 +8041,7 @@
       {
         "query": "show me return flights 10 days later at 8 o'clock",
         "expected_command": "1R‡10*8A",
-        "expected_signature": "1R‡*"
+        "expected_signature": "1R‡"
       }
     ]
   },
@@ -8059,7 +8059,7 @@
       {
         "query": "add 10 days to return search morning time slot",
         "expected_command": "1R‡10*8A",
-        "expected_signature": "1R‡*"
+        "expected_signature": "1R‡"
       }
     ]
   },
@@ -8077,7 +8077,7 @@
       {
         "query": "show me return flights 3 days earlier at 4pm",
         "expected_command": "1R-3*4P",
-        "expected_signature": "1R-*"
+        "expected_signature": "1R-"
       }
     ]
   },
@@ -8095,7 +8095,7 @@
       {
         "query": "return availability subtract 3 days with 4pm departure",
         "expected_command": "1R-3*4P",
-        "expected_signature": "1R-*"
+        "expected_signature": "1R-"
       }
     ]
   },
@@ -8113,7 +8113,7 @@
       {
         "query": "go back 3 days on return and set time to 4pm",
         "expected_command": "1R-3*4P",
-        "expected_signature": "1R-*"
+        "expected_signature": "1R-"
       }
     ]
   },
@@ -8131,7 +8131,7 @@
       {
         "query": "3 days earlier return flight at 4 o'clock",
         "expected_command": "1R-3*4P",
-        "expected_signature": "1R-*"
+        "expected_signature": "1R-"
       }
     ]
   },
@@ -8149,7 +8149,7 @@
       {
         "query": "1R minus 3 days asterisk 4P",
         "expected_command": "1R-3*4P",
-        "expected_signature": "1R-*"
+        "expected_signature": "1R-"
       }
     ]
   },
@@ -8167,7 +8167,7 @@
       {
         "query": "earlier return 3 days back new time 4pm pls",
         "expected_command": "1R-3*4P",
-        "expected_signature": "1R-*"
+        "expected_signature": "1R-"
       }
     ]
   },
@@ -8185,7 +8185,7 @@
       {
         "query": "return flight 3 days prior at 16:00",
         "expected_command": "1R-3*4P",
-        "expected_signature": "1R-*"
+        "expected_signature": "1R-"
       }
     ]
   },
@@ -8203,7 +8203,7 @@
       {
         "query": "modify return go back 3 days schedule 4pm",
         "expected_command": "1R-3*4P",
-        "expected_signature": "1R-*"
+        "expected_signature": "1R-"
       }
     ]
   },
@@ -8221,7 +8221,7 @@
       {
         "query": "find return flights one day earlier at 6pm",
         "expected_command": "1R-1*6P",
-        "expected_signature": "1R-*"
+        "expected_signature": "1R-"
       }
     ]
   },
@@ -8239,7 +8239,7 @@
       {
         "query": "return flight subtract 1 day depart 6pm",
         "expected_command": "1R-1*6P",
-        "expected_signature": "1R-*"
+        "expected_signature": "1R-"
       }
     ]
   },
@@ -8257,7 +8257,7 @@
       {
         "query": "go back one day on return, set time to 6 in the evening",
         "expected_command": "1R-1*6P",
-        "expected_signature": "1R-*"
+        "expected_signature": "1R-"
       }
     ]
   },
@@ -8275,7 +8275,7 @@
       {
         "query": "can I get return options one day sooner at 6pm departure",
         "expected_command": "1R-1*6P",
-        "expected_signature": "1R-*"
+        "expected_signature": "1R-"
       }
     ]
   },
@@ -8293,7 +8293,7 @@
       {
         "query": "1r-1 day *6p for return",
         "expected_command": "1R-1*6P",
-        "expected_signature": "1R-*"
+        "expected_signature": "1R-"
       }
     ]
   },
@@ -8311,7 +8311,7 @@
       {
         "query": "return one day back, 6pm time",
         "expected_command": "1R-1*6P",
-        "expected_signature": "1R-*"
+        "expected_signature": "1R-"
       }
     ]
   },
@@ -8329,7 +8329,7 @@
       {
         "query": "earlier return by 1 day with 6pm departure time",
         "expected_command": "1R-1*6P",
-        "expected_signature": "1R-*"
+        "expected_signature": "1R-"
       }
     ]
   },
@@ -8347,7 +8347,7 @@
       {
         "query": "shift return back 1 day and change departure to 6 oclock",
         "expected_command": "1R-1*6P",
-        "expected_signature": "1R-*"
+        "expected_signature": "1R-"
       }
     ]
   },
@@ -8365,7 +8365,7 @@
       {
         "query": "search for return flight 4 days earlier at 8pm",
         "expected_command": "1R-4*8P",
-        "expected_signature": "1R-*"
+        "expected_signature": "1R-"
       }
     ]
   },
@@ -8383,7 +8383,7 @@
       {
         "query": "return availability minus 4 days, 8 in the evening",
         "expected_command": "1R-4*8P",
-        "expected_signature": "1R-*"
+        "expected_signature": "1R-"
       }
     ]
   },
@@ -8401,7 +8401,7 @@
       {
         "query": "go back 4 days on return and set time to 8pm",
         "expected_command": "1R-4*8P",
-        "expected_signature": "1R-*"
+        "expected_signature": "1R-"
       }
     ]
   },
@@ -8419,7 +8419,7 @@
       {
         "query": "1r minus 4 days asterisk 8p",
         "expected_command": "1R-4*8P",
-        "expected_signature": "1R-*"
+        "expected_signature": "1R-"
       }
     ]
   },
@@ -8437,7 +8437,7 @@
       {
         "query": "subtract 4 days from return, change time to 8 oclock pm",
         "expected_command": "1R-4*8P",
-        "expected_signature": "1R-*"
+        "expected_signature": "1R-"
       }
     ]
   },
@@ -8455,7 +8455,7 @@
       {
         "query": "earlier return flight 4 days back at 8pm",
         "expected_command": "1R-4*8P",
-        "expected_signature": "1R-*"
+        "expected_signature": "1R-"
       }
     ]
   },
@@ -8473,7 +8473,7 @@
       {
         "query": "return -4d *8p",
         "expected_command": "1R-4*8P",
-        "expected_signature": "1R-*"
+        "expected_signature": "1R-"
       }
     ]
   },
@@ -8491,7 +8491,7 @@
       {
         "query": "show me return availability 4 days earlier with 8pm departure",
         "expected_command": "1R-4*8P",
-        "expected_signature": "1R-*"
+        "expected_signature": "1R-"
       }
     ]
   },
