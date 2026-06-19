@@ -188,7 +188,6 @@ On the reference eval set (456 cases), V2 reaches **~92% success** vs **~77%** f
 ```bash
 bun run evaluate:v1          # V1 on reference dataset
 bun run evaluate:v2          # V2 on reference dataset
-bun run compare:v1-v2        # Side-by-side comparison
 bun run validate:dataset-sabre   # Validate commands against Sabre cert API
 ```
 
